@@ -1,0 +1,188 @@
+
+x 
+{
+	if x_on == 1; "\x"
+	else; ""
+}
+
+RareDialogue : nonoverlap_pool
+{
+	_rand = RAND(10)
+	
+	// questions, which will be probably added in an update. i just dont have any ideas for them now
+	// if q_on == 1
+	// {
+		
+	// }
+	
+		if Flag("madame") == 1 
+		{
+			"\0\s[0]\_a[OnWhoMadame]The Madame\_a has been writing letter after letter to the other shrine guardians and I recently... \s[1]it's a bit pitiful, really.\n\n \w7\s[0]I wonder if she will ever give up trying to claim ownership over the shrines... none of us are going to budge. Not that it would matter if one of us \f[italic,1]did;\f[italic,default] it's written into unwavering law that the shrines are independent from the monarchy. That cannot change without unanimous decision from all four Guardians, which atleast \f[italic,1]I\f[italic,default] know will never happen, not in my lifetime...\n\n \s[1]I say, let her keep trying. Any ink wasted on me is a valiant sacrifice.\n\n \f[height,-2]\s[3]If I waste enough of her time and cause her enough stress, perhaps it will cut her life short...\f[height,default]\w9\s[1]\n...Eheh... \w2just \w3kidding. \w9\f[height,-2]\f[color,disable]\s[3]Mostly...\f[color,default]\f[height,default]" + x
+		}
+			if Flag("vol") == 1
+			{
+				//i was gonna check for inola's flag but it's obtained the same time as vol's so
+				"\0\s[0]Poor Inola... I heard the Ace of Hearts is visiting the shrine more and more often. Since he's an Ace himself, he can visit even on divine days, when no one is let inside... I only hope he stops tormenting my friend soon!\n \f[height,-2]\s[3]Sometimes, he really does seem like just another Lairu. What an egomaniac...\f[height,default] \n \w9\w9\s[0]...Hm? \w9\s[1]Ah, ehm... ignore me!.. Sometimes I let my mouth run, \s[3]and say some very rude things...\w9 \s[1]a little element of sass grows and grows as you age, I suppose." + x
+			}
+			
+		if Flag("inola") == 1 && Flag("claris") == 1 && Flag("gio") == 1
+		{
+			//all
+			
+			
+			//gio
+			
+			
+			// claris
+			{
+				if Flag("del article") == 0; MiscFlags ,= "del article"
+					
+				"\0\s[0]A few years ago, when I was visiting Claris at the Shrine of Clubs, I actually happened to run into the Ace of Clubs, as well... \s[1]Shil, last name was, \s[3]ehm... Auchaile, \w3\s[1]was it?..\n \w5\s[0]Anyway! At that point, the Aces were still being kept secret, even from the Guardians. \s[1]After all, Shil was still very young... twelve or thirteen, I'd say?.. \s[0]Anyway, he had been told by Madame Ymu to keep his identity secret. Unfortunately for him, he's a very bad liar. When he walked into the shrine... \s[1]hehe, it was just obvious! Behind him, hanging above the entrance to the temple, was this \f[italic,1]ginormous\f[italic,default] greyscale painting of Nore... they looked almost identical, down to the little black clover mark on the right side of their faces.\n \s[0]Well... Nore emerged from the mainland, so their coat was a rosy tan as opposed to the islander Shil's jungle-green, but... \s[1]still! That's nitpicking. They were similar in all but complexion.\n\n Claris welcomed him in and showed him around, while he 'ooh'd and 'aah'd at all the paintings and statues of his long-passed predecessor, hehe...\n She was just overjoyed to meet him. It was very cute to experience...\n\n \s[3]\w9\w9\w9...It makes me wish I had had enough time to talk to "
+					--
+					if Flag("allo") == 1; "Allo Ukagi"
+					else; "the Ace of Diamonds"
+					--
+					", before he and "
+					--
+					if Flag("del") == 1; "Del"
+					else; "\_a[OnWhoDel]the Ace of Spades\_a"
+					--
+				" disappeared. \n\n\w9\w9\s[0]...So goes life. Perhaps I will meet him soon; \s[1]my intuition tells me so..."  + x 
+				
+					if Flag("shil") == 0; MiscFlags ,= "shil"
+			}
+			
+			// inola
+				if trust >= 15
+				{
+					"\0\s[1]I really should visit Inola soon... \s[0]she is quite a bit younger than me, and she is still learning how to be the best Shrine Guardian she can be.\n\n \w9\s[3]...Her predecessor, an old friend of mine, passed several years ago... before he could finish teaching his students. \s[1]I miss him dearly.\n \s[0]Inola excels at her duties, for someone without training. \s[1]Truly, she is a natural! \w5\s[0]I have been somewhat able to help further her studies, but... it can be difficult. The Lacertan shrine is quite far, and I don't always have the time to make the trek...\n I have faith in her. I think she'll do great things as she grows further into her duties." + x
+				
+					if Flag("inola's predecessor") == 0; MiscFlags ,= "inola's predecessor"
+					if trust <= 250; trust++
+				}
+					// inola's predecessor
+					if Flag("inola's predecessor") == 1 // maybe it's just my sensitivity or the fact that it accidentally started to hit home a little too hard but writing some of this shit made me cry so hard i had to lay on the floor for an hour. can't wait to forget i wrote it and then have a breakdown when kokuyo says it randomly
+					{
+						"\0\s[0]I do wonder how Inola is doing... perhaps I should write her a letter.\n\n \s[1]\_w[2000]...Her predecessor and I used to write letters to eachother all the time. I\w2.\w2.\w2.\w9 \s[3]I miss him\w4 .\w2.\w2.\w2 quite a lot.  We would send recipes and stories to each other every week. Many of the dishes I cook came straight from him... he always knew how to make the most delicious meals. \s[1]Food that warmed the heart, eased the soul. I always looked forward to the next recipe, going out of my way to buy authentic Lacertan spices, so as not to bastardize his beautiful writings.\n \w9One week, he just... \s[3]stopped. Inola, who\w2.\w2.\w2.\w9 found him\w7 and organized the funeral, sent me his last, unfinished letter. It was a recipe for the noodles he made me for my birthday that year. I have had them every year since. \n\n \_w[10000]\s[1]\w9...He lives on, in my heart. A good friend never truly leaves. \n\n \s[3]...Try to remember that."  + x
+						
+						if trust <= 250; trust++
+					}
+		}
+			
+		// viro
+		if Flag("viro") == 1
+		{	
+			"\0\s[0]Though we live in an age where everything seems to be publicized and recorded, the current Aces are more of a mystery than any others before them.\n Knowing the history of the Aces, however, it is not hard to see why they would flee from the public eye... \n One must only look at Viro, the First Ace of Spades. He has perhaps the most tragic story of any Ace, \s[3]but... he took it so well. \s[1]Er, let me explain...\w9\n\n Viro was... ehm,\w5 public\w5 with his power, to say the least. \s[0]He did not demand respect, rather the opposite; all he wanted was to make his people laugh. And so, with his jokes and his magic, he exposed -- on purpose, mind you -- every weakness he had, in the hopes that some challenger would emerge... give him some fun, a bit of a thrill before he swiftly defeated them.\n\n \s[3]...But it all got much more real when \_a[OnWhoAlonaia]Alonai'a\_a was killed. Suddenly, all that showing off came back to bite him. The growing army of Facecards who wanted him dead now knew every blunder he was prone to, every move that would throw off his balance. \s[1]\n...Of course, he did not let that stop him, and he carried out sieges on the Facecard throne for another five years...\w9 but one day, it changed.\n \s[3]He was done running from death, running from the thousands of angry Facecards who wanted his head. When he beheaded the prince, and the royal guards came to return the favor, he laid flat and instructed them instead to pierce the Spade symbol on his back, as piercing any area on his body that wasn't an energetic hotspot could not mortally wound him.\n\n \s[1]Viro was the last of the First Aces to die; Lairu was killed first, and Alonai'a -- Viro's wife-to-be -- was murdered swiftly after. \s[0]Nore, Ace of Clubs, was killed far later in a siege against the Facecards... \s[3]led by Viro himself. Their blood was on his hands, just as it was with Alonai'a's death.\n Many see this final act as a sort of suicide. He was alone in a world that hated him, a world that had taken away the one he loved and slaughtered his comrade in front of him.\n\n \s[1]...I do not blame the current Aces for keeping quiet. It must be so confusing to be at both the bottom and the top of this strange hierarchy simultaneously, and its bloodied history must be a heavy burden to bear.\n\w9\w5...\s[3]I can only hope they are okay. They are so young, and this is all just... so, so unfair." + x
+		}
+		
+		//delly baby :-) i wuv him
+		if Flag("del") == 1
+		{
+			{
+				"\0\s[1]Hummm. \n\s[3]...\w9\w9\w9Ehm, my apologies... \s[1]just thinking.\n I quite miss that \_a[OnWhoDel]Del\_a... he and I didn't see eachother all too often, but his five or six years at the Academy made my visits there much more bearable... \s[0]what a lively young man.\n\n He once told me about his past, living in Syk. He seemed a bit hesitant to tell me what he did for work, \s[1]I suppose he thought I'd be offended by his job, being an adult entertainer -- he always did know how to be tactful with his words, the information he told people. \s[0]Of course, I'm not bothered by things like that. Even if I were, it's not my place to judge how people spend their time, \s[1]and it's a reasonable profession to go into, especially in Syk...\n\n \s[0]Needless to say, he was surprised I supported it, \s[1]\w2hehe.\n\n \w9\s[0]I think he quit his job after a rough sort of relationship fiasco with the Ace of Hearts, Vol. He didn't really talk about it much with me, though it seemed like he wanted to. \s[1]I'm glad he could find a bit of an authority figure in Gio, at least... \s[3]\n ...It's just too bad he left without truly saying goodbye to us. I know it wouldn't have been a good idea to announce his plans, but... \s[1]ah, well. I suppose I just got attached. He left little notes for Gio and I, and that is all I need. I trust he will stay safe -- perhaps he will visit me, soon. He should know the Royal Guard stays well away from Kosanu; I told him as much... \n\s[3]\w9\w9...Perhaps \w9he'll bring Ukagi, as well?.. \w9\s[1]\n...I shan't get greedy. Just seeing him alone would brighten my year. I only hope he is safe." + x
+				
+				if Flag("del and gio") == 0; MiscFlags ,= "del and gio"
+			}
+			
+				if Flag("del and gio") == 1
+				{
+					
+					if Flag("gio romance") == 0 //this will only come up once until you do the thingy in the settings
+					{
+						"\0\s[3]...\n \s[0]%(Capitalize(oomf)), forgive me if this is a strange question, but have you ever ... \s[3]\w9has someone ever fallen in love with you, and you simply cannot reciprocate it in the way they crave?\n \s[1]Forgive me. A friend of mine has been... rather affectionate lately. He brought roses to the temple, Velanni Whites, a symbol of adoration. \s[3]I love him as well, but not in a romantic sense, just... he is a dear companion. I-\w5 I'm sure you understand what I mean...\n \w9\s[1]Ah, well. What can one do? \s[0]Who knew an old hoot like me could be breaking hearts..." + x
+						
+						if Flag("gio romance") == 0; MiscFlags ,= "gio romance"
+					}
+				}
+		}
+		
+				if Flag("gio romance") == 1 //toupdate
+				{}
+		
+		if Flag("alonai'a") == 1
+		{}
+		
+		if Flag("allo") == 1
+		{
+			"\0\s[0]I heard rumors among the guards of Iy Palacca that the Aces of Spades and Diamonds had been spotted somewhere in Thiremor... I wonder what they were doing there. \s[1]Other than knocking the Royal Guards around, that is...\n\n \s[3]\f[height,-2]...Claris would tell me if she saw \_a[OnWhoAllo]him\_a, right?.. She knows how I feel, having barely met the Ace of my own Suit when everyone else has...\n It's not like she's in Thiremor much anyway, she hasn't been able to leave the shrine alone recently... too many quakes. She wouldn't... keep that from me.\f[height,default]\n\n ...\s[1]Sorry. Lost in thought, as always."
+		}
+		
+		// NO FLAG ZONE (needs wayyyy more dialogues holy nyan)
+		
+		// black desert loredump
+		{
+			"\0\s[0]I've been rereading a few of the classics lately... "
+			--
+			
+				if _rand == 0
+				{
+					"a few of the Sykae epics, to be exact.\n \w9\w1...Oh, that reminds me... have you heard? \s[1]Some of the oldest known literature was recently found buried in the Black Desert... \s[0]long, detailed poems, carved messily onto huge stone tablets. It seems to all have been carved in the same 'handwriting,' all at roughly the same time, so we can assume it was done by one person...\n\n \s[1]The poems each portray surreal acts of torture on oneself... or, rather, \s[3]torture carried out by the Parasite within a Heart.\n \s[1]Everything detailed in these poems are shockingly similar to the symptoms of SPNV -- or the Sykae Parasite Neurological Virus.\n\n \s[0]In one particular poem, the author describes -- \s[1]er, just a warning, this is a bit gross -- \s[3]limbs coming from his stomach, hands made of pure energyflow, reaching up and choking him until he passed out...\n\n \s[1]The 'diseased' theory is rather divisive, as some folks argue that SPNV only started showing itself recently, as some sort of newer mutation among Sykae Parasites. \s[0]These people instead focus on the location where the tablets were found; \s[1]the Black Desert, infamous, of course, for its violent hallucinations brought on by anomalous spikes of energy. These people argue that the author must simply have been driven mad by the desert's sickening atmosphere... though, as you might have guessed, the timelines don't match up. These were written thousands of years ago, whereas we are in 1137 AE; meaning, the Black Desert was created that same amount of years ago. However, researchers have found that the area that is now the Black Desert may have actually been anomalous in nature \f[italic,1]before\f[italic,default] Lairu got their hands on it... a very interesting find indeed.\n\n \s[0]Anyway... I argue that it could be a mix of both location and disease.\n There is very little research on SPNV, as it is \f[italic,1]thankfully\f[italic,default] a very rare condition -- one thing we know for sure, however, is that Sykae Parasites are \f[italic,1]very\f[italic,default] susceptible to energetic burnout; this means that any violent overflow of energy essentially renders their immune systems extremely weak, and therefore susceptible to developing the disease.\n\n \w9\s[1]I theorize that this man ventured forth into what is now the Black Desert, exposing his Parasite to somewhat dangerous levels of energyflow. This resulted in a quick onset case of SPNV -- or something similar -- which caused the Parasite to reject his body, trying either to take the body as its own or, in a much more dramatic turn of events, kill them both.\n\n \s[3]...Very morbid... \s[0]yet, these poems are an important discovery. Not just for literature, \s[1]but for science and medicine as well."  + x
+				}
+				
+				else; nonoverlap :/ 
+				{
+					"Paccevela is home to some of my favourite ancient literature. The \_a[OnScavva]Scavve\_a had -- and still have -- great poem structure, such vibrant descriptors... \s[1]it makes me wonder how they remembered it all when it came time to recite. Learning of oral traditions like that always astounded me; \s[0]we Diamonds usually just publish a book and move on..." // \0
+					
+					"the Aidhish epics are such a great read. Ancient Clubs had such beautiful traditions... I'm glad atleast some of them were immortalized the way they were. \n ...Especially before the monarchy fully came into play, all but wrecking the societal structure of mainland Aidhmoore...\n Those traditions are barely upheld today, yes, but at least there are the few elders who pass the texts onto their children... describing to them the ornate rituals they used to perform...\n \s[3]It sickens me how much we have lost to this 'diplomatic solution to unite the landmass...'\n \s[1]...Apologies. I tend to get a tad heated when I remember the history lost to the line of Madames..." // \0
+					
+					"I might be biased, but I've always just adored Kosani literature. \s[1]We keep the poems short and sweet, and the words of prose are just honeyed enough to warm our hearts.\w4 \s[0]It's just too bad the rest of the landmass can barely read it, ha.\n \w9\w1I've done more than a few translations in my time, but sometimes a poem loses its point without the cultural background to truly understand it...\n\w2For example, the average reader may not be able to fully understand poems like 'Nara,' \f[height,-2]\s[1]...er, beautiful though it may be...\s[0]\f[height,default] as its themes surround Kosani culture's strict views on sexual liberation. And so, the ending may not make as much sense to someone who is not from around here...\n \s[3]...Ah...heh. \s[0]You can...\w7\s[1] probably\w3 tell\w4 that the translator's note in any of my works is...\w7 egregiously long, \s[3]can't you?...\w9\w3\s[1] Apologies, my friend." // \0
+					
+					"Ancient Lacertan literature is infamous for being needlessly verbose, but I kind of enjoy it.\n Well... I enjoy it until the epic has repeated a sentence five times without thematic reasoning. \s[1]The repetition is fun in... small doses, though." // \0
+				}
+		}
+			
+		// kyone stuff
+		{
+			"\s[3]Hmm... strange. All the windows are sealed tight, but I can still feel a breeze. It's making my fur stand on end...\n\n \s[1]...Apologies for the cold. I believe the winds are coming from the northeast today, so they may be... a bit chillier than normal. \s[3]\w9\w9\n ...Try not to breathe those drafts in, when they come. Even a subtle breath of \_a[OnKyone]the Tundra\_a can harm you, if you let it." + x
+			
+			if Flag("kyone mentioned") == 0; MiscFlags ,= "kyone mentioned"
+		}
+		
+		"\0\s[1]Hm... how annoying, my tea got cold just by holding the cup in my hands. \s[3]I suppose I should have gotten used to that by now..." // sprinkling hints everywhere lmfaoo
+		
+		"\0\s[1]I should knit myself some socks, soon... my lowpaws-- \s[3]er, \f[italic,1]\s[1]feet,\f[italic,default] sorry, keep forgetting the Common word -- \s[0]they're so chilly that I constantly bring down the temperature of the room when I walk across the floor...\n \s[1]Hummm. Slippers are another option... \s[0]I'll test all sorts of things, perhaps! \s[1]Ehehe..."
+		
+		{
+			"\0\s[1]...Windy out today, isn't it? And so cold...\n "
+			--
+			if GhostIsOpen("lorem"); "\0\s[0]The Kikuminu have been quite talkative, though, so it must not be too bad." // lobo's sakura name is 'lorem'
+			else; "\s[3]The Kikuminu have been quiet, as well. Perhaps it is too harsh on their throats for them to sing."
+		}
+	// home
+
+		if locslot == "home"
+		{
+			if weekday == 1 // monday
+			{ 
+				"\0\s[0]"
+				--
+				"As always, I visited the shrine yesterday."
+				--
+				if _rand == 0
+					{
+						" It was...\w7very still. \s[1]\w9Unnervingly so.\w3 The winds blew from the north, the direction of the Kyone. With them, \s[3]I believe they brought that heavy stillness, the one that nests itself within your lungs and makes it hard to breathe..."
+						//" It was...\w7very still. \s[1]\w9Unnervingly so.\w3 The winds blew from the north, the direction of the Kyone. With them, I believe they brought that heavy stillness.\n\n\w5\s[3]...Even I who braved the tundra thought it might take my breath away." + x
+						
+						if Flag("kyone mentioned") == 0; MiscFlags ,= "kyone mentioned"
+						//if Flag("kyone travelled") == 0; MiscFlags ,= "kyone travelled"
+					}
+					
+				else
+					{
+						" It was very serene. \s[1]The energy felt calm, as if the spirits of the Firsts were sleeping soundly in the heavens above.\n \s[3]\w8Sometimes, I wonder if they dream."
+						
+						".. \s[1]it never ceases to amaze me, with its complex architecture and intricate detailing. But, oh, the statues. They will always have my heart. Whoever crafted them must have put their soul into each and every carving of their blade.\n\n \s[0]They have done even the beautiful Alonai'a justice... \s[1]it seems even she admires it, her starlight beaming down, illuminating the curve of her face even in the darkest night.\n\n \s[3]Such is the dedication of a shrine guardian, I suppose. Perhaps one day I, too, will capture the beauty of my beloved First."
+					}
+			}
+		}
+				
+	// shrine
+
+		// elseif locslot == "shrine"
+		// {}
+
+	// other
+
+		// else // travelling
+		// {}
+	}

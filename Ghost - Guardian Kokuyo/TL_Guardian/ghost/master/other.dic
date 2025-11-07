@@ -1,0 +1,448 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	//This is what makes %(embedded_elements) work in script input
+	if reference1 == "" && reference2 == "" //If this is from the input box
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+	
+	//If you want to add anything to OnTranslate, like text replacement, I would put it after this point, generally. Just make sure it's before the TOSTR(_talk)
+	
+	TOSTR(_talk)
+}
+
+OnTranslateInternal.AutoPause
+{
+	_talk = _argv[0]
+	
+	if "\![no-autopause]" !_in_ _talk
+	{
+		/*
+		
+		_talk = REPLACE(_talk,"... ",".\w4.\w4.\w8\w8 ") // ...
+		_talk = REPLACE(_talk,"...? ",".\w4.\w4.\w4?\w8\w8 ") // ...?
+		_talk = REPLACE(_talk,"...! ",".\w4.\w4.\w4!\w8\w8 ") // ...!
+		
+		*/
+		
+		_talk = REPLACE(_talk,"\n ","\n\w9\w1") // linebreak
+		_talk = REPLACE(_talk,". ",".\w8 ") // .
+		_talk = REPLACE(_talk,", ",",\w2 ") // ,
+		_talk = REPLACE(_talk,"? ","?\w8\w8 ") // ?
+		_talk = REPLACE(_talk,"! ","!\w8\w8 ") // !
+		_talk = REPLACE(_talk,"; ",";\w6 ") // ;
+		_talk = REPLACE(_talk," -- "," --\w8 ") // --
+	}
+	
+	_talk
+}
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+/*
+check if flag is true: 
+if Flag("My Flag") == 1
+
+add flag: 
+if Flag("My Flag") == 0; MiscFlags ,= "My Flag"
+
+RemoveFlag("My Flag") -- huh i wonder what this does. said no one ever because zi made the name detailed and readable. be like zi guys
+*/
+// put %(MiscFlags) into script input to see what flags are set
+
+// A LIST OF ALL THE FLAGS IVE MADE - for easy reference... and also if youre super stuck and wanna CHEAT!!!! you CHEATER
+/* 
+	MENTIONS
+		- "kyone mentioned" - unlocks kyone in the dictionary. obtained in a rare dialogue, or otherwise in alonai'a's article
+		
+		- "claris" - obtained in the guardian article
+			- "shil" - obtained in a rare dialogue about claris (needs claris flag)
+		
+		- "inola" - obtained in the guardian article, or in the madame's article
+			- "inola's predecessor" - obtained from a rare inola-related dialogue (needs inola flag)
+			
+		- "gio" - obtained in the guardian article
+			
+		- "madame" - obtained in her article, unlocks dialogue about her
+			- "vol" - obtained in madame's article
+		
+		- "nore" and "lairu" - both obtained in the firsts article. unlocks dialogue about them 
+		- "alonai'a" and "viro" - both obtained from their joint article. unlocks dialogue about them, which can eventually unlock del and allo's articles (see SECRETS). separate because .. um.. i like organization ..! :)
+			- "firsts" - unlocked after reading the two big firsts articles (firsts + alonai'a/viro's joint article), in either order. just makes things easier for me when something involves all the firsts honestly 
+
+	SECRETS
+		- "kyone travelled" - unlocks dialogue wherein kokuyo talks about the kyone in more depth. obtained in a couple of rare dialogues
+		
+		- "del article" - unlocks del's article. obtained from rare alonai'a/viro dialogue, as well as a rare claris dialogue
+			- "del" - unlocks dialogue about del. obtained from his own article
+				- "del and gio" - unlocks dialogue about how del viewed gio as a father figure. obtained from rare del or gio dialogue
+				- "del as viro" - stop peeking cheater. anyways obtained in rare dialogue, to be added
+				
+		- "allo article" unlocks allo's article. obtained in del's article
+			- "allo" unlocks dialogue about allo. obtained from his own article
+			- "allo as nai'a" - haha pun. obtained in rare dialogue, to be added
+			
+		(- "gio romance" - unlocks in a rare dialogue.) - yet to be added
+
+	TRIVIA
+		- "underground" - just changes certain dialogue to be less awkward if you already know that diamonds used to dwell underground. obtained pretty much anywhere the trivia can be learned.
+	
+		- "tour guide" - if kokuyo has mentioned that they 'avoided being a tour guide' -- obtained in the travelling 'Where are we?' ""article"" 
+	
+	MISC. / STATS
+		- p.hours, p.talks, p.funfacts and p.articles, all of which are obtained only on the stats page (the p stands for perfect, and is used for 'highest stat' checks in their respective areas)
+		- "perfection" - obtained by getting all of the stat-related flags
+		
+		- "paccevela town grammar" - so that kokuyo doesn't re-explain the paccevele naming conventions of things like 'Scavve Alunocce' or 'Velanne Arona'. obtained the first time they explain this *in an article or fun fact,* where the player will (...hopefully...) be paying attention.
+		
+	one time flags: 
+	- gio romance, in rare.dic under del and gio
+*/
+Tidbit
+{
+	if ASEARCH(_argv[0],tidbits) != -1; 1
+	else; 0
+}
+
+RemoveTidbit
+{
+	_elements = ASEARCHEX(_argv[0],tidbits)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i--
+		{
+			_current = _elements[_i]
+			tidbits[_current] = IARRAY
+		}
+	}
+}
+
+Secret
+{
+	if ASEARCH(_argv[0],secrets) != -1; 1
+	else; 0
+}
+
+RemoveSecret
+{
+	_elements = ASEARCHEX(_argv[0],secrets)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i--
+		{
+			_current = _elements[_i]
+			secrets[_current] = IARRAY
+		}
+	}
+}
+
+daystilshrine
+{
+	_wd = weekday
+	if weekday == 0; _wd = 7
+		_output = 0
+	
+	_output = 6 - _wd
+	
+	_output
+}
+	dts
+	{
+		_i = daystilshrine
+		if _i == 1; "one"
+		elseif _i == 2; "two"
+		elseif _i == 3; "three"
+		elseif _i == 4; "four"
+		elseif _i == 5; "five"
+		elseif _i == 6; "six"
+	}
+
+whenshrine
+{
+	if daystilshrine == 0 || daystilshrine == -1; "(error placeholder. \_a[https://github.com/trans-lucence]file a bug report\_a if this comes up in your dialogue)" // this should not run, ever
+	else
+	{
+		if daystilshrine <= 1
+			{
+				if locslot == "goingshrine"; "soon"
+				else; "tomorrow"
+			}
+		elseif daystilshrine <= 3; "in a few days"
+		elseif daystilshrine < 5; "in a couple of days"
+		else; "next week"
+	}
+}
+
+OnHourTimeSignal
+{
+	if hour == 0 
+	{
+		DinnerRoll
+	}
+}
+
+OnSecondChange
+{
+	if recentactions > 10
+	{
+		recentactions = 0
+	}
+}
+
+//
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+//This code automates adding simple information to SSP's AI graph, for if you want a simple count of things like your number of randomtalks, the number of entries in a word group, etc.
+//The AI graph can do a lot more besides just this! Read up about it on Ukadoc here: https://ukagakadreamteam.github.io/ukadoc/manual/list_shiori_resource.html#getaistateex
+//Note: if things are set up wrong, opening the AI graph may cause SSP to crash. Just be a little cautious and make sure you follow the instructions.
+On_getaistateex : all
+{
+    _graph = AI_Graphs[reference0]
+    if _graph != ""
+    {
+        _items = SPLIT(_graph,",")
+        for _i = 0; _i < ARRAYSIZE(_items); _i++
+        {
+            if _i > 0; ","
+            OUTPUTNUM("%(_items[_i])")
+        }
+        C_BYTE1
+        for _i = 0; _i < ARRAYSIZE(_items); _i++
+        {
+            if _i > 0; ","
+            "%(_items[_i])"
+        }
+    }
+}
+
+// have atleast 3 in each array or ssp will crash!!
+AI_Graphs : array
+{
+    "NormalDialogue,HomeDialogue,ShrineDialogue,RareDialogue,FunFact"
+	//"RareDialogue,FunFact," // man i need another pool so i can have multiple pages ......... Some Day.
+}
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+/*
+MAKE SURE you add the following to your OnFirstBoot, so that users get the correct display even if they never change balloons:
+BalloonLines = 15
+
+Set the 15 to whatever the default number of lines in your balloon is. If you're not sure what that number is, change to a different balloon and change back (after you implement the code below), then check the contents of BalloonLines.
+
+Example usage: "\b[2]%(BottomText)Whatever you want displayed at the bottom"
+*/
+
+//This happens when the balloon is changed. If you want to use this for a balloon other than \b[2], you will need to change the \b[2] tag before the property command.
+//I am sure you could create a setup for multiple balloons as well, if you needed, by running multiple property commands after different balloon tags and sending them to different events.
+OnBalloonChange : all
+{
+	if "balloon" _in_ status; "\C"
+	"\b[1]\![get,property,OnBalloonLines,currentghost.balloon.scope(0).lines.initial]"
+}
+
+//Event to save the amount given by the property command
+OnBalloonLines
+{
+	BalloonLines = TOINT(reference0)
+}
+
+BottomText
+{
+	"\_l[0,0]\n[%((BalloonLines - 1) * 100)]"
+}
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+
+//To call the function, you can either call the function in your code like this:
+//Capitalize(SomeWordGroup) or Capitalize("some text")
+//Or in dialogue like this:
+//"%(Capitalize(SomeWordGroup))" or "%(Capitalize('some text'))"
+
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	
+	TOUPPER(_first) + _rest
+}
+
+
+//This is just here so you can use anchors to link to websites if you want. You can link to websites with normal menu choice tags! If you do, a handy URL preview will show up in the balloon!
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+//Hotkeys
+OnKeyPress
+{
+	if reference0 == "f1"; "\![open,readme]"
+	elseif reference0 == "f2"; "\![open,terms]"
+	elseif reference0 == "t"; OnAiTalk
+	elseif reference0 == "r"; OnLastTalk
+	elseif reference0 == "m"; OnMenu
+	elseif reference0 == "d"; OnFAQ // d for dictionary
+	elseif reference0 == "f"; OnFunFact
+	elseif reference0 == "c" || reference0 == "s"; OnSecretsMenu // c for 'cheats', s for 'secrets' // OHHHHHHH THAT'S WHY C IS THERE thank you past me
+	
+	elseif reference0 == "0"; OnTest
+}
+
+OnSurfaceRestore
+{
+	"\1\s[-1]\0\s[0]"
+}
+
+// when you like.... un-Iconify them i thinjk
+OnWindowStateRestore
+{
+	"\1\s[-1]\0\s[0]"
+}
+
+//Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
+//IF YOU'RE USING GITHUB FOR NETWORK UPDATES: DO NOT USE github.io URLS! It will cause you pain and suffering. USE raw.githubusercontent!!!
+//To get the raw.githubusercontent link super easy:
+//• Open your ghost's repo online
+//• navigate to the ghost's folder (the top level one, with install.txt, readme.txt, etc)
+//• Click on install.txt, or another text file on that level
+//• Once on that page, click the "raw" button. You should see the url now starts with raw.githubusercontent
+//• Copy that url exactly as is, but *leave off the "install.txt" or whatever file name at the end.*
+//Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
+On_homeurl
+{
+	""
+}
+
+
+//—————————————————————————————— Right click menu links ——————————————————————————————
+
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendbuttoncaption { "lucence's sites" }
+
+On_sakura.portalbuttoncaption { "lucence's other unrelated cool links" }
+
+On_sakura.recommendsites
+{
+	FormatLinks(recommendsites_sakura)
+}
+
+recommendsites_sakura : array
+{
+	"my website (unfinished as hell)";	"https://trans-lucence.nekoweb.org/"
+	"my github"; "https://github.com/trans-lucence"
+}
+
+On_sakura.portalsites 
+{
+	FormatLinks(portalsites_sakura)
+}
+
+portalsites_sakura : array
+{
+	"a really good video";	"https://www.youtube.com/watch?v=QbvvHsn6sgQ"
+}
+
+uphours_total { ghostupmin_total / 60 } //its not perfect but it works
+
+//zi code! thanks zi; https://ukagaka.zichqec.com/
+//sakura name
+GhostIsOpen
+{
+	ASEARCH(_argv[0],CurrentlyOpenGhosts) != -1
+}
+// if GhostIsOpen("x")
+
+GhostIsInstalled
+{
+	ASEARCH(_argv[0],installedghostlist) != -1
+}
+// if GhostIsInstalled("x")
+
+	On_otherghostname
+		{
+			CurrentlyOpenGhosts = IARRAY
+			foreach reference.raw; _ref
+			{
+				CurrentlyOpenGhosts ,= _ref[0,C_BYTE1]
+			}
+		}
+
+//—————————————————————————————— User pronoun related ——————————————————————————————
+
+they
+{
+	if SHIORI3FW.UserSex == "male"; "he"
+	elseif SHIORI3FW.UserSex == "female"; "she"
+	else; "they"
+}
+
+them
+{
+	if SHIORI3FW.UserSex == "male"; "him"
+	elseif SHIORI3FW.UserSex == "female"; "her"
+	else; "them"
+}
+
+their
+{
+	if SHIORI3FW.UserSex == "male"; "his"
+	elseif SHIORI3FW.UserSex == "female"; "her"
+	else; "their"
+}
+
+theirs
+{
+	if SHIORI3FW.UserSex == "male"; "his"
+	elseif SHIORI3FW.UserSex == "female"; "hers"
+	else; "theirs"
+}
+
+themself
+{
+	if SHIORI3FW.UserSex == "male"; "himself"
+	elseif SHIORI3FW.UserSex == "female"; "herself"
+	else; "themself"
+}
+
+//%(they) they/he %(p) are/is
+p
+{
+	if SHIORI3FW.UserSex == "undef"; _argv[0] //they are
+	else; _argv[1] //he is/she is
+}
+
+username
+{
+	SHIORI3FW.UserName
+}

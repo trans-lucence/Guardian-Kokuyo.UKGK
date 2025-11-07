@@ -1,0 +1,316 @@
+OnFirstBoot
+{
+	DinnerRoll
+	
+	talkrate = 900
+	LastTalk = ""
+	stroke = 0
+	BalloonLines = 15
+	
+		hemisphereS = 0 // hemisphere is North by default because i'm a USAmerican scumbag
+		suggested_on = 1 // refers to the suggested actions menu
+		meta_on = 1 // refers to OS shiori events, mostly; on by default
+			q_on = 1 // questions on by default
+			r_on = 1 // rare dialogue on by default
+			mr_on = 0 // 'more rare'-- increased rare dialogue off by default
+			x_on = 1 // rare dialogues will have an \x at the end of them to prevent missing stuff by default
+	
+	talkcount = 0
+	funfactcount = 0
+	faqopencount = 0
+	articleopencount = 0
+	
+	trust = 0
+	recentactions = 0
+	
+	MiscFlags = IARRAY
+		tidbits = IARRAY
+		secrets = IARRAY
+	
+	if locslot != "goingshrine" || locslot != "goinghome"
+	{
+		"\0\s[1]Ah...greetings! Come in, quickly now... we must keep away from the cold as best as we can, dear stranger!\n\n I am the Shrine Guardian of Kosanu, Kokuyo Kinoya. I am pleased to make your acquaintance..! Please, make yourself at home.\s[0] I can pour you a hot cup of tea, you must be quite chilly from your travels...\x"
+	}
+	
+	else
+	{	
+		"\0\s[0]Why, hello there! It's nice to meet you, stranger... I am the Shrine Guardian of Kosanu, Kokuyo Kinoya. "
+		--
+		if locslot == "goinghome"; "I was just on my way home from the temple; would you care to accompany me?"
+		else; "I was just on my way to the shrine; you may tag along, if you'd like. \s[1]The temple gets a tad lonely, sometimes, so it will be nice to have company..."
+	}
+}
+
+OnInitialize
+{
+	if trust > 250 { trust = 250 } // just in case i missed anywhere where the limit would be hit
+	
+	hydrate.shell = ""
+	
+	if reference0 != "reload"
+	{
+		LastTalk = ""
+	}
+}
+
+OnGhostChanging
+{
+	if reference2 == "Guardian Kokuyo"
+	{	"\0\s[0]Oh, you'll be right back?.. Alright. Be safe!\_w[200]\-"	}
+	else; OnClose
+}
+
+OnGhostChanged
+{
+	if reference2 == "Guardian Kokuyo"
+	{	"\0\s[1]Oh, welcome back! That was a quick trip."	}
+	else; OnBoot
+}
+
+OnBoot
+{	
+	if trust <= 250; trust++
+	DinnerRoll
+
+	_temp = SHIORI3FW.UserBirthday
+	_user_birthday = "%(_temp[1])/%(_temp[2])" //m/d
+	_today = "%(month)/%(day)" //m/d
+	
+		_cloc = ""
+			if locslot == "home"; _cloc = "At home"
+			elseif locslot == "shrine"; _cloc = "At the shrine"
+			else; _cloc = "Traveling"
+			
+	
+	"\1\s[-1]\0\s[0]"
+	--
+	if _today == _user_birthday && _today == "12/16"
+	{
+		if locslot == "home" || locslot == "shrine"
+		{
+			"\0\s[1]Welcome in!.. \s[0]It's actually my birthday today, so it's very nice of you to--\n\n You mean to tell me we share a birthday? \s[1]My goodness, what are the odds! Come in, %(oomf)! Let us drink a special blend of tea together to commemorate the occasion, hm?"
+		}
+			else
+			{
+				"\0\s[1]Oh, hello..! Nice to run into you out here... \s[0]It's actually my birthday today, so it's very nice to see--\n\n You mean to tell me we share a birthday? \s[1]My goodness, what are the odds! Come on, %(oomf)! Once we get to where we're headed, let us drink a special blend of tea together to commemorate the occasion, hm?"
+			}
+	}
+	
+	elseif _today == "12/16"
+	{
+		if locslot == "home" || locslot == "shrine"
+		{
+			"\0\s[1]Welcome in!.. \s[0]It's actually my birthday today, so it's very nice of you to drop by...\n I was planning on making myself some cupcakes to celebrate. \s[1]Since you're here, we can eat them together, hm?"
+		}
+			else
+			{
+				"\0\s[1]Oh, why, hello there! Nice to run into you out here, %(oomf)...\n \s[0]It's actually my birthday today, so it's very nice to see you...\n I was planning on making myself some cupcakes to celebrate, when I got to "
+				--
+				if locslot == "goingshrine"; "the shrine"
+				else; "the house"
+				--
+				". \s[1]Since you're tagging along, we can eat them together, hm?"
+			}
+	}
+	
+	elseif _today == _user_birthday
+	{
+		"\0\s[0]Hello, hello!..\n\w8\w8...Ah, is today your birthday, %(oomf)? Congratulations! I'll make you a special blend of tea today, to celebrate the occasion.\n\w8\s[1]...Sweet of you to visit this old soul on your own special day. I hope not to disappoint you!"
+		--
+		if locslot != "home" || locslot != "shrine" 
+		{
+			"\n\s[0]...Er... just remind me to do that when we get to where we're going, hm? Things tend to slip my mind when I travel... I hope you don't mind."
+		}
+	}
+	
+	elseif locslot == "goingshrine" || locslot == "goinghome"
+	{
+		"\0\s[1]Oh, it's so nice to see you! I was just on my way "
+		--
+		if locslot == "goingshrine"; "to the shrine"
+		else; "home from the shrine"
+		--
+		"... \s[0]would you care to walk with me? The biting cold isn't so hostile when you have a friend by your side..."
+	}
+	
+	elseif timeslot == "startime"
+	{
+		"\0\s[0]Ah, welcome in, %(oomf)... ah, did you notice the stars on your way here? \s[1]They shine so brightly this time of night!"
+	}
+	
+	elseif timeslot == "dinnertime"
+	{
+		if locslot == "home"
+		{
+			"\0\s[1]Oh, come in, come in! You're here just in time for dinner...\n \s[0]"
+			--
+				if dinner == "stew" || dinner == "soup"
+				{
+					"The %(dinner) is still warm. I'll pour you a bowl, hm?"
+					--
+					if side != ""
+					{
+						"\nIf you'd like, there's some %(side), as well. \s[1]Take whatever you'd like, I made plenty!"
+					}
+				}
+				elseif dinner == "noodles"
+				{
+					"I hope you are hungry! I made noodles... \n \s[1]\f[italic,1]oodles\f[italic,default] of them, if you will... ehehe!"
+				}
+				elseif dinner == "fish"
+				{
+					"The %(fish.d) is still warm, but I can flash-fry it if you like... \s[1]ooh, hum, maybe I'll do that to mine while I'm at it... it's lacking that char, as it stands..."
+				}
+		}
+		
+		else; "\0\s[0]Well, hello! I'm just heating up some instant noodles... you must be hungry from your travels, hm? \s[1]Have a seat!"
+	}
+	
+	elseif timeslot == "dawn"
+	{
+		"\0\s[0]Ah, %(oomf)! It's nice to see you up and about so early! \s[1]Or, perhaps you've been up a while?..\n Either way, welcome in..."
+	}
+	
+	elseif locslot == "shrine"
+	{
+		"\0\s[1]Oh! Why hello, %(oomf)!..\n It is nice to see you come to the temple on this fine, ehm... \s[3]\w4I don't know what time it is. \n \s[1]But it's nice to see you!"
+		
+		"\0\s[0]Oh, %(oomf)! Welcome in, get comfortable. I just swept the floors\s[1], so they're a bit shinier than usual... \w3\s[3]ehm, but they also might be a bit slippy, so be careful and don't fall! \s[1]The marble floor is pretty, but it is not very forgiving on the bones..."
+	}
+	
+	else
+	{
+		"\0\s[0]Why, hello there again, %(oomf)..."
+		"\0\s[1]Welcome back, %(oomf)!"
+		
+			"\0\s[0]Hurry, hurry, close the door... haha! \s[1]I've got the fire started for you. Tell me where you've been since we last met, %(oomf)."
+			"\0\s[0]Ha, I was expecting you, %(oomf). \s[1]Sit, sit. Get comfortable... the tea is almost steeped!"
+	}
+	
+	--
+
+	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]%(BottomText)\f[height,-2]\f[italic,1]\f[color,disable]Current location: %(_cloc)\f[color,default]\f[height,default]\f[italic,default]"
+}
+
+OnClose
+{
+	"\0\s[0]Oh, you're leaving?..\n"
+	"\0\s[0]Oh, are you leaving now?.."
+	"\0\s[0]Ah! "
+	--
+	"\s[1]"
+	""
+	--
+	"Farewell, %(oomf). Stay safe out there."
+	"I bid you farewell, then. Safe travels."
+	"Safe travels, %(oomf)!"
+	--
+	
+	"\_w[150]\-"
+}
+
+OnGoodbye : pool
+{
+	{
+	"\0\s[1]"
+	--
+	"Safe travels, %(oomf)!"
+	"I'll see you again soon, %(oomf). Be safe!"
+	"Stay warm out there, %(oomf)."
+	--
+	"\_w[15]\-"
+	}
+		if trust >= 100
+		{
+			"\0\s[1]"
+			--
+			"I'll see you later, %(oomf)! "
+			"Safe travels, %(oomf)! "
+			--
+			"If you'd like, you may take some snacks on your way out... "
+			"O-oh wait, here, take some %(snacks)... "
+			--
+			"alright, alright, I'll let you leave. Bye-bye, now!"
+			"alright, there you go. Be safe!"
+			--
+			"\_w[500]\-"
+		}
+}
+
+DinnerRoll // pun ABSOLUTELY intended
+{
+	dinner = ""
+	dinner = dinnerlist
+		side = ""
+		if RAND(10) >= 7; { side = sidelist } 
+		
+		fish.d = ""
+		if dinner == "fish"; fish.d = fish
+}
+	dinnerlist : nonoverlap_pool // the nonoverlap bit might not work with every *boot* but i would love if it worked continuously across rerolls. we'll see
+	{
+		"noodles"
+		"stew"
+		"soup"
+		"fish"
+	}
+		sidelist
+		{
+			"mashed wedgeflower" // it's mashed potatoes man idk
+			
+			if dinner != "noodles"; "noodles"
+			if dinner != "soup" && dinner != "stew"; "soup"
+		}
+		
+
+
+locslot // 'location slot;' checks if kokuyo is at home (monday-friday) or at the shrine (saturday and sunday)
+{
+	if weekday == 6 || weekday == 0;	"shrine"
+	elseif weekday == 5 && hour >= 20; "goingshrine"	// after 8pm friday 
+	elseif weekday == 1 && hour <= 4;	"goinghome" // midnight-4am monday
+	else; "home"
+}
+
+timeslot : all 
+{	
+	case hour
+	{
+		when 0-4, 23; "startime" // 11pm to 4am
+		when 17-19; "dinnertime" // 5pm to 7pm
+		when 20-22; "dusk" // 8pm to 10pm
+		others; "daytime"
+	}
+		case hour // for overlaps
+		{
+			when 14-16; "cookingtime" // 2pm to 4pm
+			when 5-7; "dawn"
+		}
+}
+
+monthslot
+{
+	if hemisphereS == 0 // these are northern hemisphere
+	{
+		case month
+		{	
+			when 3-4; "spring"
+			when 6-8; "summer"
+			when 9-11; "autumn"
+			others; "winter" // 12 1 2
+		}
+	}
+		else
+		{
+			case month
+			{
+				when 3-4; "autumn"
+				when 6-8; "winter"
+				when 9-11; "spring"
+				others; "summer"
+			}
+		}
+}
+
+
+

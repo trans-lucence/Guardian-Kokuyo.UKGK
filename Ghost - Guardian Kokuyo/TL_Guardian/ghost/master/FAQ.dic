@@ -1,0 +1,844 @@
+
+OnBACK : all // this is the backbone to the normal FAQ (with a greeting) so that i don't have to edit two things every time i edit the FAQ. it's also the 'Menu' button at the end of every FAQ answer, hence the name. back button...
+{
+	faqopencount++
+	
+	_cloc = "" // 'Current LOCation'
+	if locslot == "home"; _cloc = "Home"
+	elseif locslot == "shrine"; _cloc = "Shrine"
+	else; _cloc = "Traveling"
+	
+	"\0\![no-autopause]\![quicksection,1]\b[2]"
+	--
+	"\![*]\q[Who are you?,OnWhoGuardian]\n"
+	"\![*]\q[Where are we?,OnWherearewe] \f[color,disable]\f[sup,1](%(_cloc))\f[sup,0]\f[color,default]\n"
+		{
+			if locslot != "home" && locslot != "shrine"; "    \![*]\q[What's your home like?,OnNotHome]\n    \![*]\q[What's the shrine like?,OnNotShrine]"
+			elseif locslot != "home"; "    \![*]\q[What's your home like?,OnNotHome]"
+			elseif locslot != "shrine"; "    \![*]\q[What's the shrine like?,OnNotShrine]"
+		}
+		
+	"\n\n"
+	
+	"\![*]\q[People,OnPeopleFAQ]\n"
+	"\![*]\q[Places,OnPlacesFAQ]\n"
+	"\![*]\q[Something else...,OnStuffFAQ]\n"
+	
+	"\n"
+	
+	"\![*]\q[Tell me a fun fact!,OnFunFact]\n\n"
+	
+	"\![*]\q[Secrets and Tidbits,OnSecretsMenu]\n"
+	
+	"\n"
+
+	backbuttons
+}
+
+	OnFAQ
+	{
+		"\0\s[1]\![no-autopause]"
+		--
+		"Ah, need something explained?"
+		"What knowledge do you seek?"
+		"What is it that you need to know?"
+		"I will explain whatever you need."
+		--
+		"\n\n"
+		--
+		OnBACK
+	}
+
+
+FAQbackbuttons : all
+{
+	"\n"
+	
+	"\![*]\q[Back,OnBACK]\n"
+	"\![*]\q[Nevermind,CANCEL]\e"
+}
+
+
+//people faq
+//"\f[color,disable]\![*]X \f[height,-2]to be added in update!\f[height,default]\f[color,default]\n"
+OnPeopleBACK : all
+{
+	"\![quicksection,1]"
+	--
+	"\![*]\q[Who are all of the Firsts?,OnWhoFirsts]\n"
+	"	\![*]\q[Who are Alonai'a and Viro?,OnWhoAlonaia]\n"
+	
+	"\n"
+	
+	"\![*]\q[Who is The Madame?,OnWhoMadame]\n"
+	
+	"\n"	
+		
+		if Flag("del article") == 1;	"\![*]\q[Who is Del?,OnWhoDel]\n"
+		else;  "\f[color,disable]\![*]??? \n\f[height,-2]Perhaps talking to Kokuyo about other things can unlock this article...\f[height,default]\f[color,default]\n"
+		
+		if Flag("allo article") == 1;	"\![*]\q[Who is Allo?,OnWhoAllo]\n"
+		else;  "\f[color,disable]\![*]??? \n\f[height,-2]Perhaps talking to Kokuyo about other things can unlock this article...\f[height,default]\f[color,default]\n"
+	--
+	FAQbackbuttons
+}
+	OnPeopleFAQ
+	{
+		"\0\s[0]\![no-autopause]"
+		--
+		"Who would you like me to tell you about?"
+		"Though I am not as sociable as one may think, I've learned of many notable beings in my time...\nWho would you like to hear about?"
+		"I have met many throughout my travels... perhaps I have knowledge of the one you seek?"
+		--
+		"\n\n"
+		--
+		OnPeopleBACK
+	}
+
+// STUFF FAQ
+
+OnStuffBACK : all
+{
+	"\n\n\![quicksection,1]"
+	--
+	"\![*]\q[What is a Card?,OnWhatCard]\n"
+	"\![*]\q[What are the Suits?,OnWhatSuits]\n"
+	"\![*]\q[What is flow?,OnWhatFlow]\n"
+	
+	"\n"
+	
+	"\![*]\q[What is Guardianship?,OnWhatGuardianship]\n"
+	//"\![*]\q[What is the Monarch Cycle?,OnWhatMonarchCycle]\n" this literally doesnt matter ill add it in an update   maybe. if i care enough
+	
+	//"\n"
+	
+	//"\![*]\q[What are Sykae Parasites?,OnWhatSykaeParasites]\n"
+	
+	--
+	FAQbackbuttons
+}
+	OnStuffFAQ
+	{
+		"\0\s[0]Ooh, it appears you seek knowledge on something that transcends description, hehe! Well, I have the answers for you... hopefully."
+		--
+		OnStuffBACK
+	}
+
+
+// PLACES FAQ
+OnPlacesBACK : all
+{
+	"\n\n\![no-autopause]\![quicksection,1]"
+	--
+	"\![*]\q[Kosanu,OnKosanuFAQ]\n"
+	
+	"\![*]\q[Paccevela,OnPaccevelaFAQ]\n"
+	
+	"\![*]\q[Lacerta,OnLacertaFAQ]\n"
+
+	
+	"\f[color,disable]\![*]Aidhmoore\f[color,default] \f[height,-2]to be added in update!\f[height,default]\n\n" //toupdate
+	// "\![*]\q[Aidhmoore,OnAidhmooreFAQ]\n"
+	
+	FAQbackbuttons
+}
+	OnPlacesFAQ
+	{
+		"\0\s[0]What land do you wish to know of, %(oomf)?"
+		--
+		OnPlacesBACK
+	}
+
+
+OnKosanuBACK : all
+{
+	"\![*]\q[Ani'ana Prefecture,OnAnianaprefecture]\n"
+	
+	if Flag("underground") == 1; "\![*]\q[Shuio Nu'i Prefecture,OnShuioNui]\n\n"
+	else; "\![*]\f[color,disable]Shuio Nu'i Prefecture\f[color,default] \f[height,-2]Try asking about \_a[OnAnianaprefecture]Ani'ana Prefecture\_a first!\f[height,default]\n\n"
+	
+		if Flag("kyone mentioned") == 1; "\![*]\q[The Kyone,OnKyone]\n" 
+		
+		else; "\f[color,disable]\![*]???\f[color,default] \n\f[height,-2]Perhaps talking to Kokuyo about \_a[OnSecretsMenu]other things\_a can unlock this article...\f[height,default]\n"
+	
+	"\n"
+	
+	--
+	FAQbackbuttons
+}
+
+	OnKosanuFAQ
+	{
+		"\0\s[0]Ah, my homeland, Kosanu. \s[1]I know this place like the back of my hand! \s[0]Anywhere specific?"
+		--
+		"\n\n\![quicksection,1]"
+		--
+		OnKosanuBACK
+	}
+
+
+// toupdate
+// these are all unable to be accessed normally until the aidhmoore update
+OnAidhmooreBACK : all
+{
+	"\![*]\q[Thiremor,OnThiremor]\n"
+	"\![*]\q[Lamnthe,OnLamnthe]\n\n"
+	
+	--
+	FAQbackbuttons
+}
+	
+	OnAidhmooreFAQ
+	{
+		"\0\s[0]Aidhmoore! \s[1]I travel here quite often. Anywhere in particular?"	
+		--
+		"\n\n\![quicksection,1]"
+		--
+		OnAidhmooreBACK
+	}
+
+
+
+OnPaccevelaBACK : all
+{
+	"\![*]\q[Scavva,OnScavva]\n"
+	"\![*]\q[Velanne,OnVelanne]\n\n"
+	
+	--
+	FAQbackbuttons
+}
+
+	OnPaccevelaFAQ
+	{
+		"\0\s[0]The beautiful Paccevela, land of Spades...\s[1] and amazing food!\nAnywhere specific?"
+		--
+		"\n\n\![quicksection,1]"
+		--
+		OnPaccevelaBACK
+	}
+
+
+
+OnLacertaBACK : all
+{
+	"\![*]\q[Syk,OnSyk]\n"
+	"\![*]\q[Iy,OnIy]\n"
+	//"\![*]\q[Chiluno,OnChiluno]\n"
+	
+	"\n"
+	--
+	FAQbackbuttons
+}
+	OnLacertaFAQ
+	{
+		"\0\s[0]Lacerta! I don't go often, my physique demands I stay in a chillier climate...\s[1]\w9 but, when I get the chance, it's quite a nice place. Now! Where would you like to go?"
+	--
+	"\n\n\![quicksection,1]"
+	--
+	OnLacertaBACK
+	}
+
+		/*
+		  ______      ____  
+		 |  ____/\   / __ \ 
+		 | |__ /  \ | |  | |
+		 |  __/ /\ \| |  | |
+		 | | / ____ \ |__| |
+		 |_|/_/    \_\___\_\
+		 
+		*/
+
+
+
+	OnWhoGuardian
+	{
+		articleopencount++
+		
+		"\0\s[0]\t\*\b2Oh, you want to know more about little old me? \s[1]I'm flattered.\n \w3\s[0]...I'm afraid there isn't much for me to tell you, however. I am but an ordinary Pip, born in \_a[OnAnianaprefecture]Ani'ana Prefecture\_a...\w9 when, you ask? Oh...\s[1]\w9 long ago. \s[0]Most definitely before anyone you know, ha. \s[1]My years are plenty, and they have woven themselves into me quite snugly... I may appear young to the untrained eye, but I have weathered quite the storm, as they say.\n\n \s[0]Anyways, ahem... long ago, I was chosen as the \_a[OnWhatGuardians]Shrine Guardian\_a of Kosanu. With how highly I speak of the honor, you'd think it would be some divine blessing, granted unto me by the Firsts themselves... \s[3]but, ehm, I simply performed more efficiently in the ceremonial training than my peers, as is the case with the other Guardians, haha.\n \s[0]Even if I hadn't been chosen, I think I still would have "
+		--
+			if locslot == "shrine"
+			{
+				"dedicated myself to this place"
+			}
+			else
+			{
+				"dedicated my life to the shrine"
+			}
+		--
+		". All I have ever wanted is to immerse myself in history...\w2\s[1] and what better way to do so than to take care of a temple that has been here for over a thousand years?\n\n\w9\w6\s[0]Ah, right. I suppose there are other things I failed to mention about myself... er, I translate classic Kosani literature into Common. I also write my own, though it is more often nonfiction; accounts of history, rewritten with a more honeyed tongue... \s[1]to appease the poet in my heart, while satiating my brain's hunger for knowledge.\n\n \s[0]\w3...Let's see, what else...\w4 \s[1]ah, how could I forget?\n \w3\s[0]As you surely have gathered, I am a traveller. I have settled down since my younger days, but I have been all across the landmass, as well as beyond it. I have visited cities large and small, islands near and far... and I have seen incredible things on my journeys.\n \w6\s[1]...The thing I love most is sharing these experiences with any soul that wants to hear them.\n\w9It was kind of you to ask about me, %(oomf). I hope this answer suffices."
+		--
+		"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+		
+		if Flag("who article read") == 0; MiscFlags ,= "who article read"
+	}
+
+	OnWherearewe : all
+	{
+		articleopencount++
+		
+		if locslot == "home" 
+		{
+			"\0\s[0]\t\*"
+			--
+			"Oh? \s[1]Well, %(oomf)! \w9\s[0]Though I am...\w6 unsure how you got here without knowing your location, I will tell you!...\w3\w9 \s[1]We are located now in the \_a[OnShuioNui]Shui'o Nui Prefecture of Kosanu\_a. \s[0]My abode sits well away from much civilization, but technically \s[1]\f[height,-2]\w4...er, mostly for tax purposes, ha,\w4\f[height,default]\s[0] we are closest to Okkai. It's a small town, but it has everything one would need; a fresh fish market, and plenty of tea merchants to restock...\n\n \w9\w9"
+			"Ah! Oh, I got carried away... right. You wanted to know more about my home, yes?\n \w9\w9Well, as I'm sure you've noticed, \s[1]it's a bit of a mess -- other than our little sitting area here, ha! \w9\s[0]The hearth before us is, of course, where I spend quite a bit of time -- if you look to your left, you'll see the little nook where I keep my teas, to brew over the fire. \s[1]If you get thirsty, just let me know... \s[0]you can choose the blend, if you'd like."
+			
+			"\w9\w9\![quicksection,1]\n\n\f[color,disable]\f[sup,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x"
+			
+			"Over there is my writing desk... oh! \w9\s[1]Er, don't look too closely, please. \s[3]I get quite embarrassed when people read my rough drafts...\w5\w9\w9 \s[1]um, right!\n\n \s[0]"
+			"Lining the walls are my bookshelves... \s[1]as you can tell, I have quite the collection. \s[0]The ones directly behind my desk are all the ones I authored and co-authored, you can see my signature at the bottom of all the spines...\w9\w9 \s[1]ha, yes, quite plentiful, aren't they?\n \s[0]Now that I think about it, I've been adding to the collection for many decades... when you work the same career for as many years as I, your past accomplishments begin to fade into the background.\n A few times now, I have started to read a new book, \s[1]only to notice the author's signature is my own!.."
+			
+			"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x"
+			
+			"\s[0]Over here is the kitchen...\w6 other guests have complained that it is quite small. \s[1]It is true, Kosani homes tend to have very compact kitchens compared to other regions... \s[0]but it does the job.\n\n "
+			"Oh, that reminds me, ha! You can have whatever snacks you desire from the little compartment here. Might I recommend the %(snacks)?.. They are delightful with %(tea) blend.\n\n "
+			"Oh, um... that is it for the tour, I'm afraid.\n\n \![quicksection,true]\![*]\q[What about your bedroom?,OnBedroomQuestion]\n\![*]\q[Thank you for the tour,OnNoBedroomQuestion]"
+			
+			if Flag("home article read") == 0; MiscFlags ,= "home article read"
+		}
+				
+			elseif locslot == "shrine"
+			{
+			"\0\s[1]\t\*"
+			--
+			"Ah! \s[0]Right now, we happen to be sitting together inside the work of art known as the Shrine of Aces of Kosanu. \s[1]Er, yes, quite the tongue twister, until you get used to it...\n \s[0]It is a temple dedicated to the \_a[OnWhoFirsts]First Aces\_a, \s[1]as well as all who came after them, but especially to \_a[OnWhoAlonaia]Alonai'a, First Ace of Diamonds\_a. \s[0]If you look around, you will see beautiful carvings depicting legends of old; my personal favourite is -- if you'll look up for a moment -- the sprawling ceiling mural depicting the War of the Firsts...\w9\w6 \s[1]ah,\w5 ha. \s[0]Yes, I...\w6 suppose it would be a bit dark in here, for someone with\w9 \s[3]fewer\w5 eyes\w5 than I...\w9\w8 \s[1]very well then. \s[0]Well, surely the architecture around us is a bit easier to take in, no? And these stark white marble floors, ah, just so beautiful. Perhaps if you're here next time I mop, \s[1]we'll be able to see our reflections in it, ha!\n\n \w9"
+			
+			"\s[0]The Shrine itself is located in Welakaono, famous in Kosanu for its hot springs. People travel near and far to visit the springs, as well as the shrine; as this day of the week is a sacred one, however, the temple is closed to the public. This is when I rejuvenate the shrine's energy by cleaning it, performing small ceremonies and rituals, et cetera...\n \s[1]It is a beautiful and holy place. I am happy to have dedicated my life to it.\n\n \w9\w9"
+			
+			"\s[0]The rest of Welakaono sits a short walk south of here; there is a teahouse, as well as a very pretty inn. Sometimes, if it is too late to head home after my duties, \s[1]I will sleep there instead, haha! \s[0]Welakaono is also where I pick up a lot of my groceries... it's a bit larger than Okkai, where my home is, so it has a larger selection of food...\n\n \w3\s[1]Anyways! Back to the temple. \w9\s[0]If you look to your right, between those large pillars, you'll see my other favourite part of the shrine; that giant statue there depicts \_a[OnWhoFirsts]the four Firsts\_a. \s[1]If you look closely, you can see that \_a[OnWhoAlonaia]Alonai'a and Viro\_a are holding eachother's hand!\w9 \s[0]It is just one of many artpieces in the temple showcasing the relationship between the First Aces of Spades and Diamonds...\w9 \s[1]but it is by far the cutest, to me.\n\n \w9\w9"
+			
+			"\s[0]...I hope you are enjoying your stay here at the shrine. It is my home away from home; I try to make it as comfortable as I can. Do not hesitate to tell me if you need anything, %(oomf)!"
+			--
+			"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+			
+			
+			if Flag("shrine article read") == 0; MiscFlags ,= "shrine article read"
+		}
+		
+		else // travelling to/from shrine
+		{			
+			"\0\s[0]\t\*"
+			--
+			"Oh! Well, right now, \s[1]we're passing through Welakaono, on our way "
+				--
+				if locslot == "goingshrine"; "to the shrine"
+				else; "back home"
+				--
+			"... \s[0]ehm, what you see is what you get here in Welakaono. Over there is the inn, and the teahouse... \s[1]er...\w9\w9 \s[0]I'm very sorry, %(oomf)! \s[3]I'm not too great at being a tour guide... \s[1]I narrowly avoided that job when I was named Shrine Guardian..!\n ...If you ask me when we get "
+				--
+				if locslot == "goingshrine"; "to the shrine"
+				else; "back home"
+				--
+			", I'll be of much more help! In the meantime, perhaps we can chat about other things?.."
+			--
+			"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+			
+			if Flag("tour guide") == 0; MiscFlags ,= "tour guide"
+		}
+
+	}
+
+	OnNotHome : all
+	{
+		articleopencount++
+		
+		"\0\s[1]\t\*"
+		--
+		"Oh, ah! Well, I'd definitely be able to tell you more if we were there, but, ah... \s[0]I can tell you the abridged version if you'd like to know now.\n"
+		"I live near Okkai, a nice little town... it's got a fresh fish market, tea vendors \s[1]and a lot of nice, friendly faces.\n \s[0]My house itself boasts, ehm, \s[1]not much... but a nice collection of books, and a hearth to warm yourself by. \s[0]I also have a little root garden, ehm... \s[3]my apologies, it's a bit hard to give a tour when I'm not there to show it all to you..!\n\n"
+		"\s[0]Anyways... I'd much recommend asking me again when I'm back home... "
+			{
+				if locslot == "goinghome"; "we'll be there soon, I promise!"
+				elseif locslot == "goingshrine"; "right now, we're on our way to the shrine... \s[1]a very interesting place indeed!.. And in two days, I'll be back home. Remind me to give you the tour then!"
+					else
+					{
+						if weekday == 6; "Since it's the first of the two divine days, it'll be two more days 'til I'm back home and settled... "
+						else; "In one more day, I'll be back home... "
+						--
+						"but until then, you could \_a[OnWherearewe]ask me about the shrine\_a! I assure you, it's very interesting, ehehe..."
+					}
+			}
+		"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+		
+		if Flag("home article read") == 0; MiscFlags ,= "home article read"
+	}
+	
+	OnNotShrine : all
+	{
+		articleopencount++
+		
+		"\0\s[1]\t\*"
+		--
+		"Oh! Ehm, right, haha... I could tell you much more if we were there, \s[0]but I can tell you a bit about it from here...\n"
+		"The Shrine of Aces of Kosanu is located in Welakaono, a very pretty little town. It's Kosanu's main temple; despite this, since there are so many smaller shrines around the Prefectures, it doesn't get all too busy... \s[1]thankfully.\n \s[0]I live and work there two days out of the week; I'll be going again %(whenshrine)"
+			{
+				if daystilshrine <= 1 || daystilshrine >= 5; ". "
+				else; "... %(dts) days, to be exact. "
+			}
+		"\s[1]Please do ask me about it again when we're there, though! I love nothing more than gushing about all my favourite artpieces on display there, all the statues of \_a[OnWhoFirsts]the Firsts\_a... \s[0]oh! Right! I never explained what the Shrine was for in the first place, did I?..\n\n"
+		
+		"The temple is dedicated to the First Aces, but namely \_a[OnWhoAlonaia]Alonai'a, First Ace of Diamonds\_a. \s[1]The shrine was built in one of her favourite places in Kosanu; she loved the hotsprings of Welakaono, so after she\w3\s[3]... passed away, \s[0]the temple was constructed right near them. \s[1]It's a very nice location, I can see why she loved it so much... \s[0]she always did have such quaint tastes.\n Ehm, anyway... \s[1]I think that's about all I can really tell you without boring you. \s[0]If you'd like to know more about \_a[OnWhoFirsts]the subject of the temple\_a, or especially more about \_a[OnWhoAlonaia]Alonai'a\_a, please do let me know... \s[1]I just don't want to talk your ear off! Ehehe..."
+		--
+		"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+		
+		if Flag("shrine article read") == 0; MiscFlags ,= "shrine article read"
+	}
+
+
+
+// PEOPLE FAQ
+OnWhoFirsts : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*\b2"
+	--
+	"Ah! The First Aces... \s[1]as you can most likely extrapolate from the title, these were the, ehm, first-ever Ace Cards. \s[0]An Ace, as you may already know, is a Card with \_a[OnWhatFlow]an entirely different type of flow\_a than ordinary folks like you and I. The Firsts, however, were a whole other story... they appeared during a time of great unrest, starting one thousand and thirty-seven years ago, in an event we now call The Emergence. \n\s[1]First to emerge was Viro, First Ace of Spades; a tall man with thickly curled horns and salt-and-pepper hair, he appeared from the mist, walking out of a thick forest of Velanne covered in dirt and his own blood. He disappeared as quickly as he was found.\n A few months later, something similar happened in Lacerta -- \s[0]Lairu of Hearts was found unconscious in the middle of the desert, and brought to a small village near modern-day Chiluno. When they awoke, they spoke in tongues no one had ever heard of -- or heard since. \s[3]Though they seemed to have sustained injuries to vital organs, and no Parasite was seemingly present in their body to regulate their energyflow, they got off of the doctor's operation table and walked straight into a blustering sandstorm, not to be seen again for months.\n \s[0]Nore of Clubs walked out of the ocean covered in seafoam, marching straight through villages and towns until they arrived in the heart of Thiremor. There, they sat down, crossed their legs, closed their eyes, and sank into the earth, with no sign they'd ever been there at all. Witnesses wrote that the patch of earth they'd disappeared into later grew strange plants, ones that weren't normally native to Aidhmoore. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"\s[1]Of course, all of these happenings were seen as these scary, horrible omens -- which, in hindsight, makes a lot of sense...\n \s[0]Lairu was the first to reappear, not seeming to remember being found near-dead in the desert just a year prior -- they showcased immense magical talent, however, and became a sort of shepherd of the then-suffering suit of Hearts.\n Viro reappeared next, his memories of the bizarre event also faded. Attempting to enter society, he challenged the people of Paccevela to lighthearted duels and quickly earned the title of 'the Bloodied Gladiator' -- the, er, 'Bloodied' part being in reference to his omen-like appearance from the year before. The duels themselves were never to the death, only until someone \f[height,-2]-- or, well, only ever Viro's opponent --\f[height,default] tapped out. He later wrote that he never liked that title, but that 'as long as my people are happy, I am happy.' \s[1]How nice of him..!\n \s[0]Nore appeared right where they had sank into the earth a year before, keeping somewhat away from society. People who met them wrote that they had a deeply anxious soul. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	
+	"Eventually, Lairu and Nore met, when the former was scoping for new territory to move into -- \s[3]the Hearts were wanting desperately to escape Lacerta, after making the already-unstable area now known as the Black Desert even worse... \s[1]ehm, more on that \_a[OnWhoAlonaia]some other time, when I talk about Alonai'a\_a, though. \s[0]Nore seemed calmed by the other's presence, and from then on they were inseperable. \s[3]Not exactly a \f[italic,1]healthy\f[italic,default] relationship, but it was definitely something.\n\n \s[1]Lairu decided they'd attempt to take over the last remaining quadrant -- Kosanu. Nore stayed behind; they and Viro had started to get along quite well, and Viro didn't agree with trying to take over Kosanu.\n \s[0]Lairu's plans, er, didn't go well... \s[1]but since I don't wish to talk your ear off, \_a[OnWhoAlonaia]I'll let you choose if you want me to continue, haha!\_a\w3 It's up to you, if you're up to hearing the rest."
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	
+	"After the whole debacle with Lairu in Kosanu, \_a[OnWhoAlonaia]and the emergence of Alonai'a\_a, as well as the... \s[3]\w9subsequent events\w2 surrounding her and the other Firsts,\w2\s[1] it's said their souls entered a sort of in-between state -- the Aces born after them had not the souls of the Firsts, \s[0]but simply a blessing set upon them to grant them that same flow. Instead, their spirits are said to reside mostly over their own Quadrants -- sometimes visiting their shrines, or places they had been during their lives.\n\n \s[1]...It's been twenty-three years since I last felt her presence in the temple. I count the days. She sent me a sign, an amicable omen wrapped in the smoke of incense, and then she was gone. Perhaps... \s[3]\f[height,-2]mm, \f[italic,1]no,\f[italic,default]\w3 I mustn't drag you into my baseless theories. \_a[OnWhoGuardians]Gio\_a is right; even if I'm correct, I shouldn't be telling folks all about it... it might get people feeling restless.\f[height,default]\n \w9...\s[0]Ehm, my apologies. I get carried away when I think of the final sign she sent me -- \s[1]\w2perhaps I'm just getting too old, losing my marbles and such. \n...Hopefully this answer suffices, for now. \s[0]Even if not, don't worry... it's hard to keep me from bringing up the Firsts for long!..\n \s[1]Thank you for letting me ramble. Oh, and... if you're ready for \_a[OnWhoAlonaia]the second half of the story\_a, do let me know!.."
+
+	--
+	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+
+	if Flag("nore") == 0; MiscFlags ,= "nore"
+	if Flag("lairu") == 0; MiscFlags ,= "lairu"
+	
+	if Flag("viro") == 1 && Flag("alonai'a") == 1
+	{ if Flag("firsts") == 0; MiscFlags ,= "firsts" }
+	
+}
+
+OnWhoAlonaia : all // ........jesus fucking christ this is so long
+{
+	articleopencount++
+	if Flag("kyone mentioned") == 0; MiscFlags ,= "kyone mentioned"
+	
+	"\0\s[0]\t\*\b2"
+	--
+	"You wish to know of Alonai'a, %(oomf)? Well, \s[1]you certainly have come to the right place, ha! \s[0]Let's see, how do I capture her essence in its entirety... aha, of course!..\w9\w9\s[1]I shall start from the beginning.\n\n "
+	"\s[0]Alonai'a was born from nothing; she emerged from the dusty snow of Kosanu \f[height,-2]-- in the region now known as Ani'ana Prefecture --\f[height,default] fully fledged, with an energetic flow the likes of which, atleast for us Diamonds, had never been read before. Alonai'a was -- or, rather, is -- the First Ace of Diamonds.\n\n "
+	"Before her, our Suit struggled to survive; the harsh conditions of Kosanu were bad enough, but we had recently been ravaged by war -- the Hearts, desperate to escape the Black Desert...\w8\f[height,-2]er,\w4 more on that later,\w8\f[height,default] plundered countless Diamond villages, wreaking destruction and shedding the deep cerulean blood of our kind as they advanced onward. This event came to be known as the Snowblind Massacre, as the Hearts army would wait for snowstorms to attack, \s[3]taking out villages covertly as they were obscured by the harsh weather...\n\n "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"\w5\s[1]We do not know who or what created Alonai'a. She did not know, herself. But she knew that this massacre, pointless and cruel, needed to be put to an end.\n \s[0]As the army of Hearts advanced north, closer to Alonai'a's place of emergence, the freshly formed Ace froze them in their tracks. A vortex of energy emerged, invisible to the naked eye -- titled by researchers later on as an \f[italic,1]'Imaginary Sinkhole'\f[italic,default]. The army dropped dead; hundreds of lives taken in an instant, their blood drained straight from their bodies and their energy alongside it. Behind them, stretching for miles, the then-pale blue snow was bleached a sickening, blinding bone-white. The effect of the Imaginary Sinkhole carried through the air, and a faint, shrill screech could be heard alongside it. \s[3]The \_a[OnKyone]Kyone Tundra\_a had been born.\n\n "
+	"\w9\s[1]This was an act done by Alonai'a not only to save her people from certain death, but also to bring balance to the land. See, she was the last Ace to awaken, and Lairu -- First Ace of Hearts -- had recently created a stark imbalance in the land itself; \s[0]they, using their own Imaginary Sinkhole, had sewn the seeds of the Black Desert.\n\w9\w8The Black Desert, with its extensive energy spikes, had been the thing to drive the Hearts out of their territory in the first place... the Kyone, opposite of the Desert in every way, put each Suit back into its sacred home.\s[0]"
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x\b[2]"
+	
+	"\s[1]This was, to put it lightly, quite the eventful awakening. \s[0]After the creation of the \_a[OnKyone]Kyone\_a, as well as the end of the Snowblind Massacre, Alonai'a was able to settle down and figure out how to truly live. She documented much of her life in thick diaries -- \s[1]which I, of course, have read cover-to-cover more times than I can count...\w9 er, anyways!..\s[0]\n She started travelling to places near and far, documenting her experiences as she went. She wrote much of the beautiful sights she beheld, the exquisite cuisines she sampled, people she met... they are a wonderful read. I recommend them, if ever you have the time.\n\n "
+	"\w9In these books, she also details bits and pieces of her relationship with Viro, the First Ace of Spades. The young couple went everywhere together, absolutely inseparable...\s[1] so cute, hehe. They were going to get married, before...\w9\s[3] well.\n\n "
+	"\w9\w6\s[3]...The freshly budding monarchy didn't take kindly to the Aces' display of power; they especially disliked Lairu and Alonai'a's ability to create energetic anomalies at will, parts of the landmass that were now entirely uninhabitable -- \s[0]or, rather, unconquerable.\n \s[3]The Facecards formed two elite squadrons of high-level Jacks, and sent both of them out at roughly the same time to find Lairu and Alonai'a. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"Lairu was an easy target; they had grown arrogant after they created the Desert, parading themselves around as if there were no metaphorical target on their back... easy pickings. The First Ace of Hearts had been slain.\n\n "
+	"\s[1]Alonai'a, on the other hand, was not so easy to take down. \s[0]As she travelled alongside Viro, she had an added layer of protection; the Facecards knew this, and they prepared much more thoroughly than with Lairu.\n The following is knowledge from Viro's account of events...\n\n "
+	"After catching wind of the assassination plot -- as well as the death of Lairu, Viro convinced Alonai'a to stay behind and hide, as she had recently sustained an injury that would make fighting much more difficult. She reluctantly agreed, locking herself in the small cottage where they had been staying during their travels.\n \s[1]When the squadron arrived, Viro took them down with ease...\w9\w1 \s[3]or so he thought.\w8 The first wave of attackers was a ruse, a distraction to lure Viro away from his beloved. \w9When he got back to the cottage, the door was open, a trail of deep blue blood mixing with dark maroon.\n\n "
+	"Inside, Alonai'a lay dying, the corpses of dozens of assassins around her. She had put up a fight, but ultimately, they had taken the injured Ace of Diamonds by surprise.\n Viro tried in vain to save her, revive her, anything. But though he was the First Ace, he was no god. As she slowly faded away, she told him that they wouldn't be apart long. Viro wrote her final words in his own memoirs;\w7 \n\n"
+	"		\s[0]\f[italic,1]'Though the stars may keep us apart, I will find you, my love, \s[1]and together we will finish what we started.'\f[italic,default]"
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x\b[2]"
+	
+	"\s[3]Viro was inconsolable. He besieged the main outpost of the Facecards, taking in one fell swoop somewhere around three thousand lives. Among them was the Third Madame, Marijha Ilarus -- the woman who organized the squadron to assassinate his beloved.\n He carried out three more heavy attacks on Facecard fortresses... and then, he disappeared.\n\n "
+	"For two years, he wandered Paccevela -- what was supposed to be his homeland. He wrote that he didn't belong, that the same people he was trying to protect had now turned against him; Facecard propaganda had made the Pip population believe that the Aces were villains, here to disrupt the 'natural order' -- these Pips formed a Facecard-run military.\n The last thing he wanted was for these people -- \f[italic,1]his\f[italic,default] people -- to fall under a monarchical tyranny, run by murderers. Alas, it was too late; the story was printed, his face on every 'Wanted' poster in the four Quadrants.\n\n "
+	"He planned -- and swiftly carried out -- a final act. He marched into Iy Palacca, appearing to surrender himself. \s[1]That prince, ha. He is only remembered as the Son of Ilarus; too insignificant of a figure to put a name to. The poor bastard was so full of himself, he didn't think to restrain the Ace as Viro walked into his halls. Beheaded, dead in an instant. Viro only smiled as the royal blood seeped through the carpet.\n\n "
+	"\s[3]From here, he was done. He laid prone on his back, instructing the guards\w4 -- \s[1]\f[height,-2]useless as they were, couldn't even stop a second regicide\f[height,default]\s[0] -- to pierce his energetic hotspot: the giant Spade symbol on his back. \s[3]I will...\w9 spare you\w5 the details...\n\n "
+	"\_w[2000]\s[1]Ah, Viro. He went out on his own terms.\n Though he wasn't yet returned to the arms of his lover in the stars,\w6 I have a sneaking suspicion that their souls have recently taken root in new vessels. \s[3]Alonai'a's final wish may finally be coming true.\w3\n\n I hope so... they both deserve a happy ending.\w9\w9"
+	--
+	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("viro") == 0; MiscFlags ,= "viro"
+	if Flag("alonai'a") == 0; MiscFlags ,= "alonai'a"
+	
+	if Flag("lairu") == 1 && Flag("nore") == 1
+	{ if Flag("firsts") == 0; MiscFlags ,= "firsts" }
+}
+
+OnWhoMadame : all // i loved writing this because they just. hate her So fucking much LMFAOOOO
+{
+	articleopencount++
+	
+	"\0\s[0]\b2\t\*"
+	--
+	"Oh,\w3 I see... you wish to know more about Madame Ymu. Well, you have probably gathered that she is the ruler of this land...\w7 the Queen of Clubs, Madame Siersha, handed down the crown to her at the turn of the century. This took place 37 years ago now, making Madame Ymu the Queen of Hearts...\w9\w9\w9 haha, yes, I know. The cycle can be a bit confusing... "
+		
+		//"\_a[OnWhatMonarchCycle]I can explain that in more detail later,\_a if you need.\n\n "
+		"all you need to know is that the crown changes hands between Suits at about the start of every century, or when the current Madame steps down. Anyway, back to Ymu...\n\n "
+	
+	"Just like all the Madames before her, \s[3]she is a tyrant. Time and time again, she does things that put the entire lower and middle classes in complete jeopardy: raising taxes for seemingly no reason, passing laws that benefit only herself...\n \s[1]We Pips tend to dislike her -- and all her rich little friends -- but we can't exactly do much about it.\n\n "
+	"\w9\s[0]Being the Shrine Guardian of Kosanu, I am forced --\w9 or, to put it in her terms, \w3\f[italic,1]strongly\w3 invited\f[italic,default]\w3 to attend gatherings of hers at Iy Pallaca.\n These are usually grand feasts, except, \w9of course,\w9 only Jacks and Facecards are ever allowed to dine on the actual main course...\w9\w9 I always sneak a few bites, but don't tell anyone.\n \w9Oh, right... the events are held to...\w7 er...\w9 well, they're \f[italic,1]supposed\f[italic,default] to be something along the lines of a voting process, asking all the officials what laws they'd like to see passed, et cetera... but she's\w3 a bit of a drunk,\w4 so...\w6 it always just devolves into a party. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"\w9Occasionally, she will try to push for us Guardians to sign over the rights to the shrines. The shrines are, and always will be, pieces of 'Reserved' property:\w8 this means that they are not under the jurisdiction of the monarchy, and the Queen may not alter, create, or destroy the laws surrounding them. These temples are the last things she cannot touch.\n \w8We all say no, of course. She is not good at hiding her fury; every time we refuse, that long, unsightly face of hers turns bright red, her eyes all but popping out of her head...\w9 it's my favourite source of entertainment, if I'm honest with you.\n\n "
+	"\w9Her nephew, Vol, is all but confirmed to the public as the Ace of Hearts. She parades him around like a trophy, and he loves it. He gets all the attention he could ever want.\n My good friend Inola, who is the Shrine Guardian of Lacerta, is embarrassed to be represented by him...\w9 I can't blame her, ha! I would be too.\w9\w6 He's the definition of \f[italic,1]'overgrown brat.'\f[italic,default]\n\n "
+	"\w9Ooh, right... since I'm forced to deal with her so often, I've at least picked up some fun facts... ehehe.\n She's had her fair share of assassination attempts. She cries on and on about them at the yearly gatherings; looking around the table, you can tell which people are wishing the attempts went through...\n What else, what else... ah, yes. There was one time I remember where she simply couldn't hold her liquor, and passed out on the floor of her own palace, facefirst into her own... er, we'll just say \f[italic,1]dinner\f[italic,default]. Truly, an embarrassing woman --\w9\w9 but I suppose those with enough money and power need not true dignity, right? Ha...\w9\w9\s[1] pure insanity.\n\n "
+	"\w9\w5\s[0]I think that's all I've got... I try not to pay her much mind. I am lucky I have the ability to tune her out... I can simply work on my writing while she prattles away in the background.\n\n "
+	"\w9\w9Hopefully, this answer suffices...\s[1]\w9 I apologize for cutting off the explanation here, but I'm afraid I simply cannot talk about her much more without getting nauseous. \s[0]If there's anything more pleasant you'd like to pivot to, please do let me know... \w9\s[1]ehehe."
+	--
+	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("madame") == 0; MiscFlags ,= "madame"
+	if Flag("inola") == 0; MiscFlags ,= "inola"
+	if Flag("vol") == 0; MiscFlags ,= "vol"
+}
+
+
+OnWhoDel : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*\b2"
+	--
+	"Ah, that Del. \s[1]Ha...colourful fellow. \s[0]Not much is known about the current Aces, as they aren't to be officially revealed for another decade. \s[1]But... as the shrine guardian, I get to bear witness to a bit more information than the general public.\n \s[0]Anyways... Del Noccione is the Ace of Spades. He was born to Elina and Rollas Noccione, two \_a[OnWhatFlow]Jacks\_a who were very well-respected in \_a[OnScavva]Scavva\_a. Rollas also happened to be a member of the royal guard.\n ...His mother, Elina, was a Seer -- she knew that her son was an Ace from the moment he was born. However, she knew what that meant; \s[1]Aces... do not get to stay with their family. \s[3]They are forced to enroll in The Academy as young as possible, and their parents do not get to see them until well into their teenagehood -- or, worse, even later into adulthood. \s[1]She, who had had extreme troubles with her pregnancy, could not safely have another child. \s[0]So, she did what any mother would do; \s[3]she cloaked her baby's energy with a spell...\n \s[0]When the Royal Seers came to examine him, they were shocked -- high flow, which both Elina and Rollas had, is usually genetic... \s[3]\w9\w9but Del was coming up with no flow at all. He was labelled a \f[italic,1]'zero.'\f[italic,default]\n\n \s[1]"
+	"His father, who had no clue Elina had done any of this, was furious. His only son, the only continuation of his bloodline, flowless -- in his eyes, \s[3]useless. He mistreated his son... and eventually, when his anger and hatred spread, he started to mistreat Elina as well. Elina's lie may have kept her son safe from the prying hands of the Facecards, but it could not protect either of them from the hands and harsh words of his father. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"When he turned eleven years old, his mother told him the truth. For his entire life up to that point, he hadn't even tried to learn magic -- why would he? No flow to control. \s[1]Ha... little did he know, he had more power than most of us could ever dream of.\n \s[0]In secret, she began to teach him to control his magic. And oh, he was a \f[italic,1]natural.\f[italic,default] I myself have seen him spar, while visiting Iy Palacca -- he took down that Ace of Hearts, with all his royal blood and big ego, without even breaking a sweat! A sore loser, that Vol. Oh, right, back to the story...\n\n "
+	"He managed to evade being found as the Ace of Spades until he was fourteen, before he got into a fight with some guard who was on the same squadron as his father... the man had insulted Elina. Del got overzealous, used some high-level spell and exposed himself as, well, anything \f[italic,1]but\f[italic,0] a 'zero.' His mother, the poor woman... her own husband brought her to the Palace, where she was \f[height,-2]\w9allegedly\w9\f[height,default] executed for treason against the Madame. After Viro, First Ace of Spades, killed two monarchs in a row all those centuries ago, well... keeping an Ace hidden from the Facecards became one of the worst crimes you could ever commit, no matter your reasons.\n\n "
+	"And so, a teenage Del was ripped away from his mother and forcibly enrolled in The Academy. He was so young, then. \n \s[3]\w9\w9...He's young, still.\n \s[0]\w9\w9I've got no idea how he wasn't read as an Ace the instant they got their hands on him, spell or no spell. \s[0]He simply bursts with this... \s[1]\f[italic,1]spark.\f[italic,default] When he walks into a room, it's just this\w3 overwhelming,\w3 potent energy. \s[0]My few conversations with him left me wanting to pick his brain more and more. \n\s[3]\w9...For someone so young, it feels as if he has lived a thousand years.\n\n \w9\w9"
+	
+	"\s[1]...About a year ago, he disappeared... \w9along with the freshly found Ace of Diamonds, \_a[OnWhoAllo]Allo Ukagi.\_a Madame Ymu is... not happy about it. The Facecards have been trying to discreetly find and imprison him, all while not causing a public panic. It's... not going well for them. On top of being a great fighter, Del has learned to keep secrets -- and keep them \f[italic,1]well\f[italic,default] -- all his life. \s[0]I am confident that they will not find him. I certainly don't want them to... \s[3]I believe he has a far more important role in this world than to simply become another pawn.\n \w9\w9\s[1]...Perhaps, in time, he will finish what his long-passed predecessor started."
+	
+	--
+	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("del") == 0; MiscFlags ,= "del"
+	if Flag("allo article") == 0; MiscFlags ,= "allo article"
+}
+
+OnWhoAllo : all
+{
+	articleopencount++
+	"\0\s[0]\t\*\b2"
+	--
+	"\0\s[3]...The Ace of Diamonds, Allo Ukagi. \w9I wish I knew more, %(oomf). \s[0]I have only been in his presence once. \s[3]All I know is that he is young, and kind, and very deeply in love.\n\n "
+	"\s[1]\w9\w9...Alright, so perhaps I do know a bit more. \s[0]However, most of it is hearsay, whispered amongst the guards and staff at Iy Palacca... \w9\w9\s[3]as well as information from journals that he left at The Academy when he and \_a[OnWhoDel]Del\_a disappeared.\n \w9They were delivered to me to translate, as they were in our shared native language, and I am the only Ani'ani to Common translator that they know.\n \s[1]\f[italic,1]...Of course,\f[italic,default] as an act of gentle rebellion against Ymu, I sent her back a false translation, and kept the journals for safekeeping... \s[3]as well as for research, comparison with\w2.\w2.\w2.\w9 another certain set of journals. There is more to this era's Aces than meets the eye, I am sure of it. \n \w9\s[1]...It's not as if Ymu will ever be able to tell the difference; of course, nobody in her lineup of cronies is Kosani, and they will never see the original journals again. They need not pry into the brain of the young boy who they kidnapped for their own gain, anyway. \n...\w9\s[3]I feel guilty reading them, as well. However... the way that they are written indicates that he knew this would happen anyway, and even wanted it to. \s[0]In other words, they are written \f[italic,1]to\f[italic,default] the reader. Interestingly, in he and I's native language, the journals use a set of second-person pronouns dedicated solely to addressing someone with power over the author. Upon my initial read-through, I wondered if they were perhaps written to Ymu, or even to the other Aces, but... upon further reading, it outright states that they addressed to 'the Firsts\w9\w9\w9 \f[italic,1]and\w9 their Guardians\f[italic,default].' \w9\s[1]As you can imagine, I was very surprised to have been mentioned! I did not think he remembered me. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"\w9\w9\s[3]Ah... right. \n...As I mentioned, I have met him once. Unlike what you may assume, we did not meet at the Palace, where I met some of the others. We did not even meet "
+	{
+		if locslot == "shrine";	"here, at this shrine."
+		else; "at the Kosani Shrine of Aces."
+	}
+	" No... \s[0]we met years ago, when he was just a child.\n \s[1]I was visiting the temple I used to train in, on the main island of Ani'ana. It was a holy day, and as Guardian, I occasionally like to see how the smaller shrines are doing, help them along... this time was different, though. \s[3]Something was calling to me.\n\n "
+	"Something about the Shrines is that, on holy days, their doors have an energetic lock on them that only a shrine's attendant or Guardian, as well as -- of course -- any Ace, can undo. It was put in place by the first Guardians to keep negative energy from breaching the temples... a simple mechanism, really.\n ...I was helping an old pupil of mine settle into their new role as the attendant, telling her about my time there... when we heard the door unlock. Very strange, as we hadn't invited the other students to help. When we looked back into the main hall, a small child was looking up at a painting of the Firsts of Diamonds and Spades together,\w9 and crying.\n We tried to ask the little child where his parents were, how he got in... but the child simply looked back at the door and left. As he turned to leave the temple, I noticed a brightly shining Stigma of Diamonds on the back of his neck.\n \w8I tried to follow the child outside, but he was gone. A cold wind blew bright, shining fog across the landscape, covering the child's tracks. I realized that this was the one and only time I would be in the presence of the Ace of Diamonds for a very, very long time. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"I trust that he is safe, alongside the Ace of Spades. I felt so silly reading these parts of his journals... \s[1]until I remembered he practically addressed them to me, that is... \s[1]but he waxed poetic on and on about how safe Del always made him feel, as well as -- hehe, it cracks me up just thinking about it... he always doodled Del's face in the margins of the paper, talked about how pretty he was. It's all so very sweet... \s[3]and, it's a nice break from reading about the downright torture that Ymu put him through to find his powers.\n\n ...He wrote about how, as a child, after his parents all but left him to die in the bone-chilling wilderness of the island Inei, he wandered for years and years, sometimes going weeks without food. All he had to comfort him was the pale warmth emanating from his neck\w9 -- \s[1]perhaps he still doesn't know quite what that was, but... the energetic hotspots, or \w2\f[italic,1]stigmata\f[italic,default]\w2 of an Ace are the greatest sources of their energy. \s[3]The warmth he felt emanating from the double-Diamond stigmata on his neck was\w3... likely the last of his energetic reserves, working overtime to keep him from dropping dead.\n He wrote that he would pass through towns, sleep in abandoned sheds or behind restaurants, surviving by sneaking into the kitchens of those closed restaurants at night to 'borrow' -- \s[1]as he puts it -- \s[3]their soon-to-expire foods. On occasion, he would hang around the windows of schools, listening in on the lessons to try to scrap together an education of some kind. Despite his knowledge of being an Ace, he barely knew anything about what that meant -- other than the fact that he should have magic, and somehow... didn't. Up to the last pages, he writes that he still has no idea what his powers are, how he is even an Ace... hence the abuse from the higher-ups at the Academy.\n "
+	"He also writes that he... avoided the temples on purpose, though he knew they'd have to take him in, because... the last thing his mother had said to him before \f[italic,1]leaving him\f[italic,default] to \f[italic,1]rot\f[italic,default] was that...\w9\w9 he was the Ace of Diamonds.\n\n As I got to the journal titled 'ninth' -- \s[1]that's right, this was nine journals' worth, and he had only started them a few months before disappearing!.. The tone started to shift. \s[3]As opposed to that comparatively vague 'written to the Firsts and their Guardians' note, \s[1]the ninth journal consisted solely of a sort of 'letter' addressed to... \s[3]ehm, \w6\f[italic,1]me\f[italic,default]. \w8He writes that, as a child with very little knowledge of how the temples worked, he had assumed that I, or any of the shrine attendants, would be obligated to bring him to the Madame -- something he later learned was the opposite of true -- and so he avoided us. He then writes that he had come to regret it, that he had heard great things about me from Del -- \s[1]he always did know how to flatter me, that young man -- \s[0]and that, if he could change one thing... \w9the first thing that he would have done\s[3]\w9... would be to come to me, \w5tell me everything that had happened, and gone with whatever I decided was best. That... was the last 'chapter' in the final journal, before the pages run blank, the rest of the story following a paperless trail alongside his beloved. Every time I read it, it sends an ache to the pit of my heart, one that I had forgotten I could feel. I hope he knows, now, that I would never have done a single thing to cause him harm.\n\n ...\w9\s[1]Thank you. It was... \w9it was good to tell someone. You are... a good listener, %(oomf).\n \w9\s[3]..."
+	
+	--
+	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("allo") == 0; MiscFlags ,= "allo"
+}
+
+
+//  PLACES FAQ
+//kosanu
+OnAnianaprefecture : all
+{	
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"Ah! Ani'ana Prefecture, my homeland... of course I'll tell you about it! Let's see, where should we start?..\n Ani'ana Prefecture is a large group of many small islands on the north and west coasts of Kosanu. The Prefecture gets its name from the largest island of them, named simply Ani'ana... \s[1]this naming convention tends to confuse foreigners, so don't feel too bad if you're not following, ehehe.\s[0]\n "
+	"This island is where Alonai'a emerged -- which is why their names sound somewhat similar... there are many small temples dedicated to her there, including the shrine I trained and took my ceremonial tests at, many years ago. Oh, ehm, fun fact! That shrine is actually older than any other on the continent; it was built before Alonai'a even emerged, constructed about 1,200 years ago, in hopes that a savior would come... \s[1]I suppose, one truly did! Anyways... the surrounding islands are much smaller, really only having two or three villages each to their name...\s[0]\n "
+	"The western islands extend down, peppering themselves into Aidhish territory; Oltronnt, a large island sitting snugly between the territorial lines, derives its name from the Aidhish term 'shared space,' and is home to a half-and-half population of the two Suits. For tax reasons, however, the entire island is considered to be included in Ani'ana Prefecture... \s[1]oh, that was a tangent, wasn't it? Ehehe... right, back on track.\n\n "
+
+	"The history of the region is vast, as the islands were basically the Diamond's only home for several thousand years. Until we figured out seafaring, we lived in the vast caves of Ani'ana, coming out at night to fish and play in the snow...\n" 
+	"A few millennia into our civilization, we finally figured out boats. It's not as easy as you'd think; we didn't exactly work with wood very often, nor did we have a wealth of trees to experiment with in the first place!.. Anyway, some of us sailed to what is now \_a[OnShuioNui]Shui'o Nui\_a, and some of us stayed in Ani'ana. Our civilizations were growing wonderfully, enough to split into two groups!.. Those who travelled to Shui'o Nui incorporated a mail system, to keep communication between the two settlements quick and easy... \s[1]very efficient! \n\n"
+
+	"\w9\w9...On a more modern note, the cuisine in Ani'ana is vastly different than that of Shui'o Nui.. As it is an island, we of course eat lots of fish... \s[1]well, alright. I admit, we eat lots of fish here in Shui'o Nui, but...\w9 but it's different! \s[3]Ehm...\n \s[0]Ani'ani cuisine focuses more on utilizing offshore crops, such as oceangrass. My favourite dish from the island is Saltscale Grassrolls... it's raw or smoked Saltscale, wrapped in oceangrass and frozen! Very good...\w9 er, where was I? Right! Ehm...\n\n "
+
+	"It's smart to have knowledge of seafaring before you try to make your way out to the islands. The water gets very choppy on the north side, due in part to bordering the Kyone... I'd recommend getting a few sailing lessons before you visit."
+	--
+	"\n\n\n\![*]\q[More about Kosanu,OnKosanuBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("underground") == 0; MiscFlags ,= "underground"
+}
+
+OnShuioNui : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"Shui'o Nui Prefecture is the mainland section of Kosanu. We're in eastern Shui'o Nui right now, in fact!\n"
+	"This was the second main home of our kind, the first being \_a[OnAnianaprefecture]Ani'ana Prefecture\_a. The travellers who first came to Shui'o Nui were excited to see that the caves here were much larger, and would be able to house our ever-growing population much more comfortably... \s[1]little did we know, a few hundred years into our inhabitance there, the earthquakes would come and destroy most of those cave dwellings. \s[0]This forced our kind to the surface, which, while challenging to get used to at first, \s[1]\w2proved to actually be quite great! \w3\s[0]Farming was made a bit easier, our eyes became less sensitive to light as time went on, and -- get this -- \s[1]we started actually meeting folks from the other Quadrants! \s[0]We hadn't even known we weren't alone on this big hunk of rock before that..! As the earthquakes continued, we decided we'd just relocate our civilization to the surface... and the rest is history. "
+	
+	"\n\n\s[1]\w9.\w2.\w2.\w2Oh dear. I went on a big old ramble there, now, didn't I?.. Hum. I suppose I should tell you about \f[italic,1]modern\f[italic,default] Shui'o Nui, hm?.. Hehe!\n \s[0]"
+	"Shui'o Nui is so large that it spans quite a few climates, but, ehm... \s[1]\w4it's all quite cold. \w8\s[0]I mean, not to \f[italic,1]me,\f[italic,default]\w3 but I can definitely see why we don't get many visitors -- \s[1]other than ones who are here to hog our hotsprings.\n \s[0]In Western Shui'o Nui, where the land borders the West Ocean, we have luscious evergreen forests, with aromatic Eke trees and thousands of wild Kikuminu... over here in Eastern Shui'o Nui, however, it is much more barren. The area directly bordering \_a[OnScavva]Scavva\_a, separated by the large Northern Quatangu Canal, has some spotty forests here and there, but... ehm, \s[1]lumber isn't exactly our main export, if you understand what I mean. \s[0]That's why it's so sparsely populated, as well... harder to find materials to build the houses, ehe.\n\n "
+	
+	"\s[1]The main cuisine of Shui'o Nui isn't much different than that of Ani'ana Prefecture; fish! \s[0]As far inland as we are, you tend to find a more roots-and-noodles based menu at restaurants and such, \s[1]but there's still quite a bit of seafood if you know where to look. \s[0]My favourite thing here that we never grew back on the islands is this root called wedgeflower; when it's ripe enough to pluck from the earth, it sprouts up from the snow with these cute little purple flowers \s[1]-- wedge shaped, if you can quite believe it -- \w2\s[0]and it tastes just \f[italic,1]so\f[italic,default] nice in a warm fish and noodle dish. \s[1]Really, any dish will do! It's quite versatile... \s[0]I always add a little to my stew, it really brings out the creaminess... \w6\s[1]ehm! But anyway! I'll quit talking your ear off about food. \s[0]I hope I answered all your questions about the Prefecture! \s[1]If you'd like to know about anywhere else, just ask away."
+	--
+	"\n\n\n\![*]\q[More about Kosanu,OnKosanuBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+OnKyone : all
+{
+	articleopencount++
+	"\0\s[3]\t\*"
+	--
+	"Mmm. Well, \w9\s[1]I suppose it's hard not to ask about the giant energetic anomaly stretching across the entire northeastern side of our Quadrant, isn't it?.. Alright. I'll tell you about the Kyone.\n\n \s[0]As you know, \_a[OnWhoAlonaia]Alonai'a\_a created the Tundra to stop the Hearts from infringing on the sacred land of the Diamonds... but, ehm, \s[1]\w4she later realized that she could not reverse it. \s[0]Both the Black Desert and the Kyone Tundra were outside the realm of things even the Firsts were capable of changing.\n She wasn't very happy about this, as you can imagine; she wanted her people to be safe anywhere in Kosanu, and she felt responsible for the newfound danger of the area... she worked hard to try to find a way to reverse her actions, but unfortunately, \s[1]being chased around by the Facecards all the time didn't lend much time to research.\n\n "
+	
+	"\s[3]\w9...After her untimely demise, we simply decided it was best to leave the Kyone alone. Travelling into it was -- \f[italic,1]is\f[italic,default] -- a death sentence. The bone-white snow of the Tundra, blown about by the silently rushing winds, is enough to harm you if you breathe it in. During the months of Moonfall, the time when the wind rushes south, we Diamonds close our windows and lock our doors so that the soundless gusts do not take us in our sleep.\n \s[1]Stepping foot there will bleach your hair the colour of the shining moonlight, and the blood of your fingers and lowpaws will slow, making them cold as ice for the rest of your life. \s[3]Then,\w9 if you are lucky,\w9\w5 you will die.\n\n "
+	
+	"...\w9\w9\s[1]The truth is, the Kyone is the bleakly beating heart of Kosanu. Without it, our culture built of carefulness would not have been born. From a young age, Diamond kits are taught to always take caution in life, lest the Tundra steal their breath away. \s[0]The lessons -- close the doors, layer well, wear a veil so as to avoid the gusts -- help mitigate other sicknesses, frostbite and such... \s[3]but it is a shame that our young are kept safe only by fear. It is not what She would have wanted.\n\n "
+	
+	"\s[1]Ehm... thank you for listening. \s[0]It is hard to explain how I \f[italic,1]feel\f[italic,default] about the Tundra, \s[3]but... \w9\s[1]it is still nice to share my knowledge about it."
+	--
+	"\n\n\n\![*]\q[More about Kosanu,OnKosanuBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+//aidhmoore: toupdate
+/*
+OnThiremor
+{
+	articleopencount++ 
+	"\0\s[0]\t\*"
+	--
+	
+	--
+	"\n\n\n\![*]\q[More about Aidhmoore,OnAidhmooreBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+OnLamnthe
+{
+	articleopencount++ 
+	"\0\s[0]\t\*"
+	--
+	
+	--
+	"\n\n\n\![*]\q[More about Aidhmoore,OnAidhmooreBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+} */
+
+//paccevela
+OnScavva : all
+{
+	articleopencount++ 
+	"\0\s[1]\t\*"
+	--
+	"Scavva! Oh, what a wonderful place. \s[0]I travel here quite often, for the groceries that Kosani merchants simply don't have... \s[1]as well as to visit for the numerous festivals! \s[0]I may have mentioned Alunocce to you already; it's this quaint little town on the coast, it's my favourite little place in all of Paccevela... \s[1]but that's getting offtopic.\n \w9\s[0]Scavva is the western state of Paccevela, sharing a border with Kosanu's Shui'o Nui Prefecture as well as bordering the Finstrafe Sea. It's the more rural side of the country -- much less hustle and bustle there than in \_a[OnVelanne]Velanne\_a. It's full of farmland, \s[1]as well as wineries, of course. They love their wine over in Paccevela...\n \s[0]A signature dish of Scavva is fish and noodles... \s[1]which, you may be thinking, sounds shockingly similar to the signature dish here in Shui'o Nui... but it actually couldn't taste more like the opposite! \s[0]It impresses me that they figured out how to make something so simple taste entirely different than how we do it over here in Kosanu... \s[1]granted, most of that comes from their choice of fish -- Spadefin, it's called, if you can believe it. \s[0]Well, I'm being unfair; we have Spadefin over here as well, on the northern coast and in the canal separating the two countries, but we never prepare it quite the same. Either way, the way they do it over there is just delicious... \s[1]oh dear, I'm rambling about food again, aren't I?! Alright, alright, I'll wrap it up...\n\n \s[0]"
+	
+	"Scavva has a few independent temples to Viro here and there, but the main one is located over in \_a[OnVelanne]Velanne\_a -- \s[1]looked after, of course, by my good friend \_a[OnWhoGuardians]Gio\_a\s[0]... still, the smaller temples in Scavva are very quaint! I love to visit the littler ones along the coast, always so beautiful. The architectural style is very unique; a mix of mud-brick and fragrant Olun Cypress, which grows natively along the Canal... \s[1]so very different than our coastal living spaces here in Kosanu! \s[0]Though I suppose that's a given; we would have to dig quite far into the earth to create mud-brick, and  I don't believe we have very durable clay beneath the ground here, like they do over in Paccevela... \s[3]goodness me, I go from food to architecture and I still end up ranting! \s[1] Sorry, sorry. I think that's all there is to know about Scavva... thank you for listening."
+	
+		if Flag("del") == 1 
+		{
+			"\n\n \s[1]...Oh, wait, one more fun fact, though I may have mentioned this already... this is where \_a[OnWhoDel]Del Noccione, Ace of Spades\_a, grew up! He lived in that little town I mentioned earlier, Alunocce... \s[0]we talked about it quite a lot, back before he ran off. \s[1]He always had the best restaurant recommendations... ehehe. Okay, \f[italic,1]now\f[italic,default] i'll quit yapping your ear off..."
+		}
+	--
+	"\n\n\n\![*]\q[More about Paccevela,OnPaccevelaBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+OnVelanne : all
+{
+	articleopencount++ 
+	"\0\s[0]\t\*"
+	--
+	"\0\s[0]Ah, Velanne... a beautiful place. Being on the eastern half of Paccevela, it's quite the trek for me to visit Velanne, \s[1]but it is well worth it!\n \s[0]The architecture here is stunning, the houses and shops are as diverse in height as the people -- some buildings are so short I hit my head on the ceiling, while others tower above the rest, their chapel-like rooves reaching up to mingle with the clouds. Stained glass is a staple here, whether in tiny forms -- like the front sign of a shop -- or, in the cases such as the Shrine of Paccevela, giant mosaic pieces... \s[1]when the light hits these fragile works of art just right, it's the most beautiful thing you could ever see.\n\n "
+	
+	"Truth be told, I don't visit Velanne too often; the general population there is of the upper class, something I deal with quite enough in my work as a Guardian... \s[3]they're not as bad as the Facecards, \s[1]but they certainly could learn some manners. \s[0]I only really go for the food, and to see \_a[OnWhoGuardians]Gio\_a. As such, I don't have much to say about the place, other than that it's very beautiful...\n My sincerest apologies for the short explanation, %(oomf)!"
+	--
+	"\n\n\n\![*]\q[More about Paccevela,OnPaccevelaBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+
+
+//lacerta
+OnSyk : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"Ah, Syk! \s[1]It's not the technical capitol of Lacerta -- that would be Iy -- but, culturally, I'd say it has much more sway than the latter. \s[0]It is the most densely populated city in Lacerta... they say, 'if you can make your way through Syk, you can make your way around anywhere in the country.' It's \f[italic,1]that\f[italic,default] crowded!.. \s[3]Hence why I don't visit unless I have to, \s[1]ehehe...\n\n \s[0]Syk is divided into three districts; the South District is the largest, serving as a shopping district. Malls, hotels and casinos are practically stacked on top of each-other... \s[1]oh, and a ton of movies are filmed here, so expect lots of celebrity sightings, too!..\n\n \s[0]The East District is the financial district, full of bustling office-workers... \s[1]and the occasional streetwalker, ha. I suppose it's not too surprising... those working in the financial district would need some 'relief,' too.\n\n \s[0]Last but certainly not least, the North District is the smallest of all, existing mostly as a residential area, but also a bustling red-light district. You couldn't turn a corner here without seeing a strip club...\w9\w9\s[1] or two\w3.\w3.\w3.\w9 \s[3]or\w3 five\w3.\w3.\w3.\w9\n \s[1]Anyways... the North District is a celebrated cornerstone of Lacerta, serving as a testament to Hearts culture's general sexual liberation. As the saying goes, 'Syk creates the culture...' \s[0]though, what it really means is \f[italic,1]North\f[italic,default] Syk creates the culture,\s[1] haha!\n\n \w9\w9\7Oh, me? Ha! I just go for the food. They make lots of spicy things, and their meats are very heavily seasoned, using a similar technique as in Ani'ani cooking... \s[1]In fact, that's probably the \f[italic,1]only\f[italic,default] attribute we Diamonds share with the Hearts in terms of culture, ehehe...\n\n "
+	
+	"\s[0]Back when I wrote more journalistic nonfiction as opposed to historical works, I had to go to Syk pretty often. I think my favourite thing about the city was the festivals. \s[1]Words cannot describe how lively and upbeat they are! \s[0]Pretty light shows, amazing food... strange, too. They'll fry just about anything you ask them to.\n ...On one hand, I'd love to go to a Sykae festival again, but on the other, \s[1]I think my guts would appreciate me staying far, far away from those food vendors..."
+	--
+	"\n\n\n\![*]\q[More about Lacerta,OnLacertaBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+OnIy
+{
+	articleopencount++ 
+	
+	"\0\s[0]\b2\t\*"
+	--
+	"Oh, Iy! Probably my favourite place in Lacerta -- it's near the center of the landmass, bordering Quatangu Loch, so its climate is... er, how should I say this...\w9\w6 well, \s[1]it's not so damn hot. The reason I even visit is simply because it's the \f[italic,1]one place\f[italic,default] in Lacerta where I don't have to \f[italic,1]strip down\f[italic,default] just to survive the weather...\n \s[0]Oh,\w4 right! Uhm,\w6 anyways... Iy is the sort of 'castle town' of Lacerta. The actual Palace is at the northwesternmost tip of Iy, somewhat close to the Academy... I stay far away from it, since the idea of running into \_a[OnWhoMadame]her Majesty\_a or any other nobility makes me nauseous... but, the outer rings are great.\n\n Ah, I should explain... the city is built in 'rings.' Though, they are... not actually circular. They are moreso 'rows,' but I will quit with the pedantics... er, right. The innermost ring -- 'Iy Palacca' -- is the smallest, but most intricate -- this is where the Madame and her family live, and where they hold certain events. It is almost entirely consumed by the Palace itself... however, some 'smaller' mansions border the outskirts of the Palace Gardens.\n\n The Second ring is for Jacks and other rich folk, nothing too interesting there. I once tried to visit it -- I had just gotten away from one of the Madame's feasts, and was trying to find real food. Couldn't find anything worth the money -- you know how snooty folk are, they think they can fill up on a quarter of a reasonable portion... I continued my search until I suddenly got escorted out by the royal police for... er,\w9 well,\w9 the reason they gave was\w9\w6 simply because I am a Pip? And I heard one mention something about me being a Diamond, as well...\w9\w6 suffice to say, I don't visit it much anymore. I would avoid it, if I were you. The food is \f[italic,1]not\f[italic,default] worth the hassle, and their customs are... archaic, to say the least.\n\n Anyway... the Third and Fourth rings are where Iy starts to shine -- when someone says 'Iy,' they are almost definitely talking about these two outermost rings...\n In common Lacertan fashion, there are folks of many walks of life here; not as much of a mixed bag as \_a[OnSyk]Syk\_a, but there are more than a few 'clusters' of other Suits living here. A small section of the city is nicknamed 'Velannicci' -- Pacce for 'little Velanne' -- due to the high population of Spades. 'Clovertown' is a cute little area as well; it's themed entirely around Aidhish tradition, and boasts a large population of Clubs. We Diamonds are spread so thin that we don't have a cute little area for ourselves in Iy... but! I was at least able to find a few restaurants serving authentic Ani'ani cuisine -- something you'd be hard-pressed to find off the island, let alone outside of Kosanu! And let me tell you, it was simply divine...\w9\w4 oh, whoops! I've gotten off-track, haven't I?... Er, right...\n\n Actually... that about wraps it up for Iy, really. If you ever visit, be sure to visit a few Kosani restaurants! You can report back to me if they strike your fancy..."
+	--
+	"\n\n\n\![*]\q[More about Lacerta,OnLacertaBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+
+
+//other shit
+//"\0\s[0]\t" -- "\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+OnWhatCard
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"\s[1]Oh, dear. Yes, I realize the word is somewhat strange; it confused me when I was learning Common, too...\n \s[0]'Card' is the proper descriptor for any person of \_a[OnWhatSuits]the four Suits\_a. \s[1]Essentially, it just... means the same as 'person.' I'm a Card, you're\w3 a Card\w9.\w9.\w9.\f[height,-2]\s[0] I think\w9.\w9.\w9.\f[height,default]\n Er, it's just a more formal word than 'person,' I suppose -- plus, it gets rid of any specificity of referring to one's Suit; rather than specifying I am a Diamond every time you speak of me,\s[1] you could instead \f[italic,1]shroud me in mystery\f[italic,default] and simply label me a 'Card.'\w3\s[0] On that note, if someone refers to 'Cards,'\w2 it's simply a more formal and respectful way of addressing a group of people, whether it consists of folks of differing Suits or not.\n\n\w6\s[1]\f[height,-2]Let's see, what do I remember about it from my classes... \s[3]I should know these things; I'm a translator, damnit...\f[height,default]\s[0] i-\w2it's capitalized to show respect,\w2 and,\w4 er...\n\n \w9\s[1]...I'm very sorry. The rules surrounding it are a bit vague; Common is a strange language.\s[0]\n\w8Some, like myself, just say it out of habit, ha! \s[1]We don't even know why... it is simply the 'proper' word you're taught in school -- always refer to your elders and superiors as such, et cetera... \s[0]\w4I think that's rather silly, though.\n\_w[1000] \s[1]...You may refer to \f[italic,1]me\f[italic,default] however you please. \w9\w9"
+	--
+	"\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("card article read") == 0; MiscFlags ,= "card article read"
+}
+
+OnWhatSuits : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"Hum... how to explain, how to explain... the concept of Suits altogether as Cards is quite strange, I am sure. As a small child, I thought we Diamonds were the only ones, until I travelled off the islands for the first time... what a shock! \s[1]Suffice to say, I understand your confusion.\n\n \s[0]I will start with the basics. There are four Suits; Diamonds, Spades, Clubs, and Hearts. \_a[OnWhatCard]We are altogether known as 'Cards,'\_a and we each inhabit a \_a[OnPlacesFAQ]Quadrant\_a on the landmass.\n We Diamonds are native, of course, to \_a[OnKosanuFAQ]Kosanu\_a; Spades, to \_a[OnPaccevelaFAQ]Paccevela\_a; Clubs reside in "
+	
+		//"\_a[OnAidhmooreFAQ]Aidhmoore\_a,"
+		"\f[color,disable]Aidhmoore\f[color,default],"
+
+	" and finally, Hearts in \_a[OnLacertaFAQ]Lacerta\_a.\n\n " // CHANGE THIS WHEN YOU ADD AIDHMOORE DAMMIT!!!
+	
+	"\s[1]I am a Diamond, and so I will start by telling you about my own Suit! \s[0]We Diamonds are often lanky, fuzzy folk\s[1]... our big, fluffy tails and ears are what often gives us away, as well as the prehensile little antennae on our heads\s[0]. Oh, right... I guess we generally have more eyes than the other Suits, too... \s[1]I always forget that! When I travel, I tend to wonder how everyone else sees, having only two or three... \s[0]ah, \s[3]I hope that isn't insensitive! \s[1]Ahem...\n We're generally more suited for colder environments, having hailed from a land of snow and ice. \s[0]Our Suit is represented, of course, by a four-pointed diamond shape, but we also tend to use the four-pointed star as a secondary symbol. \s[1]Much more artsy... ehehe. \s[0]The First Ace of Diamonds is \_a[OnWhoAlonaia]Alonai'a\_a -- we Diamonds hold the Firsts in much higher regard than the others tend to... \s[1]ehm, we have our reasons for doing so, but... that's irrelevant, for now.\n\n "
+	
+	"\s[0]Moving along... Spades, the Suit of Paccevela! Spades are often characterized by the richly coloured markings on their skin. The most common colours you will see is a primary cream or tan, fading to a beautiful jet black or dark blue colour along their limbs, almost like gloves or long socks... \s[1]very, very pretty! \w4\s[0]They also tend to have very large horns -- one such example is my good friend Gio, whose twisted horns wrap all the way 'round the back of his head, poking up around his face. \s13]With his beard and thick hair, I often imagine him as a fluffy little Sunnai... \s[3]but, he didn't seem to appreciate my comparison of his head to my neighbor's livestock, so... \s[1] \w8ehehe.\n \s[0]Their Suit is represented by a peculiar symbol, which looks a bit like an upside down heart with a trunk. Their First Ace is Viro, who many of its citizens don't care much for or know of... however, as you get close to the coast and further from the Facecards' iron grip, you may start to see more shrines and temples dedicated to Viro. \s[1]Gio, the Guardian of the Shrine of Paccevela, is the first of his lineage to truly spread the word that Viro was not as barbaric as the Facecards make him seem... and truly, what an accomplishment on his part! \s[0]I digress, however; I'm getting offtopic, rambling about my dear friend. Onto the other teachings, hm?\n\n "
+	
+	"Clubs, the suit of Aidhmoore, were also originally islanders -- as they are directly to the south of Kosanu, they were among the first to ever meet our own Suit, and we have been very close ever since. They, too, have big fluffy ears -- yet also, stubby little tails, very cute. They are shorter and much more stout than we Diamonds -- being tall even for my Suit, I tend to tower over them... \s[3]though, as their Suit is known for being very dense and muscular, I am sure many of them could take me down in seconds...\s[1] ehehe!\n \s[0]\w2The horns on their head often don't grow very much... \s[1]but, ehm, despite their size, they sure do hurt when a Club headbutts you! \s[3]I'll never forget the day Claris rammed her head into my side, as is a traditional friendly Aidhish greeting... \s[1]she had to carry me to a cot, I couldn't trust myself to walk!\n \s[0]Anyway... Clubs are represented by a little clover symbol, be it three-leafed or four. Their First Ace is Nore, who many on the mainland have forgotten... \s[1]however, their memory is alive and well on the Lamnthine Islands, where the Shrine of Aidhmoore resides.\n\n "
+	
+	"Lastly, the Lacertan Hearts, by far the most plentiful on the landmass. There is so much diversity in their appearance that it's hard to describe them, but they all have long tails -- some bare, some slightly fuzzy... most of them have horns which look a bit like the mandibles of certain insects, though they aren't prehensile like Diamonds' antennae are. Each -- \s[3]\w3well,\w8 \s[1]\f[italic,1]most\f[italic,default] Hearts have what is known as a "
+
+		//"\_a[OnWhatSykaeParasites]Sykae Parasite\_a,"
+		"\f[color,disable]Sykae Parasite\f[color,default]," // CHANGE WHEN YOU ADD SYKAE PARASITES
+
+	" \s[0]a secondary entity within some part of the host's body, usually a limb or eye or whatnot. Usually, they are silent and only speak... \s[3]ehm, I assume through brainwaves or somesuch, \s[1]with their host and no one else; others may speak using the mouth of their host, usually if that parasite is located near the face in some way; others still may 'speak' by emitting vibrations in the air using their host's flow. Very interesting!\n The First Ace of Hearts is Lairu. There is... \s[3]not much reverence held for them. Inola, the Guardian of the Shrine of Lacerta, gets the least amount of visitors of any shrine, despite the large population surrounding her temple. She... loves people, it's a shame she doesn't get to speak to like-minded folk more often. \s[1]\n Ehm... sorry, got offtrack. Right... \s[0]Hearts are represented by, well, a little love-heart. \s[1]Never would have guessed, would you? Ehehe...\n\n "
+	
+	"\s[0]I think that about sums it up, though. I hope my explanations suffice! \s[1]Of course, the best way to learn about the Suits is to immerse yourself in their culture, travel 'round the Quadrants, meet folks... \s[0]but, I understand if you'd rather learn some pointers before doing all of that. \s[1]It warms my heart that you would ask \f[italic,1]me\f[italic,default] to help you learn, %(oomf)."
+	--
+	"\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("suits article read") == 0; MiscFlags ,= "suits article read"
+}
+
+OnWhatFlow : all
+{
+	articleopencount++
+	
+	"\0\s[0]\t\*"
+	--
+	"Oh! Right, I forgot they don't teach this stuff in schools anymore..."
+	{
+		if talkcount < 5 || articleopencount < 3; " allow me to explain."
+		else; " I apologize, I've probably prattled on about flow and rank without thinking to explain them!"
+	}
+	"\n\n 'Flow' is the ability to harness the energy in your body, and use it to affect the world around you. It has a physical presence in your body, and can be seen by a special type of people, aptly named 'Seers...' more on them in a moment.\n\n Your 'rank' is a title given to you by a Seer at a certain age -- that age depends on which Quadrant you're in, how far away you are from the mainland, if your family is nobility... et cetera.\n A Seer will 'read' the flow of energy within your body, and assign you a number. Now, that specific number is secret -- only the government knows it -- but they will tell you whether you are a Pip or a Jack... or, well, there's Aces, too, but... \s[1]ehm, that's complicated. We will get to them another time. There's only four every hundred or so years, so they're not too important to explain right now...\n\n \s[0]Anyways!.. Pips are 'normal folk,' like you and I. We have very little flow, and many of us can barely use spells -- if at all. For us, the names 'rank' and 'flow' are somewhat interchangeable, and many won't get on your case if you accidentally say one when you meant the other.\n A Jack, on the other hand, is \f[height,-1]\w2almost\w2\f[height,default] any Card that has high flow. Freshly-read Jacks, even if they are the poorest of the poor, get sort of... forced into nobility. The civilian population is, in a way, artificially tampered with to keep the average flow low... \s[3]this is done to keep the physically stronger Cards in power, and anyone weak is left to fend for themselves. It is... a cruel system.\n\n \s[1]Right... um, Facecards are a Rank, \s[0]but being a Facecard is not really based on flow. Being a 'Facecard' simply means you are part of one of the four royal families. Due to having good genetics \f[height,-2]\w3\s[3]...as well as, up until recently, quite a bit of 'keeping it in the family,' in the case of Hearts' and Spades' royal families,\w2\s[0]\f[height,default] the Facecards \f[italic,1]do\f[italic,default] tend to have very high flow, but... \s[1]it's not required. It's simply a title. As much as they don't want to admit it, royals are simply people, just like us.\n\n \s[0]"
+
+	"To make it short... Flow is innate, and Rank is governmental. \n\s[1]The way I see it, neither matter at all. We are all people, and we are all good at different things. The fire burning within you is bright, no matter the strength of the kindling. \n \s[0]...I hope my explanation suffices, %(oomf)."
+	-- 
+	"\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("flow article read") == 0; MiscFlags ,= "flow article read"
+}
+
+/* OnWhatMonarchCycle
+{
+	articleopencount++
+} */
+
+OnWhoGuardians; { OnWhatGuardianship } //since i keep fucking typing it like that
+OnWhatGuardianship : all
+{
+	articleopencount++
+	
+	"\0\s[0]\b2\t\*"
+	--
+	"\0\s[1]I realize I should explain Guardianship... \s[0]I'd say it's a bit of a niche and novel concept, but really, the Guardians have been around just as long as the Aces. It's just that we are, well... less powerful, less important. \s[1]I like it that way, really...\n \s[0]The first Guardians were each granted divinity by their respective First Ace. This divinity simply grants us the ability to control the energy of the temples we take care of, as well as any other shrines within that suit's 'jurisdiction,' so to speak. It can also grant you a longer lifespan, if you're lucky! Biologically speaking, it is a physical 'piece' of the First's flow, implanted within us and acting as a sort of 'key' for the shrines. Though... flow is -- in its natural state -- invisible, so this may seem like a bit of a silly explanation. I simply view it as a blessing; easier to explain that way...\n\n "
+	"Guardianship -- and that divinity along with it -- is passed down when the current Guardian passes away. Furthermore, each Guardian keeps pupils, training them so that, when the time comes, their students may take on a set of ceremonial trials and claim Guardianship.\n This ceremonial training can take anywhere from one to five years, and it can be\w2.\w2.\w2. \w9\s[1]pretty\w3 harrowing. \s[0]The intensity varies based on the suit, but... my goodness! \s[1]The Paccevele Shrine's training is... almost violent! Lacertan training is also very dangerous, as it involves learning to channel the energy of the Black Desert. \s[3]It is... sometimes a wonder to me that the students make it out at all. \s[1]Anyways...\w9 \s[1]questions?\n\n "
+	"...Oh? When did \f[italic,1]I\f[italic,default] go through training?.. \s[1]Ehm\w2.\w2.\w2. \w9long ago! \s[0]Before they started keeping track, ahaha... \s[3]er, \w9anyways, \s[1]I should tell you of the others...\n\n \s[0]"
+	
+	"Claris Dorsch is the Guardian of the Shrine of Aidhmoore, or simply the 'Shrine of Clubs.' The Shrine is located on \_a[OnLamnthe]the island of Lamnthe,\_a\s[1] and she keeps it very tidy and nice! \s[0]She has been the Guardian for around 50 years now. I am good friends with all of the Guardians, \s[1]but it is easiest to visit Claris, so we see eachother a lot! \s[0]Because of an injury she sustained when she was very young, I help out around the shrine quite a bit during Newbloom -- its busiest season... we have a lot of time to chat during then.\n\n "
+	
+	"Gio Lansione is the Guardian of Paccevela, or Spades. The Shrine is located in \_a[OnVelanne]Velanne Arona\_a"
+		--
+		if Flag("paccevela town grammar") == 1; ", a very pretty town...\n "
+		else; " \f[height,-2]...er, that's a town in Velanne; in Paccevela, the state name goes before the town name. Anyways... \f[height,default]\n "
+		--
+	"\s[1]Sir Lansione and I are very good friends, as well! We bond, of course, over our shared knowledge of Viro and Alonai'a... \s[0]though, Gio is more of a fighter than a scholar. \s[1]He himself is surprised he claimed Guardianship over his peers! \s[0]Though I suppose it makes sense, seeing as the Paccevele ceremonial training is so physically demanding. \s[3]A bookworm like myself could never make it through the spars the students must complete...\w6\s[1] haha!\n \w9\s[0]Gio and I don't visit often, despite our proximity. We prefer to write eachother letters... in reality, \s[1]I think he just dislikes marching through the sickening cold to come see me, ha! \s[0]I don't blame him; I avoid travelling to Velanne for... \w9\s[3]other\w9 reasons. We\w9 will just say that the general population of the state is\w2.\w2.\w2. not too keen on Diamonds being there. \w9\w9\s[0]Gio is not like that, though! \w9\s[1]He is a very kind man.\n\n \s[0]"
+	
+	"Last but not least... Inola Reed is the Guardian of the Shrine of Lacerta, or Hearts. The Shrine is located in Chiluno, a small town with close proximity to the \_a[OnBlackDesert]Black Desert.\_a \f[italic,1]Despite\f[italic,default] its proximity to the Desert, the Shrine Guardian works with the temple's energy to keep Chiluno a calm and pleasant place to live -- \s[1]not an easy feat! \w9\s[0]Inola, though young, has probably the most difficult job out of all of us -- \s[3]along with perhaps myself. \s[0]Where I must stave off the energy-sapping characteristics of the Kyone, \s[1]Inola must work with the hazardous energy spikes of the Desert; \s[3]something that can kill someone without the divinity we Guardians possess. \s[1]She is very brave to take on this job.\n\n "
+	
+	"\w9\w9...Thank you for letting me tell you about my job, and my friends! I care about all of this very deeply. Any questions you may have are mine to answer! \w9"
+	--
+	"\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+	
+	if Flag("claris") == 0; MiscFlags ,= "claris"
+	if Flag("inola") == 0; MiscFlags ,= "inola"
+	if Flag("gio") == 0; MiscFlags ,= "gio"
+	
+	if Flag("paccevela town grammar") == 0; MiscFlags ,= "paccevela town grammar"
+
+}
+
+OnWhatSykaeParasites // toupdate
+{
+	""
+	--
+	"\n\n\n\![*]\q[More miscellaneous information,OnStuffBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+// FUN FACTS YESSSSS SFUCCKJCKJK FUCKI LOVBE FGUN FACTSS YESSSSSSSSS screams and tears my shirt off
+OnFunFact
+{
+	funfactcount++
+	if RAND(3) == 0 { if trust <= 250; trust++ }
+
+	"\t"
+	--
+	FunFact
+	--
+	"\w9\w9\n\n\n\![*]\q[Tell me another fun fact!,OnFunFact]\n\![*]\q[Thank you,Cancel]\n"
+}
+
+FunFact : nonoverlap_pool
+{
+	"I will tell you about my favourite native Kosani animal, the Kikuminu! It is a fluffy little thing... they are native to the Ani'ana Prefecture of Kosanu, but are also a common pet throughout the landmass. They are quadrupedal, with huge ears on the tops of their heads, ha!\n Diamonds and Kikuminu share many attributes -- Kikuminu, too, have bushy tails and small paws. However, they only have two eyes -- poor little things. I wonder how they see!\n\n Kikuminu are colourblind -- though, I suppose that doesn't matter much, being native to an environment with primarily white and blue... ehehe!\n Their sense of smell is extremely acute, as well as their hearing -- another attribute we share.\n\n They are omnivores, but prefer a meaty diet... wild Kikuminu have very sharp teeth to hunt prey, while more domesticated lines have tended towards duller, slightly shorter teeth. There exist a few coat variations in both colour and length, but most are a pale white... as well as extremely fluffy, ehehe.\n\n They are semi-aquatic; in their natural state, they spend about 40% of their time in the water, hunting aquatic prey and... well, seemingly just swimming around for the hell of it.\n\n They're very cute... the lady who owns the fish market over in Okkai has a really friendly one, you should ask to pet it sometime!"
+	
+	"I'll tell you about a common livestock animal native to Kosanu: the Sunnai. You've probably seen them... my neighbors have a huge flock of them, you'd have to pass their pasture every time you come here from town. They're the big, fat wooly things that flop around...\w9\w9 yes, yes, the ones with the big curly horns! Those are domestic Sunnai, omnivorous semi-aquatic animals native to the Shui'o Nui and Ani'ana Prefectures of Kosanu.\n\n Thousands of years ago, our ancestors hunted wild Sunnai for their horns. These horns were made into the hilts of weapons, since they're curved to the perfect contour of the hand, very nice to hold... I happen to have a sword fashioned with a Sunnai horn as the hilt, haha.\n The Sunnai were also hunted for their fatty blubber, to make candles as well as to use as a base for soups.\n\n Wild Sunnai are very aggressive, which led to the death of many hunters at the time; eventually, however, some brave soul learned...\w9\w6 somehow...\w9\w6 that you can actually milk them!\w5 And on top of that, they learned that the milk was \f[italic,true]absolutely delicious\f[italic,false]. This made people start to realize, 'ah, maybe we should domesticate these animals,' something that was... easier said than done, to say the least.\n Starting somewhere around a thousand years ago, the Sunnai were finally able to be wrangled, and slowly became less aggressive as they warmed up to Cards. Today, some are raised for their milk, but others are raised to output as much blubber as possible -- if you ever see a pasture full of absolutely \f[italic,true]rotund\f[italic,false] Sunnai, they are most likely being bred specifically for their blubber, ha!\n The horns are harvested at death, and are now used to make tools and such...\n\n The wild Sunnai population has also recovered very well. You can find a great lot of them if you travel up to the coast of Shui'o Nui Prefecture in the Selyr... if you go at the very beginning of Moonfall, you may be able to witness the herds all gathering for their migration southeast to Quatangu Loch. Truly, an amazing sight... just don't let them spot you, ha! The wild ones are still a bit mean...\n\n If you ever get the chance to try blubber-base stew, you should! It is very tasty, and it goes great in a nice, crispy bread bowl... truly divine."
+	
+	"Ooh, I have a good one... I'll teach you about one of my favourite snacks, the Clarenchetti biscuit.\n \s[0]Back about three hundred years ago, in the Seventeenth Age, a famous Scavve confectioner was visiting the city of Iy, Lacerta. Iy is famous for its spicy foods, so the sweet-toothed confectioner was having a difficult time getting through each meal... his husband -- a Heart, for context -- laughed at him, telling him that he should stick to milder foods. The confectioner took this as a challenge, of course, and started thinking of ways he could prove his beloved wrong... \n He took some of the leftovers back to the inn they were staying at, and asked to use their kitchen -- they obliged, as his reputation preceded him. By mixing a sugary concoction with the spicy pepper paste from his previous meal, he created a sweet-and-spicy coulis -- er, that's a fancy word for 'fruit sauce' -- and sandwiched it neatly between two biscuits. A craze was born; people couldn't stop mixing sweet and spicy! Many new and interesting Scavve-Iyal fusion dishes were created during this time, such as sweet noodles -- which, yes, we Diamonds discovered hundreds of years before them... but the Iyal version tastes quite different, so I can't blame them for taking credit, ehehe! \n\n The snack is traditionally stamped with a mixed Heart and Spade symbol. This represents the confectioner and his husband's relationship, which sparked the ordeal... so cute!"
+	
+	{
+		"Hehe, since you are not Kosani, perhaps I can finally find a use for all these trivial facts about Diamond biology...\n Did you know that these little antennae on my head are actually prehensile? Yes, yes... er, I won't demonstrate, as mine are quite frail -- I'm old, after all... but! They can move around, and the tips can even bend to hold things..!\n They were more useful when we lived underground; in the rare event of the cave being too dark, our ancestors grasped small torches with their antennae, leaving their hands free to climb or carry things.\n\n As time has gone on, and as we exercised our little 'head hands' less, they have... evolved backwards, so to speak. Adapted their way out of being useful... now we mostly just put jewelry on them! Still, I think it's an interesting little feature.\n ...And, if you're around folks who aren't aware they can move, you can freak them out a bit by wiggling the antennae around. \s[1]Always a fun thing to do at parties, when it's in need of a bit of chaos... ehehe."
+	
+		if Flag("underground") == 0; MiscFlags ,= "underground"
+	}
+	
+	{
+		"Ah, did you know that Diamonds' eyes are especially sensitive to light?\w6 Yes, hehe... we can see quite well in the dark because of it. A Spade friend of mine visited the shrine recently, and asked why I keep it so dimly lit... it surprised me, because I was about to complain about the room being too bright, haha!\n\n Our sensitivity to light seems to surprise some people, since we live in bright, shining snow... indeed, snow blindness is an issue we face quite a bit. Thankfully, however, we have masks and special glasses we can wear if we plan on being outside for long periods of time... some are even quite stylish.\n Personally, I dislike them... not too comfortable, in my opinion. I prefer the more archaic option; our ancestors created hooded cloaks with sheer dark veils, like curtains for your face! They're a lot cozier than the glasses, some even have pretty designs... lace veils, for example. Very fashionable.\n\n We evolved to have good night vision because, "
+			--
+			if Flag("underground") == 0; "long ago, "
+			else; "as you know, "
+			--
+		"we actually dwelled far underground, in cozy little caves. We came out onto the surface only at night, to hunt and harvest crops. Unfortunately, an earthquake caused the population to migrate outdoors about three thousand years ago... because the earthquakes have continued, we have been surface-dwellers ever since.\n Perhaps some day, the quakes will cease, and we will retreat underground again... I doubt it, though. Life is much easier on the surface."
+		
+		if Flag("underground") == 0; MiscFlags ,= "underground"
+	}
+}
+
+// fun fact for you, since you're dedicated enough to come all the way down here and read this. 'Kokuyo' is shortened from 'Kokuyōseki,' the japanese word for 'obsidian;' this is both because it is a sick fuckin rock (which i often name Diamond characters after, for obvious reasons), and also as a nod to Obsidian.md, the software i write lore in. enjoy this knowledge, teeeheee

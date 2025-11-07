@@ -1,0 +1,19 @@
+charset,UTF-8
+
+name,Guardian Kokuyo
+type,ghost
+
+shiori,yaya.dll
+
+craftman,trans.lucence
+craftmanw,trans.lucence
+craftmanurl,https://github.com/trans-lucence/Guardian-Kokuyo.UKGK
+
+sakura.name,Kokuyo
+sakura.name2,Wanderer
+
+balloon,Stars of Kosanu
+
+icon,icon.ico
+
+sstp.allowunspecifiedsend,0

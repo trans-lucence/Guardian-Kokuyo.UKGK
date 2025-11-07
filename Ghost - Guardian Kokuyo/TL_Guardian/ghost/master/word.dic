@@ -1,0 +1,287 @@
+
+oomf // the wordgroup that makes my code fucking unreadable to anyone who doesn't have immense internet-induced brain damage
+{
+	if (uphours_total >= 50 && talkcount >= 250) || trust >= 200; "my friend"
+	elseif (uphours_total >= 5 && talkcount >= 50) || trust >= 20; "friend"
+	else; "stranger"
+}
+
+zeazon // it;s just called this so it doesnt fuck with a command that i   Think? already exists? i dont know i dont really care i just think 'zeazon' is funny. imagine a little green alien saying it ok
+{
+	"Moonfall" //winter, represents diamonds
+	"Newbloom" //spring, represents clubs
+	"Selyr" //summer, represents hearts
+	"Nove" //autumn, represents spades
+}
+	zeazons
+	{
+		"Moonfalls"
+		"Newblooms"
+		"Selyra" // fuck you selyr and nove for having a different plural form and making me write an entire different wordgroup for seasons plural i HATE YPOU!!1! (<- guy who made it that way)
+		"Novae"
+	}
+
+c.zeazon
+{
+	case monthslot
+	{
+		when "winter"; "Moonfall"
+		when "spring"; "Newbloom"
+		when "summer"; "Selyr"
+		when "autumn"; "Nove"
+	}
+}
+	c.zeazons
+	{
+		case monthslot
+		{
+			when "winter"; "Moonfalls"
+			when "spring"; "Newblooms"
+			when "summer"; "Selyra"
+			when "autumn"; "Novae"
+		}
+	}
+
+friend : pool
+{
+	"my friend from %(place)"
+	"my friend %(name)"
+	"%(name)"
+	
+	if Flag("claris") == 1 || Flag("inola") == 1 || Flag("gio") == 1; "%(guardian)"
+}
+	guardian : pool
+	{
+		if Flag("claris") == 1; "Claris"
+	
+		if Flag("inola") == 1; "Inola"
+	
+		if Flag ("gio") == 1; "Gio"
+	}
+	
+	name
+	{			
+		if RAND(4) == 0 
+		{ 
+			_n2.1 = name2
+			_n2.2 = name2
+			while _n2.1 == _n2.2; { _n2.2 = name2 }
+	
+		
+			"%(name1)" + "%(_n2.1)" + "%(_n2.2)" 
+		}
+
+		else; "%(name1)" + "%(name2)"
+	}
+		name1
+		{	
+			"A"
+			"E"
+			"I"
+			"O"
+			"U"
+				"La"
+				"Le"
+				"Lu"
+				"Lei"
+				"Lo" // giggles
+			"De"
+			"Ko"
+			"Kei"
+			"Tre"
+			"Vonse"
+			"Vese"
+			"So"
+			"Se"
+			"Sa"
+			"Moe"
+			"Ly"
+			"Ale"
+				"Mi" // cackles knowingly
+				"Re"
+		}
+		name2
+		{
+			"ra"
+			"lle"
+			"le"
+			"lla"
+			"la"
+			"mio"
+			"ka"
+			"kha"
+			"ke"
+			"khe"
+			"mine"
+				"ko" // heheh
+				"shi"
+				"i"
+		}
+
+//
+
+tea
+{
+	"a %(atea)"
+	"an %(antea)"
+	--
+	" %(teatype) tea"
+}
+	teatype
+	{
+		"black"
+		"white"
+		"green"
+		"spice"
+	}
+		atea
+		{
+			"robust"
+			"rich"
+			"delicate"
+			"floral"
+			"mellow"
+			"strong"
+			"mild"
+			"bright"
+		}
+			antea
+			{
+				"aromatic"
+				"earthy"
+				"airy"
+			}
+// i did all of the tea-related word groups while i was fucked up on benadryl due to cat allergy. i do not recall making it that needlessly robust. but i did. thank god for antihistamines?
+
+snack
+{
+	"snowberry biscuit"
+	"biscuit"
+	"cookie"
+	"rootsnap biscuit"
+	"Clarinchetti biscuit"
+}
+	snacks; { "%(snack)s" }
+
+cooked
+{
+	"roasted"
+	"smoked"
+	"broiled"
+	"blackened"
+	"steamed"
+}
+
+fish // the wordgroup that caused me to go on a 5 minute long voicemessage rant that ended up sounding like an angry jerma clip
+// a short excerpt: "IT DOESN'T FUCKING. MATTER. THAT YELLOWFIN IS A REAL FUCKING FISH. OKAY? IT DOESN'T MATTER. NOBODY CARES. why am i-     nobody...nobody even.why am i getting defensive. nobody even- (audibly shifts in my chair, i'm now doing the shinji chair pose) nobody fucking *said* anything about the fucking- oh my god. this project is *doing* something to me.    I'm  losing it. I'm actually fucking losing it. It's over."
+{
+	"Spadefin"
+	"Saltscale"
+	"Slothfin"
+	"Wintertail"
+	"Springfin"
+	"Redtail" // also a real fish btw
+	"Yellowfin" // this caused me inner torment
+	"Wheattail"
+	"Ricescale"
+}
+
+root // my worldbuilding revolves almost entirely around food
+{
+	"lichroot"
+	"longtail root"
+	"wedgeflower"
+}
+// vegetable
+// {}
+// fruit
+// {}
+food.adj
+{
+	"dried"
+	"fresh"
+	"dehydrated"
+}
+
+backlog // all of these have lore HELP i hate my stupid ass brain
+{
+	"the Seven Aidhish Trials"
+	"the Lornae"
+	"Born Levea"
+	"Nihila's Descent"
+}
+
+place
+{
+	"Alunocce"
+	"Arona"
+	"Chiluno"
+	"Iy"
+	"Ani'ana"
+	"Lamnthe"
+	"Mehakkai"
+	"Okkai"
+}
+
+//
+number.m // number most
+{
+	"%(number.low)"
+	"%(number.med)"
+	"%(number.high)"
+}
+number.a // number all 
+{
+	"%(number.m)"
+		"%(number.ot)"
+}
+	number.low
+	{
+		"one"
+		"two"
+		"three"
+	}
+	number.med
+	{
+		"four"
+		"five"
+		"six"
+	}
+	number.high
+	{
+		"seven"
+		"eight"
+		"nine"
+	}
+		number.ot // number over ten
+		{
+			"ten"
+			"eleven"
+			"twelve"
+		}
+fuckin // i have no recollection of makign this wordgroup help what when did this get here :sob:
+{
+	"blasted"
+	"damned"
+	"accursed"
+	"confounded"
+}
+hm // my favourite fucking word group ever 
+{
+	"hum"
+	"humm"
+	"hummm"
+	"hmmm"
+	"hmm"
+	"hm"
+}
+ow // this was originally for needle poke dialogue before my PMS kicked in and i started Actually Crying at the thought of someone purposefully hurting kokuyo. so! i changed the poke dialogue to be more wholesome and cute. i use this word group a few times still, though
+{
+	"ah, ouch"
+	"ow"
+	"oww"
+	"ah, ow"
+	"ech"
+	"ach"
+	"ouch"
+}

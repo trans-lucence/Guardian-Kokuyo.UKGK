@@ -1,0 +1,26 @@
+		
+	// "Oh, um... that is it for the tour, I'm afraid.\n\n \![quicksection,true]\![*]\q[What about your bedroom?,OnBedroomQuestion]\n\![*]\q[Thank you for the tour,OnNoBedroomQuestion]"
+		OnBedroomQuestion
+		{
+			"M-\s[3]\w8my bedroom?! Ah... I must\w7 forgive you\w3 for\w2 not knowing\w2 the...\w9 cultural\w2 taboos.\w9\n ...You\w4 are not from\w2.\w2.\w2.\w6 around here\w2.\w2.\w2.\w9\nAhem.\w6 \s[1]N-\w8no, you\w2.\w2.\w2.\w8 cannot\w5 see my bedroom.\n \w2.\w2.\w2.My apologies."
+			--
+			"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+		}
+		OnNoBedroomQuestion
+		{
+			"\s[1]Why, of course! It would be rude to invite you into my home, only to not show you around. I hope you can make yourself comfortable here."
+			--
+			"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
+		}
+
+qyes
+{
+	"Indeed"
+	"Yes"
+}
+qno
+{
+	"Not really"
+	"No"
+	"Not particularly"
+}

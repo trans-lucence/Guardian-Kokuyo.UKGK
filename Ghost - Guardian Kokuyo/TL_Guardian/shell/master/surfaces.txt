@@ -1,0 +1,98 @@
+
+descript
+{
+	version,1
+}
+
+//—————————————————————————————— MAIN SURFACE ——————————————————————————————
+surface0
+{
+
+	//BLINKING
+	animation0.interval,random,9
+	animation0.pattern0,overlay,4001,0,0,0
+	animation0.pattern1,overlay,4002,60,0,0
+	animation0.pattern2,overlay,4003,80,0,0
+	animation0.pattern3,overlay,4004,90,0,0
+	animation0.pattern4,overlay,4003,200,0,0
+	animation0.pattern5,overlay,4002,80,0,0
+	animation0.pattern6,overlay,4001,60,0,0
+	animation0.pattern7,overlay,-1,100,0,0
+	
+	
+	//TALKING
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,3001,0,0,0
+	animation2.pattern1,overlay,3002,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,3001,0,0,0
+	animation3.pattern1,overlay,3002,0,0,0
+	animation3.pattern2,overlay,3001,0,0,0
+	animation3.pattern3,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,3002,0,0,0
+	animation4.pattern1,overlay,3001,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+	
+	//opening eyes
+	animation5.interval,runonce
+	animation5.pattern0,overlay,4004,0,0,0
+	animation5.pattern1,overlay,4003,40,0,0
+	animation5.pattern2,overlay,4002,50,0,0
+	animation5.pattern3,overlay,4001,70,0,0
+	animation5.pattern4,overlay,-1,70,0,0
+	//EAR FLAPPING
+	// animation0.interval,random,15
+	// animation0.pattern0,overlay,surfacepng,0,0,0
+	// animation0.pattern1,overlay,-1,100,0,0
+	
+	
+}
+
+
+//—————————————————————————————— EYES CLOSED ——————————————————————————————
+surface1
+{
+	
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface4004.png,0,0
+	
+	//CLOSING EYES
+	animation0.interval,runonce
+	animation0.pattern0,overlay,4001,0,0,0
+	animation0.pattern1,overlay,4002,70,0,0
+	animation0.pattern2,overlay,4003,80,0,0
+	animation0.pattern3,overlay,4004,90,0,0
+	
+	//TALKING
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,3001,0,0,0
+	animation2.pattern1,overlay,3002,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,3001,0,0,0
+	animation3.pattern1,overlay,3002,0,0,0
+	animation3.pattern2,overlay,3001,0,0,0
+	animation3.pattern3,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,3002,0,0,0
+	animation4.pattern1,overlay,3001,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+
+}
+
+surface3
+{
+	element0,overlay,surface3.png,0,0
+}

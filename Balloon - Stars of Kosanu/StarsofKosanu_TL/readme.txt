@@ -1,0 +1,1 @@
+This balloon is meant mostly for Kokuyo Kinoya/the Guardian... but it's general purpose as well, if you like how it looks. Enjoy!

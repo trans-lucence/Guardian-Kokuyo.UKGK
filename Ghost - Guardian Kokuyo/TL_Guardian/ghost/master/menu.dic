@@ -1,0 +1,569 @@
+backbuttons : all
+{
+	"\n"
+	
+	"\![*]\q[Back to Menu,OnMenu]\n"
+	"\![*]\q[Nevermind,CANCEL]\n"
+}
+
+MenuGreetings : nonoverlap
+{
+	{
+		"\![no-autopause]"
+		--
+		"\s[1]"
+		"\s[0]"
+		--
+		"Hmmm..?"
+		"Ah, how can I help you?"
+		"Yes?"
+		"Mhm..?"
+		"What is it that you need?"
+		--
+		"\n\n"
+	}
+}
+
+OnSakuraMenu { OnMenu }
+
+OnMenu : all
+{
+	_cloc = ""
+	if locslot == "home"; _cloc = "At home"
+	elseif locslot == "shrine"; _cloc = "At the shrine"
+	else; _cloc = "Traveling"
+	
+	
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; MenuGreetings
+
+	--
+	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]"
+	--
+	
+ 	"\![*]\q[Fill the silence,OnAiTalk]"	
+		if LastTalk != ""
+		{
+		  "\n\![*]\q[Could you repeat that?,OnLastTalk]"
+		}
+		
+	"\n\n"
+
+	"\![*]\q[Tell me about... (Dictionary),OnFAQ]\n"
+	"\![*]\q[Tell me a fun fact!,OnFunFact]\n"
+	
+	"\n"
+	
+	if Flag("suggested complete") != 1 && suggested_on == 1; { "\![*]\q[Suggested actions,OnSuggested]\n" }
+	else; ""
+	"\![*]\q[Tidbits and Secrets,OnSecretsMenu]\n"
+	"\![*]\q[Statistics,OnStats]\n\n[half]"
+		"\![*]\q[Settings,OnMetaMenu]\n"
+
+	"\n"
+	
+	"\![*]\q[Say goodbye,OnGoodbye] \f[height,-2](closes ghost!)\f[height,default]\n"
+ 	"\![*]\q[Close Menu,CANCEL]\n\n[half]"
+
+	"\f[height,-2]\f[italic,1]Current location: %(_cloc)\f[height,default]\f[italic,default]"
+	
+	LoadFlags
+}
+
+OnTest : all //: nonoverlap_pool
+{	
+	dts
+}
+
+OnSuggested : all // i can't tell you how many times i beat my head against various objects when i was implementing this
+{
+	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]"
+	--
+	// ABOUT KOKUYO PHASE (persists)
+	if Flag("about kokuyo phase complete") == 1; ""
+	
+	else
+	{
+		"\f[height,+2]About Kokuyo\f[height,default]\n\n[half]"
+		
+		if Flag("who article read") == 0; "\![*]\q[Ask about the Guardian,OnWhoGuardian]"
+			else; "\f[color,disable]\![*]Asked about the Guardian.\f[color,default]"
+		"\n"
+		
+		if Flag("home article read") == 0 && Flag("shrine article read") == 0
+		{
+			if locslot == "home" || locslot == "shrine"
+			{
+				"\![*]\q[Ask about where you are,OnWherearewe]\n"
+				--
+					if locslot == "home"; "\![*]\q[Ask about the shrine,OnNotShrine]"
+					elseif locslot == "shrine"; "\![*]\q[Ask about Kokuyo's home,OnNotHome]"
+			}
+				else
+				{
+					"\![*]\q[Ask about the shrine,OnNotShrine]\n"
+					"\![*]\q[Ask about Kokuyo's home,OnNotHome]"
+				}
+		}
+			elseif Flag("home article read") == 1 && Flag("shrine article read") == 1; "\f[color,disable]\![*]All locations discovered.\f[color,default]"	
+		
+			elseif (Flag("home article read") == 1 && Flag("shrine article read") == 0) || (Flag("shrine article read") == 1 && Flag("home article read") == 0)
+			{	
+				"\![*]1/2 locations discovered. Try asking "	
+					if Flag("home article read") == 0
+					{
+						if locslot == "home"; "\_a[OnWherearewe]where you are right now\_a."
+							else; "\_a[OnNotHome]about the Guardian's home.\_a"
+					}
+					elseif Flag("shrine article read") == 0
+					{
+						if locslot == "shrine"; "\_a[OnWherearewe]where you are right now\_a."
+							else; "\_a[OnNotShrine]about the Shrine.\_a"
+					}
+			}
+			"\n\n"
+		
+		if Flag("who article read") == 1 && Flag("home article read") == 1 && Flag("shrine article read") == 1 
+			{	if Flag("about kokuyo phase complete") == 0; MiscFlags ,= "about kokuyo phase complete"	}
+			
+	}
+	
+	
+	// BASICS PHASE 
+	if Flag("basics phase complete") == 1; ""
+	
+	else
+	{
+		"\f[height,+2]Basics\f[height,default]\n\n[half]"
+		
+			if Flag("card article read") == 0; "\![*]\q[Ask about Cards,OnWhatCard]"
+				else; "\![*]\f[color,disable]Asked about Cards\f[color,default]"
+			"\n   "
+			
+			if Flag("flow article read") == 0; "\![*]\q[Ask about flow and rank,OnWhatFlow]"
+				else; "\![*]\f[color,disable]Asked about flow and rank\f[color,default]"
+			"\n   "
+			
+			if Flag("suits article read") == 0; "\![*]\q[Ask about the Suits,OnWhatSuits]"
+				else; "\![*]\f[color,disable]Asked about Suits\f[color,default]"
+			"\n\n"
+			
+			
+			
+				if Flag("flow article read") == 1 && Flag("card article read") == 1 && Flag("suits article read") == 1 
+				{	if Flag("basics phase complete") == 0; MiscFlags ,= "basics phase complete"	}
+	}
+	
+	// PEOPLE PHASE
+	if Flag("people phase complete") == 1; ""
+	
+	elseif Flag("people phase complete") == 0
+	{
+		"\f[height,+2]People of Interest\f[height,default]\n\n[half]"
+		
+		if Tidbit("gio") == 0 || Tidbit("claris") == 0 || Tidbit("inola") == 0; "\![*]\q[Ask about Kokuyo's job and friends (Guardians),OnWhatGuardianship]"
+			else; "\![*]\f[color,disable]Asked about the Guardians\f[color,default]"
+		"\n"
+		
+		if Tidbit("nore") == 0 || Tidbit("lairu") == 0; "\![*]\q[Ask about the Firsts,OnWhoFirsts]"
+			else; "\![*]\f[color,disable]Asked about the Firsts.\f[color,default]"
+		"\n     "
+			
+				if Tidbit("alonai'a") == 0 || Tidbit("viro") == 0; "\![*]\q[Ask about Alonai'a and Viro,OnWhoAlonaia]"
+					else; "\![*]\f[color,disable]Asked about Alonai'a and Viro.\f[color,default]"
+		"\n"
+		
+		if Tidbit("madame") == 0; "\![*]\q[Ask about the Madame,OnWhoMadame]"
+			else; "\![*]\f[color,disable]Asked about the Madame\f[color,default]"
+		"\n\n"
+		
+		
+		if Tidbit("gio") == 1 && Tidbit("claris") == 1 && Tidbit("inola") == 1 && Tidbit("alonai'a") == 1 && Tidbit("viro") && Tidbit("nore") == 1 && Tidbit("lairu") == 1 && Tidbit("madame") == 1
+		{ if Flag("people phase complete") == 0; MiscFlags ,= "people phase complete" }
+
+	}
+	
+	backbuttons
+	
+	if Flag("about kokuyo phase complete") == 1 && Flag("basics phase complete") == 1
+	{ if Flag("suggested complete") == 0; MiscFlags ,= "suggested complete" }
+}
+
+//achievements
+
+OnStats : all
+	{
+		if trust > 250 { trust = 250 }
+		
+		"\0\s[0]\b[2]\![no-autopause]\![quicksection,true]\t"
+		
+		if uphours_total >= 1
+		"\![*] %(uphours_total) hours"
+		--
+		if uphours_total >= 24
+		{
+		", or " + uphours_total / 24 + " day"
+			--
+			if uphours_total <= 48; ""
+			else; "s"
+			--
+		}
+		else; ""
+		--
+		" total spent with the Guardian.\n\n"
+		
+		--
+
+		if trust >= 1
+		{
+			"\![*] 'Trust' stat at %(trust).\n\n"
+		}
+		
+		--
+
+		if talkcount >= 1
+		{
+			"\![*] Random dialogue played %(talkcount) times.\n\n"
+		}
+		
+		--
+		
+		if funfactcount >= 1
+		{
+			"\![*] %(funfactcount) Fun Facts heard.\n\f[height,90%](count includes duplicates!)\f[height,default]\n\n"
+		}
+		
+		--
+		
+		if articleopencount >= 1
+		{
+			"\![*] Read %(articleopencount) articles in the Dictionary.\n\f[height,90%](count includes duplicates!)\f[height,default]\n\n"
+		}
+		
+		--
+		
+		Achievements
+		
+		--
+		
+		"\n\n"
+		"\![*]\q[Back to Menu,OnMenu]  \![*]\q[Close Menu,blank]"
+		
+	}
+	
+Achievements : all
+{
+	
+	"\0\s[0]\b2\t\![no-autopause]\![set,autoscroll,disable]\f[height,+6]\f[bold,1]ACHIEVEMENTS\f[bold,0]\f[height,default]\n\n"
+	
+	if Flag("p.hours") == 1 && Flag("p.talks") == 1 && Flag("p.funfacts") == 1 && Flag("p.articles") == 1
+	{
+		"\f[height,+4]Utter Perfection!\f[height,default]\n\f[italic,1]Achieve the \f[bold,1]highest rank of every achievement.\f[bold,0]\f[italic,default]\n\n"
+		
+		if Flag("perfection") == 0; MiscFlags ,= "perfection"
+	}
+	
+	if uphours_total >= 1
+	{
+		"\f[height,+2]\f[bold,1]Hours\f[bold,0]\f[height,default]\n\n[half]"
+		
+			if uphours_total >= 100
+				{
+					"Guardian's Pet\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 100 hours with the Guardian.\f[italic,default]\f[color,default]\n\f[bold,1]\f[italic,1]Perfect!\f[italic,default]\f[bold,0]\n\n\f[height,default]"
+				}
+				
+			if uphours_total >= 75
+				{
+					"My Dearest Stranger\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 75 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+				}	
+				
+			if uphours_total >= 50
+				{
+					"Glorified Roommate\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 50 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+				}	
+				
+			if uphours_total >= 25
+				{
+					"Biscuit-eater\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 25 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+				}
+				
+			if uphours_total >= 10
+				{
+					"Teadrinker\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 10 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+				}
+				
+			if uphours_total >= 5
+				{
+					"Friend\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 5 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"	
+				}
+				
+			if uphours_total >= 3
+				{
+					"Acquaintaince\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 3 hours with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+				}
+			
+				"Lone stranger\n\f[color,disable]\f[italic,1]\f[height,-2]Spend 1 hour with the Guardian.\f[height,default]\f[italic,default]\n\n\f[color,default]"	
+	}
+
+	if talkcount >= 10
+	{
+		"\f[height,+2]\f[bold,1]Dialogue\f[bold,0]\f[height,default]\n\n[half]"
+		
+		if talkcount >= 500
+		{
+			"The best listener\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 500 dialogues.\f[italic,default]\f[color,default]\n\f[bold,1]\f[italic,1]Perfect!\f[italic,default]\f[bold,0]\n\n\f[height,default]"
+		}
+		
+		if talkcount >= 250
+		{
+			"Tall tales\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 250 dialogues.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+		}
+		
+		if talkcount >= 100
+		{
+			"Great listener\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 100 dialogues.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+		}
+		
+		if talkcount >= 50
+		{
+			"Small talk\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 50 dialogues.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+		}
+		
+		"Good listener\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 10 dialogues.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+		
+		
+	}
+		
+	if funfactcount >= 1
+	{	
+		"\f[height,+2]\f[bold,1]Fun Facts\f[bold,0]\f[height,default]\n\n[half]"
+			
+			if funfactcount >= 50
+			{
+				"Loremaster\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 50 fun facts.\f[italic,default]\f[color,default]\n\f[bold,1]\f[italic,1]Perfect!\f[italic,default]\f[bold,0]\n\n\f[height,default]"
+			}
+			
+			if funfactcount >= 25
+			{
+			"Jeopardy Contestant\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 25 fun facts.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+			}
+			
+			if funfactcount >= 10
+			{
+			"Trivia Master\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 10 fun facts.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+			}
+
+			if funfactcount >= 5
+			{
+			"Fun fact lover\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to 5 fun facts.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+			}
+			
+			"New learner\n\f[color,disable]\f[italic,1]\f[height,-2]Listen to a fun fact.\f[height,default]\f[italic,default]\n\n\f[color,default]"
+
+	}
+	
+	if articleopencount >= 1
+	{
+		"\f[height,+2]\f[bold,1]Articles\f[bold,0]\f[height,default]\n\n[half]"
+		
+		if articleopencount >= 25
+			{
+				"Dr. %(Capitalize(username)), PhD\n\f[height,-2]\f[color,disable]\f[italic,1]Read 25 articles.\f[italic,default]\f[color,default]\n\f[bold,1]\f[italic,1]Perfect!\f[italic,default]\f[bold,0]\n\n\f[height,default]"
+			}
+			
+		if articleopencount >= 10
+			{
+			"Historian\n\f[color,disable]\f[italic,1]\f[height,-2]Read 10 articles.\f[height,default]\f[italic,default]\f[color,default]\n\n"
+			}
+			
+		if articleopencount >= 5
+			{
+			"Scholar\n\f[color,disable]\f[italic,1]\f[height,-2]Read 5 articles.\f[height,default]\f[italic,default]\f[color,default]\n\n"
+			}
+			
+		"Student\n\f[color,disable]\f[italic,1]\f[height,-2]Read an article.\f[height,default]\f[italic,default]\f[color,default]\n\n"
+	}
+	
+}
+
+OnSecretsMenu : all // putting together this section did things to me that i am going to have to bring up in therapy next week.
+{
+	LoadFlags
+	
+	"\0\s[0]\b[2]\![no-autopause]\![set,autoscroll,disable]\![quicksection,true]\t\*\n"
+	
+	"\f[height,+4]Tidbits\f[height,default]\n\n\![*] 1. "
+	
+	if Tidbit("claris") == 1
+	{
+		"\f[italic,1] Claris Dorsch, Guardian of the Shrine of Aidhmoore\f[italic,default]\n\f[height-2]Unlocks dialogue about Claris, as well as a few Secrets.\f[height,default]"
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnStuffFAQ]asking\_a Kokuyo about \_a[OnWhatGuardianship]their job\_a will unlock this tidbit...\f[height,default]"
+	
+	"\n\n\![*] 2. "
+	
+	if Tidbit("inola") == 1
+	{
+		"\f[italic,1]Inola Reed, Guardian of the Shrine of Lacerta\f[italic,default]\n\f[height-2]Unlocks dialogue about Inola, as well as a few Secrets.\f[height,default]"
+		
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnStuffFAQ]asking\_a Kokuyo about \_a[OnWhatGuardianship]their job\_a will unlock this tidbit...\f[height,default]"
+		
+	"\n\n\![*] 3. "
+	
+	if Tidbit("gio") == 1
+	{
+		"\f[italic,1]Gio Lansione, Guardian of the Shrine of Paccevela\f[italic,default]\n\f[height-2]Unlocks dialogue about Gio.\f[height,default]"
+		
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnStuffFAQ]asking\_a Kokuyo about \_a[OnWhatGuardianship]their job\_a will unlock this tidbit...\f[height,default]"
+	
+	"\n\n\![*] 4. "
+	
+	if Tidbit("madame") == 1
+	{
+		"\f[italic,1]Madame Ymu, Queen of Hearts\f[italic,default]\n\f[height-2]Unlocks dialogue about the Madame, as well as a few secrets.\f[height,default]"
+		
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoMadame]this person\_a will unlock this tidbit...\f[height,default]"	
+	
+	"\n\n\![*] 5. "
+	
+	if Tidbit("nore") == 1
+	{
+		"\f[italic,1]Lairu, First Ace of Hearts & Nore, First Ace of Clubs\f[italic,default]\n\f[height-2]Unlocks dialogue about the Firsts.\f[height,default]"
+		
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoAlonaia]these people\_a will unlock this tidbit...\f[height,default]"	
+	
+	"\n\n\![*] 6. "
+	
+	if Tidbit("alonai'a") == 1
+	{
+		"\f[italic,1]Alonai'a, First Ace of Diamonds & Viro, First Ace of Spades\f[italic,default]\n\f[height-2]Unlocks dialogue about Alonai'a and Viro, as well as a few secrets.\f[height,default]"
+		
+	}
+		else;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoAlonaia]these people\_a will unlock this tidbit...\f[height,default]"	
+	
+	"\n\n"
+	
+	
+	"\f[height,+4]Secrets\f[height,default]"
+	"\n\f[height,-2]\f[color,disable]If you're having trouble unlocking the secrets, try \_a[OnMetaMenu]turning on 'Increased Rare Dialogue Chance in the Settings menu.\_a This will make rare dialogue, which some of these are unlocked through, more common.\f[height,default]\f[color,default]"
+	
+	"\n\n\![*] 1."
+	
+	if Secret("del") == 1
+	{
+		"\f[italic,1]Del Noccione, Ace of Spades\f[italic,default]\n\f[height-2]Unlocks dialogue about Del.\f[height,default]"
+	}
+		else
+		{
+			if Flag("del article") == 1;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoDel]this person\_a will unlock this secret...\f[height,default]"	
+			
+				elseif Secret("claris") == 1 || Secret("viro") == 1;	"\f[height,-2]Perhaps, since you now know all of the information you need to know, Kokuyo will randomly bring up something that can unlock this secret...\f[height,default]"
+				
+				else; "\f[height,-2]You don't have enough info! But, perhaps talking to Kokuyo about \_a[OnPeopleFAQ]some people\_a will help unlock this secret...\f[height,default]"
+		}
+	
+	"\n\n\![*] 2. "
+		
+	if Secret("allo") == 1
+	{
+		"\f[italic,1]Allo Ukagi, Ace of Diamonds\f[italic,default]\n\f[height-2]Unlocks dialogue about Allo.\f[height,default]"
+		
+	}
+		else
+		{
+			if Flag("allo article") == 1; "\f[height,-2]Perhaps you simply need to \_a[OnPeopleFAQ]ask\_a Kokuyo to tell you about \_a[OnWhoAllo]this person\_a to unlock the secret...\f[height,default]"
+			
+				elseif Flag("del article") == 1;	"\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoDel]some important people\_a will help unlock this secret...\f[height,default]"
+			
+				else; "\f[height,-2]You don't have enough info! But, perhaps talking to Kokuyo about \_a[OnPeopleFAQ]some people\_a will help unlock this secret...\f[height,default]"
+		}
+	/*
+	"\n\n\![*] 3. "
+		
+	if Secret("kyone travelled") == 1
+	{
+		"\f[italic,1]Memories of the Kyone Tundra\f[italic,default]\n\f[height-2]Unlocks dialogue about Kokuyo's experiences in the Kyone.\f[height,default]"
+		
+	}
+		else
+		{
+			if Flag("kyone mentioned") == 1;	"\f[height,-2]Perhaps, since you now know all of the information you need to know, Kokuyo will randomly bring up something that can unlock this secret...\f[height,default]"
+			
+				else; "\f[height,-2]You don't have enough info! But, perhaps talking to Kokuyo about \_a[OnPeopleFAQ]some people\_a will help unlock this secret...\f[height,default]"
+		}
+	*/
+	"\n\n\![*] 3. "
+	
+	if Secret("predecessor") == 1
+	{
+		"\f[italic,1]Inola's Predecessor, Former Guardian of the Shrine of Lacerta\f[italic,default]\n\f[height-2]Unlocks dialogue about Inola's predecessor.\f[height,default]"
+		
+	}
+		else
+		{
+			if Tidbit("inola") == 1; "\![*]\f[height,-2]Perhaps, since you now know all of the information you need to know, Kokuyo will randomly bring up something that can unlock this secret...\f[height,default]"
+
+				else;  "\f[height,-2]Perhaps \_a[OnStuffFAQ]asking\_a Kokuyo about \_a[OnWhatGuardianship]their job\_a will help unlock this secret...\f[height,default]"
+		}
+	
+	/*
+	"\n\n\![*] 4. "
+	
+	if Secret("gio romance full") == 1
+	{
+		"\f[italic,1]"
+	}
+	*/ 
+	"\n\n"
+	
+	_tidbitx = 0
+	_secretx = 0
+	
+	if ARRAYSIZE(tidbits) > 1; _tidbitx = ARRAYSIZE(tidbits)
+	else; _tidbitx = 0
+	if ARRAYSIZE(secrets) > 1;	_secretx = ARRAYSIZE(secrets)
+	else; _secretx = 0
+	
+	"Tidbits Known: " + _tidbitx + " / 6 \n"
+	"Secrets Known: " + _secretx + " / 3 \n"
+	
+	backbuttons
+	
+}
+
+OnLastTalk
+{
+	LastTalk
+}
+
+OnTalkRateMenu : all
+{	
+	_talkrate = "Off"
+	if aitalkinterval == 300; _talkrate = "5 minutes"
+	elseif aitalkinterval == 600; _talkrate = "10 minutes"
+	elseif aitalkinterval == 900; _talkrate = "15 minutes"
+	elseif aitalkinterval == 1800; _talkrate = "30 minutes"
+	elseif aitalkinterval == 3600; _talkrate = "1 hour"
+	
+	"\0\s[0]\![set,autoscroll,disable]\![quicksection,1]"
+	"Current interval: %(_talkrate)\n\n"
+	
+	"\![*]\q[Off,OnTalkRateChange,0]\n"
+	"\![*]\q[5 minutes,OnTalkRateChange,300]\n"
+	"\![*]\q[10 minutes,OnTalkRateChange,600]\n"
+	"\![*]\q[15 minutes,OnTalkRateChange,900]\n"
+	"\![*]\q[30 minutes,OnTalkRateChange,1800]\n"
+	"\![*]\q[1 hour,OnTalkRateChange,3600]\n"
+	"\n"
+	"\![*]\q[Back to Menu,OnMenu]  \![*]\q[Close Menu,blank]"
+}
+
+OnTalkRateChange
+{
+	aitalkinterval = TOINT(reference0)
+	OnTalkRateMenu
+}
+

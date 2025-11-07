@@ -1,0 +1,268 @@
+
+OnMetaMenu : all
+{
+	_Hemisphere = "North"
+	if hemisphereS == 1; {	_Hemisphere = "South" }
+	
+	_Suggested = "On"
+	if suggested_on == 0; { _Suggested = "Off" }
+	
+	// _Questions = "On"
+	// if q_on == 0; { _Questions = "Off" }
+	
+	_Rare = "On"
+	if r_on == 0; { _Rare = "Off" }
+	
+	_MoreRare = "Off"
+	if mr_on == 1; { _MoreRare = "On" }
+	
+	_X = "On"
+	if x_on == 0; { _X = "Off" } 
+	
+	_Meta = "On"
+	if meta_on == 0; {_Meta = "Off" }
+	
+	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]\b[2]"
+		
+	//
+	"\f[height,+2]Settings\f[height,default]\n\n[half]"
+	
+	//"\![*]Let Kokuyo ask questions/dialogue that requires multiple choice user input: %(_Questions) \f[sup,1](\q[Toggle,OnswitchQuestions])\f[sup,default]\n"
+
+	"\![*]Rare Dialogue: %(_Rare) \f[sup,1](\q[Toggle,OnswitchRare]) \f[color,disable](turn off if you're leaving the ghost on while AFK, to prevent random flags getting checked. Also useful for not getting 1k+ wordcount dialogues spat at you randomly...)\f[color,default]\f[sup,default]\n"
+
+	"\![*]Increased Rare Dialogue Chance: %(_MoreRare)  \f[sup,1](\q[Toggle,OnswitchMoreRare]) \f[color,disable](turn on if you're having trouble getting rare dialogue flags!) (NOTE: may take a few dialogues to start working.)\f[color,default]\f[sup,default]\n" // technical details for why it takes a few dialogues to kick in: seemingly, the aitalkdraw array (in aitalk.dic) has to kind of flush itself out before starting to use the new _raremax setting. i'd try to make this Not be the case but i'm kind of scared of breaking it
+	// update: i think i fixed that actually but i'm gonna keep the disclaimer just in case
+	
+	"\![*]Click to dismiss Rare Dialogue: %(_X) \f[sup,1](\q[Toggle,OnswitchX]) \f[color,disable](on by default; turn off if you want rare dialogue to disappear after a short period of time, without having to click the balloon.)\f[color,default]\f[sup,default]\n"
+	
+	"\![*]Dialogue about PC goings-on: %(_Meta) \f[sup,1](\q[Toggle,OnswitchMeta]) \f[color,disable](on by default; turn off if you dislike Kokuyo commenting on 'meta' things -- recycling bin status and such.)\f[color,default]\f[sup,default]\n"
+	
+	
+	"\![*]Hemisphere: %(_Hemisphere) \f[sup,1](\q[Toggle,OnswitchHemisphere])\f[sup,default]\n\n"
+	
+	//
+	
+	"\f[height,+2]Other pages\f[height,default]\n\n[half]"
+	
+	"\![*]Suggested actions: %(_Suggested) \f[sup,1](\q[Toggle,OnswitchSuggested])\f[sup,default]\n"
+	"\f[height,-1]\![*]\q[Reset suggested actions,OnResetSuggested] \f[sup,1]\f[color,disable]Make sure the above switch is on if you want to follow the suggested actions once more. This does not reset flags for dialogue, only for the suggested page.\f[color,default]\f[sup,default]\f[height,default]\n\n"
+	
+	"\![*]\q[Reset one-time dialogue flags,OnResetOneXFlags] \f[sup,1]\f[color,disable]If you'd like to have another chance to see a one-time dialogue again, you can reset the flags here. This will re-insert those dialogues into the pool, so that you can see them again! This works well with the 'increased rare dialogue chance' and 'click to dismiss rare dialogue' settings.	\f[color,default]\f[sup,default]\f[height,default]\n\n"
+	//
+	
+	"\![*]\q[Hotkey Guide,OnHotkeysMenu]\n"
+	"\![*]\q[Talkrate,OnTalkRateMenu]\n"
+	
+	backbuttons
+}
+
+	OnswitchHemisphere
+	{
+		if hemisphereS == 1
+		{
+			hemisphereS = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			hemisphereS = 1
+			OnMetaMenu
+		}
+	}
+	
+	OnswitchSuggested
+	{
+		if suggested_on == 1
+		{
+			suggested_on = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			suggested_on = 1
+			OnMetaMenu
+		}
+	}
+	
+	OnswitchQuestions
+	{
+		if q_on == 1
+		{
+			q_on = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			q_on = 1
+			OnMetaMenu
+		}
+	}	
+
+	OnswitchRare
+	{
+		if r_on == 1
+		{
+			r_on = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			r_on = 1
+			OnMetaMenu
+		}
+	}
+
+	OnswitchMoreRare
+	{	
+		aitalkdraw = IARRAY // note to self: this is here to wipe out the array so that the increased chances can have a chance to work immediately, rather than taking an entire cycle to reset. i think it also is generally better for resetting the variable?
+
+		if mr_on == 1
+		{
+			mr_on = 0			
+			OnMetaMenu
+		}
+		
+		else
+		{
+			mr_on = 1
+			OnMetaMenu
+		}
+	}
+	
+	OnswitchX
+	{
+		if x_on == 1
+		{
+			x_on = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			x_on = 1
+			OnMetaMenu
+		}
+	}
+	
+	OnswitchMeta
+	{
+		if meta_on == 1
+		{
+			meta_on = 0
+			OnMetaMenu
+		}
+		
+		else
+		{
+			meta_on = 1
+			OnMetaMenu
+		}
+	}
+	
+	OnResetSuggested // owww. my hubris
+	{
+		RemoveFlag("suggested complete")
+		
+		RemoveFlag("about kokuyo phase complete")
+			RemoveFlag("who article read")
+			RemoveFlag("home article read")
+			RemoveFlag("shrine article read")
+		
+		RemoveFlag("basics phase complete")
+			RemoveFlag("flow article read")
+			RemoveFlag("card article read")
+			RemoveFlag("suits article read")
+			
+			
+		RemoveFlag("people phase complete")
+			// RemoveTidbit("viro")
+			// RemoveTidbit("alonai'a")
+				// RemoveTidbit("inola")
+				// RemoveTidbit("gio")
+				// RemoveTidbit("claris")
+			// RemoveTidbit("madame")
+
+		tidbits = IARRAY
+		//secrets = IARRAY
+		
+			OnMetaMenu
+	}
+	
+	OnResetOneXFlags // lol one dialogue for this entire thing. there'll be more tho
+	{
+		RemoveFlag("gio romance")
+		
+			OnMetaMenu
+	}
+	LoadFlags
+	{
+		// perfect stat flags
+		if uphours_total >= 100 { if Flag("p.hours") == 0; MiscFlags ,= "p.hours" }
+		
+		if talkcount >= 500 { if Flag("p.talks") == 0; MiscFlags ,= "p.talks" }
+		
+		if funfactcount >= 50 { if Flag("p.funfacts") == 0; MiscFlags ,= "p.funfacts" }
+		
+		if articleopencount >= 25 { if Flag("p.articles") == 0; MiscFlags ,= "p.articles" }
+		
+		// tidbits
+		if Flag("claris") == 1 { if Tidbit("claris") == 0; tidbits ,= "claris" }
+		
+		if Flag("inola") == 1 { if Tidbit("inola") == 0; tidbits ,= "inola" }
+
+		if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
+
+			if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
+		
+		if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
+		
+		if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
+
+		//secrets
+		if Flag("del") == 1 { if Secret("del") == 0; secrets ,= "del" }
+		
+		if Flag("allo") == 1 { if Secret("allo") == 0; secrets ,= "allo" }
+		
+			if Flag("kyone travelled") == 1 { if Secret("kyone travelled") == 0; secrets ,= "kyone travelled" }
+		
+		if Flag("inola's predecessor") == 1 { if Secret("predecessor") == 0; secrets ,= "predecessor" }
+	}
+	
+	
+	OnHotkeysMenu : all // i dont even remember half of these this is like mainly for myself
+	{
+		"\0\s[1]\![no-autopause]\b2\![quicksection,1]"
+		
+		--
+		"Remember that Kokuyo has to be selected for hotkeys to work! Simply clicking on them once will put them in focus."
+		
+		"\n\n~\n"
+		
+		"M - Quick menu (opens the menu without a greeting).\n\n"
+		
+		"T - Makes Kokuyo say something.\n\n"
+		
+		"R - Makes Kokuyo repeat the last random dialogue they said.\n\f[height,-2]Please note that this does not repeat user-requested items, such as dictionary entries or fun facts.\f[height,default]\n\n"
+		
+		"F - Makes Kokuyo tell you a fun fact!\n\n"
+		
+		"D - Opens the dictionary.\n\n"
+		
+		"C or S - Opens the Secrets menu." // i dont.remember why C is a hotkey for this
+		
+		"\n\n~\n"
+		
+		"F1 - Readme.txt; information on the ghost.\n\n"
+		
+		"F2 - Terms.txt; content warnings and terms of use."
+		--
+		"\n\n"
+		"\![*]\q[Back to Meta Menu,OnMetaMenu]"
+		
+		backbuttons
+	}

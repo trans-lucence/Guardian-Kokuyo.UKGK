@@ -1,0 +1,99 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+//overlay_outside_balloon,1
+
+
+//——— Basic information ———
+name,Stars of Kosanu
+
+craftman,trans.lucence
+craftmanw,trans.lucence
+craftmanurl,https://trans-lucence.neocities.org
+homeurl,
+
+
+//——— Display area ———
+origin.x,0
+origin.y,0
+
+validrect.left,35
+validrect.top,45
+validrect.right,-70
+validrect.bottom,-30
+
+wordwrappoint.x,-70
+
+//——— Font ———
+font.name,Sylfaen
+font.height,16
+
+font.color.r,255
+font.color.g,240
+font.color.b,226
+
+anchor.font.color.r,252
+anchor.font.color.g,208
+anchor.font.color.b,163
+
+cursor.font.color.r,244
+cursor.font.color.g,156
+cursor.font.color.b,107
+
+cursor.style,underline
+
+disable.font.color.r,187
+disable.font.color.g,166
+disable.font.color.b,147
+
+
+//——— Arrows ———
+arrow0.x,-55
+arrow0.y,45
+
+arrow1.x,-55
+arrow1.y,-50
+
+
+//——— Online marker ———
+onlinemarker.x,17
+onlinemarker.y,30
+
+//onlinemarker.interval,175
+
+
+//——— SSTP ———
+sstpmarker.x,17
+sstpmarker.y,-30
+
+sstpmessage.font.name,Sylfaen
+sstpmessage.font.height,11
+
+sstpmessage.x,40
+sstpmessage.xr,-30
+sstpmessage.y,-30
+
+sstpmessage.font.color.r,255
+sstpmessage.font.color.g,240
+sstpmessage.font.color.b,226
+
+
+//——— Number ———
+number.font.name,Sylfaen
+number.font.height,11
+
+number.xr,-55
+number.y,-30
+
+number.font.color.r,255
+number.font.color.g,240
+number.font.color.b,226
+
+
+//——— Input box ———
+communicatebox.x,8
+communicatebox.y,8
+
+communicatebox.width,283
+communicatebox.height,20

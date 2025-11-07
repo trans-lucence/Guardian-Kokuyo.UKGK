@@ -1,0 +1,667 @@
+/*
+	why, hello! not sure why you're *here,* but enjoy. 
+	spoiler warning, obviously! also, warning for foul language. though kokuyo is pleasant and mild-mannered, i just so happen to be the second coming of jesse pinkman. (biiiitch.)
+	i talk a lot . expect lots of comments everywhere about everything . unfortunately i Do have yapitis and it Is terminal
+	
+	i know a lot of this code is messy or confusing; this is my first time coding anything, so i urge you to forgive me! i'm doing my best.
+	many bits of code were studied and recreated from other ghosts. i'll try to point those out when they show up, but sometimes i forget to credit while i'm coding and then forget where they came from. my apologies to anyone whose code i lifted; i most certainly didn't mean to!
+	...most of the stuff i mentioned comes from zi, though. thank you zi!
+*/
+
+// thanks to zi for the skeleton (s, even? stupid joke sorry moving on) of the pool code! the original code comes from SSP Angel, and has been studied very closely... i will forget what a for loop is in 2 days but it was fun to pick apart.
+// update from 2 days later: dude i still understand what for loops are it's almost like i learned something.wow
+// update from a week later: Shit
+OnAiTalk
+{	
+	if !ISVAR("aitalkdraw") || ARRAYSIZE(aitalkdraw) == 0; RandomizePool
+	if CHAIN.IDName != "";	LastTalk = ChainTalk
+	
+	else
+	{
+		
+			_draw = ANY(aitalkdraw)
+			aitalkdraw[LSO] = IARRAY
+			
+			if _draw == "rare"
+			{
+				_tidbitx = ARRAYSIZE(tidbits)
+				
+				if r_on == 1 && _tidbitx > 3; { LastTalk = RareDialogue }
+				else; LastTalk = NormalDialogue
+			}
+			
+			elseif _draw == "location"
+				{	
+					if locslot == "home"; LastTalk = HomeDialogue
+					elseif locslot == "shrine"; LastTalk = ShrineDialogue
+					
+					elseif locslot == "goingshrine" || locslot == "goinghome" 
+					{ 
+						if RAND(4) == 0; LastTalk = TravelDialogue 
+						else; LastTalk = NormalDialogue
+					}
+				}
+				
+			else; LastTalk = NormalDialogue
+	}
+	
+	LastTalk
+	
+	talkcount++
+	if RAND(4) == 0 { if trust <= 250; trust++ }
+}
+
+RandomizePool
+{
+    aitalkdraw = IARRAY
+	
+    _drawnum = 1
+	
+    _locmax = 3
+		if locslot != "home" { _locmax = 4 }
+		
+	_raremax = 9
+		if mr_on == 1 { _raremax = 6 }
+	
+    for _l = 0; _l < _locmax; _l++
+    {	
+		for _r = 0; _r < _raremax; _r++  // please don;'t ask me how long it took for me to figure this bullshit out. also dont ask me if it actually works because i dont actually know. i Think it does but honestly we cant be sure due to me ragequitting the testing process when it seemed good enough (update: yes it works pretty much the way i needed it to)
+		{
+			if _r < _drawnum; aitalkdraw ,= "rare"
+			
+			elseif _l < _drawnum; aitalkdraw ,= "location"
+			
+			else; aitalkdraw ,= "normal"	
+		}
+	}
+}
+
+			/*
+			  _   _  ____  _____  __  __          _      
+			 | \ | |/ __ \|  __ \|  \/  |   /\   | |     
+			 |  \| | |  | | (__) | \  / |  /  \  | |     
+			 | . ` | |  | |  _  /| |\/| | / /\ \ | |     
+			 | |\  | |__| | | \ \| |  | |/ ____ \| |____ 
+			 |_| \_|\____/|_|  \_\_|  |_/_/    \_\______|
+														 
+			*/ 
+			
+// god has cursed me for my hubris, and my work is never finished.
+NormalDialogue : nonoverlap_pool
+{
+	"\0\s[0]I heard there was a bake sale happening in Mehakkai...\n\w9\w9\s[1]Some fresh donuts would go great with this tea blend, don't you think?" //haha undertale reference. this is a lot funnier when you know that Kokuyo's design was based on spiders (even though i'm intensely arachnophobic) (that's... why they barely look like one....)
+	
+	"\0\s[0]A traveller from \_a[OnScavva]Scavva\_a told me there was a festival going on soon.\w3\s[1] Those Scavve know how to party, I'll tell you that.\w9\n\s[0]...Maybe I'll hitch a ride over there...\w9 ah, who am I kidding?\w4 \s[1]If I go, I'll be too hungover to get home!.."
+
+	"\0\s[0]Hum... a friend of mine keeps trying to get me to go to \_a[OnSyk]Syk\_a with them, meet their new boyfriend...\n \s[1]...Not a chance, I'm afraid. Syk is great for the partying types, but... \s[1]I'd rather stay cozy and quiet! No nightclub-hopping for this old bat."
+
+	"\0\s[0]Have you been up to Ani'ana Prefecture yet, %(oomf)?\n\w9\w3\s[1]Ah, no? I understand. The blistering cold is not for everyone...\w8\s[0] but if you ever get the chance, you should visit the temple on the main island. I grew up on Ani'ana, and that temple is where I first performed my ceremonial training...\w6 as well as where I gained an appreciation for the arts!\n Great architecture, beautiful paintings, not to mention the surrounding towns have amazing food.\n\w9\s[0]...If ever you have the time, I know some people who would love to guide you there.\n\n\w9\w6Me?\s[1] Ha! No, I couldn't. I am old, and less adventurous than I used to be. I would only slow you down."
+	
+	"\0\s[0]It's hard to imagine a life without travel... where would I get the spices for my stew, if not across the continent..? Or worse, where would I get my tea?..\n \s[1]I couldn't possibly rely on those shady traveling merchants in Mehakkai... \s[3]they'd sell me twigs and tell me it was jasmine. \n\n\w9\s[1]..It makes me glad that I have better sources, haha!"
+	
+	"\0\s[0]Oh, looks like it's snowing outside a bit.\n\n Sometimes, I like to go out and catch the snowflakes on my tongue.\s[1] Perhaps it is childish, but... they taste so pure!\n \s[0]...Plus, you must admit... \s[1]it is lots of fun to try to catch the big ones."
+	
+	"\0\s[0]As a translator and traveller, it's very important that I keep my foreign language skills sharp.\w9 Of course, most folks speak Common nowadays, but... on the off-chance I meet someone either as old and stubborn as I, or too young to grasp the language yet, it can lead to some very unique conversations.\n\n Ah... for preservation's sake, I can only hope the languages continue to live on in their own little areas... but! Even if not, Common has adopted phrases and words from all sorts of tongues. It can be great fun to trace the origin of a phrase back to its root... language is like one big puzzle, made up of smaller puzzles! Neat, is it not?"
+	
+	"\0\s[0]I've been working on my knitting skills lately. It's not much, but I've made a few hats, socks, scarves... it's very fun! I suppose I enjoy repetitive work. \s[1]Zone out, daydream about silly things while you knit\w4-knot\w2-knit\w4-knot\w2...\n \s[0]T-\w4though,\w9 er,\w6 I got a bit\w2 too\w4 into a record I was listening to, and ended up making one of the scarves twice as long as I needed to...\n Practice makes perfect, though..!"
+	
+	"\0\s[1]This %(c.zeazon) has been pretty pleasant, hasn't it?.. \s[0]Around this time last year, it was hailing nonstop!\n \s[1]Kosani weather can be quite harsh... \s[0]us stubborn old bats refuse to move anywhere else, though. We'd rather repair our roof three times in a week than feel a droplet of sweat..."
+	// wrote this while it was hailing golfballs outside. god bless virginia, land that i love
+	
+	"\0\s[0]I've been meaning to visit \_a[OnSyk]Syk\_a again, lately... there's a store there that sells these amazing little biscuits. You can't get them anywhere else, \s[1]and the owner refuses to share his recipe, \s[3]the old geezer...\w9\w9 \s[0]I must admit, I \f[italic,1]have\f[italic,default] attempted to copy it before... to no avail.\n Whatever the secret ingredient is, it surely \f[italic,1]isn't\f[italic,default] 'love' ... \s[1]that man is a great baker, but he's just so unpleasant!\w9\s[0]\n I'll figure out that recipe soon...\w9\w9 \s[3]and stop giving that jaded old bat the time of day. \s[1]Haha!"
+	
+	"\0\s[0]\_a[OnScavva]Scavva\_a has so many inviting little towns...\n \s[1]Last time I went, I visited Alunocce, this charming little seaside villa. \s[0]Perhaps it's the islander in me, I just love the coast...\n The food, though! So good... \s[1]it's one of my favourite things about Paccevela. They use a lot of the same ingredients as us here in Kosanu, but in entirely different ways! Fascinating stuff, really..."
+	
+	"\0\s[1]I'm happy that the divine days of the shrines vary between Suits. \s[0]I would be very sad if I didn't get to visit the other shrines on their holy days, \w2\s[1]on account of being at my own...\n\n \s[0]That's one great thing about being a Guardian. I can visit the other shrines, \s[1]even when they are closed to the public! \n \s[0]...Usually it's to help bless them, not to be a tourist. \w4\s[1]But it's still very nice to have VIP access..!"
+
+	"\0\s[1]We Diamonds don't have great eyesight... that's just what happens when you evolve as a cave-dwelling race. \s[0]We can see great in the dark, but our eyes don't handle light well, \s[1]and they degrade easily...\n Needless to say, my constant reading and writing only hasten the process, \s[3]the world around me having become much more fuzzy in the past few decades... but, what am I to do?.. I can't just give up reading... \s[1]haha!"
+	
+	"\0\s[0]It's a bit hard to garden in Shui'o Nui, since it's too cold for above-ground vegetation and there's nowhere to grow sea veggies... \s[1]all I can really grow are roots. \s[0]My root garden, tiny as it may be, grows a bit wild when the temperatures get above freezing! The %(root) is especially lively in Newbloom... "
+	
+	"\0\s[0]Astronomy is a hobby of mine... \s[1]or, well, it used to be. \s[0]I grew tired of drawing star charts after a while... \s[1]but it's still a fun passtime when I'm bored at the temple.\n For a brief time, I would make these labelled star charts, translating all the traditional Kosani names of the constellations into Common. \n\s[3]...I stopped only because it hurt my heart to not be able to carry the same emotions from my native language through; something always felt less raw, less emergent than their original names. Ani'ani holds a lot of meaning in each character, and each is used for specific reasoning... it's an understatement when I say it is difficult to translate those deeply emotional phrases to Common. \s[1]Oh, how I wish I could imbue tone of voice into my translations... \s[0]Oh well. So goes life!.."
+	
+	"\0\s[0]The wind is quite cold today... \s[1]I might need to pull out some of my scarves and veils if I intend to be outside much this week. \s[0]My eyes tend to start stinging with harsher wind chills, so I've got to be sure to protect them..."
+	
+	"\0\s[0]I've been meaning to try this new muffin recipe... the fellow I bought it from says they can be ready in five minutes, but I'm really not sure I believe it. Supposedly, you don't even have to bake them! \s[1]...Since when were there \f[italic,1]baked goods\f[italic,default] that you didn't have to \f[italic,1]bake?\f[italic,default]\n ...\s[3]Maybe I really am getting too old, I just don't understand these new trends... \w3\s[1]haha!"
+	
+	"\0\s[0]Reading has become a bit hard with my aging vision... unfortunately, the nearest optometrist is in western Scavva, where they... ehm... don't tend to have frames designed for any more than two eyes. I'll have to make the trek all the way to the western end of Shui'o Nui to get any sort of relief... that's almost three times as far.\n \w6\s[1]The anatomical differences between the Suits are all extremely intriguing, but they \f[italic,1]do\f[italic,default] tend to make finding... \w5er, \w3\f[italic,1]eye-related\f[italic,default] accessories\w3 \f[italic,1]quite\f[italic,default] difficult... \n\w9\s[0]Anyway... I really can't blame the Scavve optometrists. Being that Spades almost always have either one or two eyes, pretty much nobody around is going to be asking for a 6-lense frame... though, perhaps I could ask them to custom-make some for me?... \s[1]I'll have to see about my options, I suppose."
+	
+	"\0\s[1]The architecture of Aidhmoore is really very impressive... \s[0]they don't use nails, they simply slot the pieces of wood into eachother, like a huge jigsaw puzzle. It's much less intensive on their resources; though, out of all of the Quadrants, it has the richest mines. \s[1]\n I suppose they're just thinking ahead... good on them!"
+	
+	"\0\s[0]It's a bit spendy to send letters to or from Kosanu, given our 'harsh' environment. The mailfolk here have to train these giant swathes of Kikuminu to pull them and all the mail around\s[1], it's quite funny to watch...\n\n \s[3]...I'm surprised I still get so much junk mail, given how expensive stamps are here... \s[0]it makes for good kindling, though, so I mustn't complain."
+	
+
+	{
+		_friend1 = friend
+		_friend2 = friend
+			while _friend1 == _friend2; { _friend2 = friend }
+	
+		"\0\s[3]\f[height,-2]Hm... I need to respond to that letter from %(_friend1) soon... oh, and then write back to %(_friend2), too...\f[height,default]\n\n\w9\w9\s[1]Ehm, my apologies. It can quite be hard to keep up with people, can't it?.."
+	}
+	
+	{
+		_fish1 = fish
+		_fish2 = fish
+			while _fish1 == _fish2; { _fish2 = fish }
+		
+		_cooked1 = cooked
+		_cooked2 = cooked
+			while _cooked1 == _cooked2; { _cooked2 = cooked }
+		
+		"\0\s[0]If I weren't a shrine guardian, I'd probably take up fishing instead...\n I used to be awful at it -- \s[1]if you can believe it, I wasn't very patient at all in my youth. \s[0]I'd get frustrated with the fish and storm off before they could bite!..\n Nowadays, though, I can wait hours without an annoyance crossing my mind.\s[1] The promise of a nice warm %(_cooked1) %(_fish1) or %(_cooked2) %(_fish2) is enough to make me sit and stare at the water, waiting for them to bite..."
+	}
+
+	{
+		"\0\s[0]If there's one thing I love about the other Quadrants, it's rain... it almost never rains here, only snow and hail. But rain... it's just so calming to listen to!\n "
+		--
+		{ 
+			"Last %(zeazon), I travelled out to go see my good friend Claris"
+				--
+				if Flag("claris") == 1; "... "
+				else; " \f[height,-2]...that's the \_a[OnWhoGuardians]Shrine Guardian of Aidhmoore\_a, I should say...\f[height,default] to "
+				--
+			"check up on her, see if she needed any help...\n \w9Ah, \s[1]just as a refresher,\s[0]\w4 the Shrine of Aces of Aidhmoore is located out on the island of Lamnthe. \w9\s[1]It has a beautiful rainforest, and the shrine itself is situated near a wonderful inn...\n \s[0]Um, right! \s[1]All this to say... \s[0]it rains quite a bit there.\n\n \s[1]To hear the rain pitter-pattering on the metal roof above you all night, it's like a wonderful lullaby...\n \s[3]Er,\w9\w9 \s[0]which is why I overslept, and \s[1]didn't end up helping out Claris until far later than I'd expected to... ehehe. \s[0]Someone as old as myself knows not to trust their internal clock. \s[1]It's just one of those things that you must surrender with age..."
+		}
+		
+		{
+			"Every time I visit Alunocce, that quaint little coastal town on the edge of \_a[OnScavva]Scavva,\_a the weather is just so soothing. Hearing the waves crash against the shore as the raindrops splatter against the roof of your inn room... I'll never quite get used to the peacefulness of it all, I can tell you that."
+		}
+	}
+
+	{
+		"\0\s[1]\f[height,-2]"
+		--
+		"hmm\w3hmmhm, hm\w2hmm... hmm\w3hmhmm hmm\w2hmmmm..."
+
+		"hm\w2hmm, hm\w5hmmhm, hm\w2hmm... hmhm\w9hmm \w6hm..."
+		
+		"hmm\w3hm... hm\w5hmmm, hm\w3hmm, hmhm\w5hmm..."
+		--
+		"\f[height,default]\n\w9\s[0]Ah...\w2 sorry. \s[1]Song stuck in my head..."
+	}
+	
+	// flag-dependent
+	
+	if Flag("claris") == 1 && Flag("inola") == 1 && Flag("gio") == 1
+	{
+		// all
+		{
+			"\0\s[1]It is always nice to visit the other shrines... I've been meaning to make my way over to "
+			--
+				case monthslot
+				{
+					when "spring"; "Claris"
+					when "summer"; "Inola"
+					when "autumn"; "Gio"
+					when "winter"; "%(guardian)"
+				}
+				--
+				"'s temple, help with the blessings and all.\n "
+				--
+				if monthslot != "winter"
+				{		
+					"It's a busy season for "
+					--
+						if monthslot == "spring" || monthslot == "summer"; "her"
+						else; "him" // all these damn characters with their blue hair and pronouns
+					--
+					"!"
+				}
+					else; "It's a busy season for me, but I'd still like to lend a helping hand..."
+		}
+		
+		// gio
+		
+		"\0\s[0]Hum... I should visit Gio soon. \s[3]I miss him...\w9\w9 \s[0]and his cooking. \w9\s[1]Haha!\n Really, though. \s[0]He makes the best noodles... \s[1]not much else, but... it's good to have a specialty."
+		
+		"\0\s[0]Gio's been having a busy year, I hear. More and more people confessing at his temple, almost daily...\n \s[1]I always tease him, ask him to spill the gossip... \s[0]but that, of course, goes against his code, so he never does.\n \s[3]...\_w[1200]\s[1]He is a good Guardian. I appreciate having someone with morals as strong as him in our little group..."
+		
+		"\0\s[1]The shrine over in Velanne has these beautiful mosaics along the walls, just gorgeous... \s[0]my favourite is the one of Alonai'a and Viro, of course. \s[1]Gio has had to drag me out of the temple by the arms just to get me to stop staring at it... honestly, though, can you blame me?.. I love the statues we have here in Kosanu, but those stained glass windows and mosaics are almost too beautiful to bear!..\n\n \s[0]Mm. Maybe Gio just can't appreciate beauty. \s[1]Yes, that must be it... \f[italic,1]that's\f[italic,default] why he won't stare at those amazing artpieces with me for hours on end..."
+		
+		// inola
+		"\0\s[1]Inola's so energetic, it can be hard to keep up with her... she's sent me %(number.med) letters all in the same week! All long and detailed, too... and I can only imagine I'm not the only one she's writing to.\n \s[3]Oh, youth... \s[1]haha!"
+	}
+	
+	if Flag("tour guide") == 1
+	{
+		"\0\s[1]I believe I mentioned 'narrowly avoiding' being a tour guide once... \s[0]indeed, when the students of the Shrine finish their ceremonial training and the new Guardian is chosen, all of the students who do \f[italic,1]not\f[italic,default] get chosen instead get the option to become guides on the weekdays...\n \s[1]I worked very hard to ensure I would become Guardian. \s[0]Not because there is anything \f[italic,1]wrong\f[italic,default] with being a daily guide; in fact, \s[1]my students do much more work than I do, ha! \s[0]I just... \s[3]ehm... how should I say... \w9\w9\s[1]I get too nervous! I can't show more than one person around the Shrine at a time, I would do awful at it!.. \s[0]I wouldn't say I'm \f[italic,1]antisocial,\f[italic,default] \s[3]I travel and meet new people all the time... I just... \s[1]the pressure would surely get to me..!\n\n I finished training my students to do the weekday duties in my stead many years ago. It is, in reality, quite silly to still even call them my 'students'... \s[1]it's more of a term of endearment than anything. \s[0]They work wonderfully; \s[1]sometimes they do so well that they leave me no work to do on the weekend!.."
+	}
+
+	// trust
+	if trust >= 50 
+	{
+		if timeslot == "dinnertime"
+		{
+			{ 
+				"\0\s[1]I know it's not my place to fuss, but...\w9 well, as your elder, I simply can't help it.\w9\w6 I hope you get plenty to eat when you're not here... nutrition is important, you know!\w9\w6 Especially for travellers like us..!\n\n \w9\w9\s[0]My point is... you mustn't be wandering around Kosanu malnourished.\w9 "
+				--
+				if locslot == "home"
+					{
+						"Before you leave, take some snacks, will you? There's a little basket of goodies by the door... \w8maybe some %(snacks) would interest you?... \w8Whatever you'd like!.."
+					}
+				
+				elseif locslot == "shrine"
+					{
+						"When you pass through town on your way home, be sure to pick something up, alright? Welakaono has great food, you'll love it! There's a little seafood place on the south corner, they make really wonderful %(root) soup..."
+					}
+				else
+					{
+						"I am sure we could find you something to eat on the way "
+						--
+						if locslot == "goingshrine"
+						{
+							"to the shrine"
+						}
+						else
+						{
+							"home"
+						}
+						--
+						"! There's lots of little shacks along this path, all selling hot meals, if you're feeling peckish..."
+					}
+				--
+				"\n\n\_w[1500]...Ah...\s[1]\w9 ahaha... my\w3 apologies. I simply worry about those younger than I...\n I hope I did not overstep. Please, do take care of yourself, though!..\w9 I wouldn't want my dear friend to starve!"
+			}
+		
+			"\0\s[1]Hehe... here, %(oomf). Have my biscuit. No, really, it goes great with the %(dinner)!\n Don't worry about me, I can make plenty more tomorrow. I just want to make sure you're fed, is all."
+		}
+	}
+
+	// stat-dependent
+	if articleopencount >= 5
+	{
+		"\0\s[1]I'm glad you're as interested in history as I am, hehe. \w9\s[0]\n...I'm not sure what I'd talk about, if I wasn't able to share tales of times long past...\n\n\w9\w9...I guess I could tell you...\w9\w5 recipes?\w9 But\w8 I really only make a few things, hm...\n\w9\s[1]...Anyways... \w4thank you for letting me tell you about the things I \f[italic,1]actually\f[italic,default] know about, ehehe."
+	}
+	
+	if funfactcount >= 5
+	{
+		"\0\s[0]You seem to enjoy my fun facts quite a bit, ehehe.\s[1] I'm very glad!\n\_w[1500]\s[0]...Not sure what else I'd do with all this trivial information... \s[1]so, it's nice to be able to share it all with someone!"
+	}
+	
+	
+	//timed 
+	if timeslot == "startime" // 8pm - 4am
+	{
+		{
+			"\0\s[0]The stars are beautiful tonight. If you look carefully, you can see "
+			
+			--
+			"Sirus's Bow, pointing towards the moon"
+			"Nore's Paw, to the right of the Sickle"
+			"the Sickle, that huge arcing line of stars below the moon"
+			--
+			
+			"... \s[1]that's always been one of my favourite constellations."
+		}
+		
+		"\0\s[0]It's getting chillier outside... sometimes, when night falls upon Kosanu, \s[1]you can hear the wild Kikuminu howl and bark back and forth to eachother! So cute!.."
+	}
+			
+	//months and seasons
+	case monthslot
+	{
+		when "winter" // moonfall, diamonds
+		{
+			if Flag("alonai'a") == 1
+			{
+				"\0\s[0]What a beautiful time of year...if you make the journey up north to \_a[OnAnianaprefecture]Ani'ana Prefecture\_a, you can see the aurora dance across the sky...\n The texts say that the giant beams of light, deep purple and bright cerulean, were Alonai'a's first gift to her precious Diamonds after ascending to the heavens above.\n\n \w9\w6...Other texts say that they're caused by a change in atmosphere, from the flares of the sun.\w9 \s[1]I...\w9 choose to believe a mix of both, ha."
+			}
+		
+			"\0\s[0]Ah, it's Moonfall... now's about the time the wild Sunnai migrate from the northern coast of \_a[OnShuioNui]Shuio Nu'i Prefecture\_a down to Quatangu Loch.\n \s[1]...Perhaps my neighbors' Sunnai will join them next year, so they stop escaping their %(fuckin) enclosure and scratching my exterior walls with their horns..."
+		}
+		
+		when "spring" // newbloom, clubs
+		{
+			"\0\s[0]Newbloom, such a pleasant time of year...\n South of here, in Thiremor, I'm sure the flowers are starting to open up. That whole landscape simply explodes with colour -- \s[1]year-round, yes, but especially now..."
+		}
+		
+		when "summer" // selyr, hearts
+		{
+			"\0\s[0]This time of year, I'm thankful to live in the snowy reaches of Kosanu. The season of Selyr is unforgiving in the hotter Quadrants, so I avoid travelling in it... \s[1]I'm simply not built for those temperatures."
+			
+			"\0\s[0]Usually, I avoid travelling in Selyr... too hot. But I will say, it's very nice to visit Quatangu Loch around this time! I don't swim as much as I should -- \s[1]though my bones would appreciate it, I'm sure -- \s[0]but Selyr is always a good excuse to get in the water again."
+		}
+		
+		when "autumn" // nove, spades
+		{
+			"\0\s[0]I love visiting Scavva around this time of year. Just the right temperature, the leaves of the trees turning that beautiful umber shade...\n\n Nove is the best time to travel anywhere, I think. No Newbloom allergies, no Selyr heat... er, \s[1]\f[italic,1]I\f[italic,default] don't mind the biting cold of Moonfall, since I'm used to it, ehehe! \s[0]But... I still think Nove is the ideal time to go on a trip."
+		}
+	}
+	
+	// holidays
+	if locslot == "home" || locslot == "shrine" // i just really don't want to write traveling versions of every single holiday text
+	{
+		if month == 12 && day == 21
+		{
+			"\0\s[1]Ah, the Moonfall solstice. \w9\s[0]Tonight is the night the moon hangs high in the sky, blessing us with its soft embrace the longest out of any night of the year... before descending lower and lower on the horizon, dimming its light until the next season arrives...\n\w9\w9\s[1]"
+			--
+				if locslot == "home"; "I'm going to be spending a lot of time soaking up the moonlight tonight. Would you care to join me, dear friend? The windowsill cushions are more than large enough for the two of us."
+
+					elseif locslot == "shrine";
+						"The moonlight looks so beautiful reflecting on the marble flooring of the shrine, don't you think?"
+				
+		}
+	}
+}
+	
+
+			/*
+			  _    _  ____  __  __ ______ 
+			 | |  | |/ __ \|  \/  |  ____|
+			 | |__| | |  | | \  / | |__   
+			 |  __  | |  | | |\/| |  __|  
+			 | |  | | |__| | |  | | |____ 
+			 |_|  |_|\____/|_|  |_|______|
+			 
+			*/ 
+HomeDialogue : nonoverlap_pool
+{
+	
+		"\0\s[1]Hm... I think I'll start a kettle to boil. I'm craving %(tea) blend...\n\w5\s[0]Would you care for a cup, %(oomf)?"
+
+		"\0\s[0]Fire's almost out, %(hm).\n\n\w9\w9...There, some more firewood...should be roaring back any minute now."
+		
+		"\0\s[0]It's been very kind of you to keep me company today, %(oomf). I hope you don't mind if I work a bit while you're here...\w8 though I believe you and I both are fans of a comfortable silence.\n Make yourself at home, alright? If you need to work as well, I recently bought some lovely fountain pens that you can borrow..."
+
+		"\0\s[0]Another northern wind is blowing in... I expect many people will be making their way here soon. I tend to take people in when their rooftops or walls crack from severe storms...\n No matter. I'll get the extra cots out and ready, just in case."
+		
+		"\0\s[0]I'm almost all caught up on my reading backlog... ah, I'll get around to reading \f[italic,1]%(backlog)\f[italic,default] at some point...\n...Feel free to make use of my book collection, %(oomf). Perhaps you and I could get through a few of these tough old classics alongside one another..."
+		
+		"\0\s[1]\f[height,-2]\f[italic,1]Ugh...\f[italic,default]\f[height,default]\w9\w6\n\s[0]Oh, ha. Sorry... writer's block. A pesky thing, isn't it?\n\w9\s[1]...Perhaps I'll take a quick break from writing, and just enjoy my tea..."
+		
+		"\0\s[1]\f[height,-2]\f[italic,1]Tsk.\f[italic,default] Still can't think of a good replacement...\f[height,default]\n\w9\w3\s[0]...Ah, apologies... I've been translating a Kosani poem into Common, but there's a certain word stumping me, unfortunately...\n\n Reminds me of how much I love the Ani'ani language, however. \s[1]So many words, so perfect in their description of an emotion or concept that they're virtually unable to be translated. \s[0]Of course, this makes my job much more tedious, but...\w6 \s[1]well, at least there's a nice word to describe the emotion it makes me feel, right? Haha!"
+		
+		"\0\s[0]I'd love to visit the hotsprings in Welakaono again soon... these aching joints are always whining to go back there. Perhaps when I visit the shrine next?...\n\n \s[1]We will see if I have the time, ha!"
+		
+		"\0\s[1]I think I left a few things at the shrine... I'm a tad forgetful, these days!\n \s[0]Oh, well. I could always ask one of the students to drop my things off after they're done with their daily duties... \s[1]or go over there myself."
+		
+		"\0\s[1]I'm all out of the yarn I need for my little knitting project... oh well. \s[0]I suppose I'll drop by the shop on my way home from the shrine next... \s[3]but that's so long to wait! What if I forget all about my project, and I don't ever get the yarn?!.. \s[1]\f[italic,1]Sigh.\f[italic,default] So goes life... I'll write it on my list, so I can halve the probability of forgetting..."
+		
+		"\0\s[1]I truly do need to do some heavy dusting around here... \s[3]my bookshelves are looking grim. \s[1]Maybe instead of dusting them, I can just read them and knock all the dust off that way?.. \n\n \s[3]Okay, okay, I admit I'm avoiding housework... you got me. \s[1]Hehe!"
+		
+		"\0\s[1]Hm... I've been thinking of buying a new rug for the living room, liven up the space around the hearth a bit more... \s[0]I'm thinking something... red! It'll really pop against the blues and greys of... \s[1]er... \s[3]\w4everything \w5else. \s[1]I really need to expand my palette..."
+		
+		"\0\s[3]Ehm... perhaps it's a strange thing to bring up, but do tell me if you come across a stray piece of %(root). \s[1]I dropped it when I was cutting it up for the stew the other night... and I haven't been able to find it. \s[3]I just hope I come across it before it starts to become a... ehm... \f[italic,1]'science experiment'\f[italic,default]..."
+		
+		"\0\s[0]I love being here at home, but I realize I always seem to have better dreams at the temple... \s[1]I like to think it's the spirits of the Firsts, sending me sweet dreams as a reward for taking care of a sacred resting place of theirs. \s[3]\n...Back still hurts when I wake up on that cot, though. \s[0]Perhaps it's out of their wheelhouse to make sleeping on a cold, marble floor more comfortable... \s[1]haha!"
+		
+		"\0\s[0]I've loved living in Shui'o Nui so much -- \s[1]being close to the main temple was somewhat of a mandatory change when I became Guardian, \s[0]but I consider it somewhat my own choice, as well.\n ...\s[1]At night, though, I miss the sound of the Ani'ani sea. \s[3]The waves outside my window rocked me gently to sleep, back 'home.' \s[1]\nBut home is where the heart is, and my heart is wherever blessed Alonai'a wishes for me to best serve her spirit. \s[0]Hence why I don't get homesick all too often... \s[1]even if the fish was fresher back on the islands."
+		
+		"\0\s[0]The scruffy little trees on my neighbor's property have been making strange noises at night... \s[1]very spooky. \n\w9\w9\s[0]I suppose that's why they're called something along the lines of 'howling leaf trees' in Ani'ani... \s[1]we Diamonds tend to name things pretty literally, as it turns out."
+		
+		"\0\s[0]One thing about being a Diamond with a messy home is... \s[1]well, our bushy tails tend to do our sweeping for us, for better or for worse.\n \s[0]I learned as a child not to let my tail drag along the floor as I walked, but... getting older, \[1]it's tiring keeping it held high all the time! \s[0]Usually I can simply brush my tail outside, get all the debris off, and it will all be fine... \s[3]but on the occasion where I haven't swept in weeks, well... \s[1]let's just say, it's a good thing the inns in Welakaono offer deep shampoo rinses for your fur! \n\s[0]In that way, I suppose my messy floors end up giving me a chance to visit the hot springs... maybe I should clean less...\n \w6\s[1]\w2Just kidding!.. Ehehe."
+		
+		{
+			"\0\s[0]What to do, what do to...\w9ah, after you leave I might "
+			--
+				if hour >= 15 && hour <= 18 // 3pm - 6pm
+				{
+					"see if the neighbors need help herding the Sunnai. It's that time of day... those wooly troublemakers always escape and find themselves in my yard."
+				}
+			"clean up a bit... I've let the house dust over, having been gone at the shrine so long. We Diamonds aren't exactly known for our spotless homes..."
+			
+			"make my way to the market. I'm almost out of spices for my favourite soup..."
+			
+			"go down to the fish market. I've been craving some %(cooked) %(fish)..."
+				
+			"start chipping away at the laundry... I'm running out of casual clothing, haha. Soon I'll be stuck wearing my silk wraps, unless I get to work..."
+		}
+		
+		if Flag("claris") == 1 && Flag("gio") == 1 && Flag ("inola") == 1
+			{
+				{
+					"\0\s[1]Oh! I just remembered... \s[0]"
+					"\0\s[1]Hm... \s[0]"
+					--
+					"would you mind if I light a candle, %(oomf)? \s[1]Gio sent me some of these wonderful scented ones. I don't remember what he said they were scented with, \s[3]something with about twelve syllables that sounded a bit like a garbled sneeze... \s[1]but I \f[italic,1]do\f[italic,default] know they smell delightful."
+					
+					"would it bother you if I lit an incense, %(oomf)? Inola gave me a package of these nice, lightly scented ones... \s[1]before, I always stayed away from incense since it always made me sneeze. But these ones are so pleasant and airy! I think you'll love them, really."
+				}
+			}
+		
+		// timed, dont count
+			if timeslot == "dawn" // 5am-7am
+			{
+				"\0\s[0]The dawn hours are so refreshing, don't you think?..\n\n The morning sun reflecting softly off the snow, the crisp chill in the air... ah! I just love it."
+			}
+			
+				elseif timeslot == "daytime" // 7am - 4pm
+				{
+					"\0\s[0]Ah, apologies... I should close the curtains. The sun is high, so it's reflecting bright on the snow... a bit too bright, for my taste.\n \s[1]I hope it was not burning your eyes as much as it was mine, %(oomf)!"
+				}
+				
+				elseif timeslot == "startime" // night time! 11pm to 4am
+				{
+					"\0\s[1]\f[italic,1]*Yaawn*\f[italic,default]\n\n \s[0]...Oh dear. I suppose I'm getting a bit sleepy, hm...\n I will push on, however. The night is young!\_w[3000]\n\n \s[1]\f[italic,1]*Yaaaawn*\f[italic,default]\n\s[0]\w9.\w3.\w3.On the other hand...\w7 \s[1]perhaps I should take a nap."
+				}
+				
+				
+				elseif timeslot == "dusk" // 5pm - 7pm
+				{
+					"\0\s[0]Ah, finally, the sun has dimmed a bit... much less intense on the eyes. Now is a good time to open the curtains, and write by the light of sunset, yes?\n Feel free to use my spare workstation any way you see fit, %(oomf). Any spare writing supplies are yours to make use of..."
+				}
+			
+			if hour == 13 // 1pm
+			{
+				if dinner == "stew"
+				{
+					"\0\s[0]Hm... if I am to have stew for dinner tonight, I had better get it started... the meats taste much better if you start them early."
+				}
+				elseif dinner == "noodles"
+				{
+					"\0\s[1]Hmm... having noodles for dinner tonight, so there's not much prep..."
+					--
+					if side != ""
+					{
+						"\n \s[0]I feel like the side will be more trouble than the actual dinner. "
+						--
+						if side == "mashed wedgeflower"; "Mashed wedgeflower can take a while, the roots need to boil longer than the noodles to get soft enough... and then the sauce, hm. \s[0]But it will be tasty... so I shouldn't complain."
+						
+						elseif side == "soup"; "The broth for my little side soups can actually take quite long, especially if don't have any other bone broth to start it with... \s[1]hopefully that oceangrass I bought is still nice and fresh."
+						
+						else; "\s[1]Oh well... I'll get started on it in an hour or so."
+					}
+				}
+			}
+				
+				elseif timeslot == "dinnertime"
+				{
+					if dinner == "stew"
+					{
+						if hour == 17 && minute <= 45
+						{
+							"\0\s[1]Almost already finished with your stew, there?.. You must have worked up an appetite traveling all the way here!.. \s[0]You can have as many servings as you'd like, %(oomf)."
+							--
+							if side != ""
+							{
+								"\n You could also try some more of the %(side)!"
+							}							
+						}
+						else
+						{
+							"\0\s[1]Mmm... alright, I'm going to get another bowl of stew. \s[0]Would you like any?"
+						}
+					
+						"\0\s[0]Ah... \s[3]I'm getting quite tired of stew, \s[0]if I'm honest with you. I think, tomorrow, I'll make some noodles with red sauce... \s[1]er, if I can find any. I may have used up all the cans I bought when I was in Scavva last..."
+					}
+					elseif dinner == "noodles"
+					{
+						if hour == 17 && minute <= 45
+						{
+							"\0\s[0]Mmm... I've already almost finished my noodles. \s[1]I'm definitely going back for seconds -- do you want any more, %(oomf)?"
+						}
+						else
+						{
+							"\0\s[1]Mm... I'm full. So many noodles..."
+						}
+					}
+					elseif dinner == "soup"
+					{
+						{
+							"\0\s[1]Bit hard to fill up on soup, isn't it?.."
+							--
+								if side != ""
+								{
+									"\n \s[0]Here, you can have some more %(side). \w9\s[1]Sorry for not making a more substantial main course, %(oomf)!"
+								}
+								else; "\n \s[3]Hum... I should've made a side... \s[1]Don't starve, %(oomf)! I swear I have desserts, biscuits and the like... you can have as many as you want, after we are done with our soup..."
+						}
+					}
+					elseif dinner == "fish"
+					{
+						"\0\s[0]Mmm... the %(fish.d) is so delicious\s[1], \w2don't you think? I basted it in Sunnai fat for a couple of hours... it really brings out all the flavours."
+					}
+				}
+				
+				elseif timeslot == "cookingtime" // 2pm to 4pm
+				{
+					"\0\s[0]If you're getting hungry, I made some muffins this morning. Dinner is coming up soon, though, \s[1]so don't spoil your appetite!"
+					
+					if dinner == "soup"
+					{
+						"\0\s[0]Oh, I forgot to stir the soup... hold on.\n\n\_w[5000]Eheh... \s[1]thank goodness it didn't boil over, that would have been \f[italic,1]such\f[italic,default] a mess."
+					}
+					elseif dinner == "fish"
+					{
+						"\0\s[0]The %(fish.d) is marinating... \s[1]mmm, I bet it will be delicious when I fry it up for dinner. Do stay and eat, %(oomf)! It would be my pleasure to make extra for you!"
+					}
+				}
+				
+				else // for snacky dialogue. i just dont want them to go "oh im soooo hungry" when they're . eating and making dinner
+				{
+					"\0\s[0]Ah, I'm craving some %(snacks)...\n\n\w9\w9\w9\w6\s[1]Hehe, here we are. Would you like a bite? There's plenty to share."
+					
+					"\0\s[0]I wonder if I have any leftover %(cooked) %(fish)...\n If I do, I might heat it up with some bone broth.\n\n \w3Do you want any? I can pour you a bowl when it's done..."
+				}
+
+			
+		
+		if weekday == 4 || weekday == 5
+		
+		{
+			"\0\s[0]It's almost that time of week again, when I am to travel to the Shrine of Aces, fulfill my duties and all...\n\w9\s[1]...Truth be told, I'm not feeling up to it. \s[0]Blessed Alonai'a will surely forgive me if I don't dust the snow from her statue, just this once...\n\w9\w9...Right? \s[1]Hehe!"
+			
+			"\0\s[0]I usually keep my bag packed before I go to the shrine, but I had a lot of laundry to do this week... \s[1]hopefully I'll remember it isn't full before I leave!..\n \s[3]Though... \s[1]chances are I'll still forget. Ehehe!"
+		}
+}
+			/*
+			   _____ _    _ _____  _____ _   _ ______ 
+			  / ____| |  | |  __ \|_   _| \ | |  ____|
+			 (  (___| |__| | |__) | | | |  \| | |__   
+			  \___  |  __  |  _  /  | | | . ` |  __|  
+			  ____) | |  | | | \ \ _| |_| |\  | |____ 
+			 |_____/|_|  |_|_|  \_\_____|_| \_|______|
+			 
+			*/ 
+ShrineDialogue : nonoverlap_pool
+{
+		"\0\s[1]Sometimes I wonder what it would have been like to have been born the Shrine Guardian of a different Ace... \s[0]surely I would have turned out similar?.. \n\w9\w9\s[3]...Or perhaps my studies of Alonai'a have sculpted me more than I give them credit for...\s[1]\n I am thankful for how it all worked out."
+		
+		"\0\s[0]Ah, being here in the shrine reminds me...once, while I was away from home, a little lost Kikuminu snuck its way into my house. The little fellow must have been starving; by the time I got home, he had nearly chewed through my entire supply of dried meats!\n\n \w9...I don't mind. He needed the food more than I did. I can only hope he got back home, safe and warm."
+
+		"\0\s[1]Brrrr, it's a bit chilly in here... \s[0]when I'm at home, it's easy to stay warm, but here at the shrine it gets a bit nippy.\n\w9\s[1]...The marble floors are pretty, but they're not so great for retaining heat..."
+
+		"\0\s[1]I'm lucky the architects of the temple decided to put a nice, big hearth here... I'm not sure what I'd do if there was no place to brew a pot of tea. \w9\w9\w2 \n\s[0]...Er, \s[3]on second thought, \s[1]this may have been placed here primarily for ceremonies, \s[0]not personal pleasure.\n\n \w9\s[1]...Oh well. Haha!"
+
+		"\0\s[0]I have always loved how sound echoes in here. When I was younger, I brought my flute with me and let its songs ring out through the stone hallways...\w7 ah, perhaps I should dust it off and learn to play it again."
+		
+		"\0\s[0]I'm looking forward to getting back home and being able to sleep in my own bed... \s[1]the shrine's little cot isn't very comfortable. \s[0]It makes me feel thankful for my comfortable little nest back home, so perhaps it keeps me humble...\n\n \s[1]...Though, my spine doesn't appreciate the 'humbling' very much!"
+		
+		"\0\s[1]The other shrines have been through their fair share of renovations, but I've never really thought to upgrade the temple... \s[0]perhaps it is the historian in me, but I would rather preserve the ancient beauty of the original temple, even if renovations would add to its practical capabilities...\n\n \s[1]Hmm... is it the 'historian' in me, \s[1]or the 'old geezer?' Who's to say... \s[1]haha!"
+		
+		"\0\s[3]I think I underpacked when I left from home... \s[0]I only packed three instant lunches. Not nearly enough for breakfast, lunch, and dinner for two days!.. \s[1]Oh well. I'll have to scrounge around in the private room of the temple, see if my students left any food for me. \s[0]They know I'm a bit forgetful with my food nowadays..."
+		
+		"\0\s[0]I found a few %(food.adj) %(root)s in my bag... could be useful as a midnight snack, if I don't feel like leaving the temple to get food in Welakaono! \s[1]Oh, on that note... do let me know if you get hungry, %(oomf)..! \s[0]I may be scrounging around in my bag for scraps, but I'll make sure you're fed... \s[1]haha!"
+		
+		if Flag("claris") == 1 && Flag("gio") == 1 && Flag ("inola") == 1
+		{
+			//all
+			{
+				{
+					"\0\s[1]Being at the shrine always makes me wonder how my friends are doing... \s[0]"
+					--
+					{ // gio
+						{ 
+							"I hope Gio's doing alright. It's been a few days since we talked last. "
+							--
+							"\s[1]He's been quite well, I think...\s[0]\n Busy, but well."
+							"\s[3]I heard from a mutual friend of ours that he's not doing so hot... \s[1]perhaps I will send him a small care package. Do you think he would enjoy a little delivery of tea blends and biscuits?.."
+						}
+						"I hear Gio's well, at least. I've been meaning to visit him, but... well, you know. \s[1]Busy..."
+					}
+					
+					{ // claris
+						"\n All I know is that Claris is getting it done, as always. She works so hard, I applaud her... but, I hope she can find a moment to rest soon. She's young, but overworking yourself is harmful no matter your age..."
+					}
+				}
+				
+			}
+			
+			//gio
+			"\0\s[1]I try not to talk anyone's ear off about my Guardian friends, but it really is hard not to mention Gio more often... he always beckons me not to compare, tells me I have my own long list of duties, but he truly does impress me. He deals a lot more with people than I ever do; of course, his students can take some of the workload, just like mine... but he still has to listen to the confessions of hundreds of people every week. \s[0]I simply couldn't do it! I mean... I'd just want to gossip with them all. I don't know how he makes them feel cleansed of their wrongdoings and all that... \s[1]and what of the people who really are awful?! Does he still 'forgive' them? What of murderers and the like?.. It's all such a thrill to think about, \s[0]but he never tells me, of course. He knows I blab too much!.. \s[1]Perhaps he'll spill his methods someday."
+			
+			//claris
+			"\0\s[0]Claris has been hard at work on repairing the Shrine of Clubs... \w9again. \s[1]I feel so bad for her, she has to put up with earthquakes so often...\n It leads me to count my blessings, here at this temple. I am very thankful for the lack of disasters here...\n\n \s[0]The energy surrounding the shrines are often as calm as the Ace they were built after. Nore of Clubs was... \s[3]not very calm, to put it lightly. \s[0]A hectic energy surrounds the Lamnthine temple, especially in the Selyrtime..."
+			
+			//inola
+		}
+		
+		
+		if timeslot == "cookingtime" // 2pm to 4pm
+			{
+				"\0\s[0]If I were home, I'd be starting to prepare dinner around this time... hm. Having a break from housework is nice, but I always miss cooking...\w9 something about it is just so meditative."
+				
+				"\0\s[1]%(Capitalize(hm))... hungry...\n Perhaps I should venture out to the little market in Welakaono, pick up a few snacks...\_w[1500] ah, but I wouldn't want to leave you here in the temple all by yourself, haha!"
+			}
+			
+		elseif timeslot == "dinnertime" // 5pm - 7pm
+			{
+				"\0\s[0]Hum...wish I was home, I'm craving stew. Ah, well. I'll stop by the village on my way home... grab something to eat.\_w[1000]\n\n...Ohh, now I'm craving that lovely streetmerchant's fried sea prunes...\n \w3...Perhaps this is a sign that I should bring more refreshments along with me next week."
+				
+				"\0\s[1]Mmm. Being at the shrine is always a good excuse to eat those little instant packets of food I'd never touch at home... \s[0]Would you like me to boil a pot of water and make you some of these noodles, %(oomf)? They're really quite good... though they're not very filling, I fear."
+			}
+			
+		
+}
+	
+			/*
+			  _             _                                 
+			 (_)           | |                                
+			  _ _ __     __| | __ _   ___ _ __   _____      __
+			 | | '_ \   / _` |/ _` | / __| '_ \ / _ \ \ /\ / /
+			 | | | | | | (_) | (_) | \__ \ | | | (_) \ V  V / 
+			 |_|_| |_|  \__,_|\__,_| |___/_| |_|\___/ \_/\_/  
+				
+			*/
+
+TravelDialogue : nonoverlap_pool
+{
+	nonoverlap_pool :/
+	{
+		_place = ""
+		if locslot == "goinghome"; _place = "temple"
+		else; _place = "house"
+
+		"\0\s[0]Traveling always puts my mind at ease... "
+		"\0\s[0]It is nice to get out of the %(_place) and into the snow... "
+		"\0\s[0]I am happy to be out in the open, after being cooped up so long... "
+		--
+		{
+			if locslot == "goinghome"
+			{
+				"I can't wait to get home, I missed my bed so dearly!"
+				"\s[1]thank you for accompanying me on my way home, %(oomf)!"
+			}
+			else
+			{
+				"\s[1]I hope my students dusted the shrine like I asked this time, I don't want to have allergies as soon as we get there..."
+			}
+			
+			"though, the snow is a bit thick to be walking through right now! Be careful with your ankles... \s[1]don't fall into any Kikuminu burrows."
+			"\s[1]we should stop at Welakaono's teahouse on the way, and pick up some snacks!.."
+			"\s[1]we should grab some noodles on our way... I'm starved."
+		}
+	}
+
+	"\0\s[0]Careful where you step, %(oomf)! We have to take extra care while we travel... there are many wild animals who burrow here.\n\n When I was younger, I took little sticks with me, to mark the burrows of the animals so I would stop falling in... \s[1]but, the sticks always blew away or got buried under another coat of snow, so... I eventually gave up marking them. \s[0]So goes life..."
+}

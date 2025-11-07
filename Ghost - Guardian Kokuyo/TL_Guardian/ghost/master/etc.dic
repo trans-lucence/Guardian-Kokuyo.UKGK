@@ -1,0 +1,382 @@
+
+OnMikoYell // this is for a ghost i havent released yet dont look too hard okay
+{
+	if reference0 == 'annoying'
+		{
+			"\0\s[1]What a racket..."
+			"\0\s[0]Er... you might want to stay inside until the wild animals go to sleep. I hear them out there, somewhere... they can be quite frightening!"
+			"\0\s[0]Now \f[italic,1]what\f[italic,0] is all that \f[italic,1]racket?..\f[italic,0]"
+		}
+	elseif reference0 == 'gay'
+		{
+			"\0\s[0]Ah, \w2eh\w2 heh... \s[3]sorry...\w8\n \s[0]It appears the wild animals outside are doing their...\s[1]\w9 mating calls. I'll close the window,\w8 \f[height,-2]\s[3]before any of them have the chance to be successful...\f[height,default]"
+		}
+	elseif reference0 == 'happy'
+		{
+			"\0\s[1]Hm... what a nice tune I hear out there."
+			"\0\s[1]Aw, do you hear that..! How nice... I'll open the window so we can hear it a bit better..."
+			"\0\s[1]Oh, how pleasant it is to hear the distant calls of wildlife..."
+		}
+	elseif reference0 == 'pain' || reference0 == 'sad'
+		{
+			"\0\s[1]Oh, poor thing..!"
+			"\0\s[1]I hope that little animal is okay out there..."
+			
+			{	
+			"\0\s[0]Aw... whatever poor little animal out there is calling out, I hope it's alright. It sounds "
+			--
+				if reference0 == 'pain'	{ 
+				"so pained"
+				"like it's hurting" 
+				"hurt" }
+				
+				else {
+				"so upset"
+				"so sad"
+				"really upset" }
+			--
+			"..." 
+			}
+		}
+		
+}
+
+// -------------------------------------------------------------------------------------------------------
+
+OnLoboHowl : nonoverlap_pool
+{
+	if reference0 == 'pain' || reference0 == 'sad'
+	{
+		"\0\s[1]Poor thing..."
+		
+		{	
+		"\0\s[0]Aw... whatever poor little animal out there is calling out, I hope it's alright. It sounds "
+		--
+			if reference0 == 'pain'	{ 
+			"like it's in pain"
+			"hurt"
+			"like it's hurt" }
+			
+			else {
+			"so sad"
+			"upset"
+			"like it's upset"
+			"like it's sad" }
+		--
+		"..." 
+		}
+	}
+	
+	elseif reference0 == 'hopeful' || reference0 == 'normal'; pool :/
+	{
+		"\0\s[1]Oh, how pleasant it is to hear the distant calls of life..."
+		"\0\s[0]What a pretty howl!.."
+		
+		if reference0 == 'hopeful' 
+		{ 
+		"\0\s[0]What a beautiful song I hear..." 
+		"\0\s[0]Hm... \s[1]ah... do you hear that sound? The distant howl of the Kikuminu is like music to my ears." 
+		}
+	}
+	
+	elseif reference0 == 'strange' || reference0 == 'vulgar'; pool :/
+	{
+		"\0\s[0]Er... you might want to stay inside until the wild Kikuminu go to sleep. I hear them out there, somewhere... they can be quite frightening!"
+		"\0\s[0]Now \f[italic,1]what\f[italic,0] is all that \f[italic,1]racket?..\f[italic,0]"
+		
+		if reference0 == 'vulgar' 
+		{ 
+		"\0\s[1]Oh dear... what a nasty howl. I hope that poor animal starts feeling better soon." 
+		"\0\s[0]Oh dear, what a rambunctious animal. \s[1]Ehm... perhaps I should close the window..."
+		}
+		
+		else
+		{
+			"\0\s[0]Hum... what a strange sound. I'm glad we're inside and safe..."
+		}
+	}
+}
+
+// -------------------------------------------------------------------------------------------------------
+
+OnNeedlePoke
+{
+	"\0\s[0]Oho, a needle! Is this a subtle request?.. Alright, I can try to make you a little scarf soon, then.\n\s[1]\w9Poor thing, you must be so chilly... until I can make you one, please do feel free to raid my coat closet..."
+		
+	"\0\s[0]Ooh, what a sharp needle you've got there... you know, I think one of the Aces used a large needle as a weapon. Orobo of the Fifth Age, was it?.. \s[1]They were a seamstress, so I suppose they chose the weapon that felt the least foreign in their hands.\n Do be careful with that thing, %(oomf). \s[0]I wouldn't want you hurting yourself!"
+}
+
+// -------------------------------------------------------------------------------------------------------
+
+OnOtherOverlap : all // huge thank you to the needle team for making overlap work at all, i was having so much trouble getting this to do what i wanted until i remembered... there's a great reference out there for this! i simply trimmed all the bits that involved sending out an external event, and tried to rename stuff as i learned what it did!
+{
+	_overlap = SPLIT(reference.raw[0],C_BYTE1)
+	_unoverlap = SPLIT(reference.raw[1],C_BYTE1)
+		_char = ""
+	
+	foreach _overlap; _activeoverlap
+	{
+		if "Kokuyo/0" _in_ _activeoverlap && ASEARCH(_activeoverlap,_unoverlap) == -1 //If overlap AND not in the unoverlap array
+		{
+			_char = ""
+			if "-Kokuyo" _in_ _activeoverlap; _char = REPLACE(_activeoverlap,"-Kokuyo/0","")
+			else; _char = REPLACE(_activeoverlap,"Kokuyo/0-","")
+			
+			_char = SPLIT(_char,"/")
+			_num = ""
+			_ghost = ""
+			for _i = 0; _i < ARRAYSIZE(_char); _i++
+			{
+				if _i == (ARRAYSIZE(_char) - 1)
+				{
+					_num = _char[_i]
+					break
+				}
+				
+				if _i != 0; _ghost += "/"
+				_ghost += _char[_i]
+			}
+			
+			if _ghost == "Hydrate" 
+			{ 
+				"\![raise,OnKokuyoHydrate]"
+			}
+				else; { OnKokuyoOverlap.Else }
+		}
+	}
+}
+
+// HYDRATE SECTION!!!!!!!!!!!!!!!!!!
+	OnHydrateStatsNotify
+	{
+		hydrate.shell = reference0
+			hydrate.inshell = reference0
+			hydrate.inshell = TOLOWER(hydrate.inshell)
+	}
+	
+	OnKokuyoHydrate : all
+	{
+		case hydrate.shell
+		{
+			when "Stratospheric Delivery"
+			{
+				"\0\s[1]Humm... cloudy out today. I hope it doesn't hail..."
+				"\0\s[0]Does it feel a bit damp in here to you?.. \s[3]Oh, dear, I hope my roof isn't leaking... that would be a pain to fix."
+			}
+			
+			when "きつねのお茶 (Fox's Tea)"
+			{
+				if _rare > 3; "\0\s[0]For me..? Oh, my goodness\s[1], look at that! The little fellow on top... so cute.\n \s[0]...\w9Now that I look a bit closer... \w3he and I look quite similar, don't we?.. \s[1]Ehehe..."
+				
+				else; "\![raise,OnKokuyoHydrate.Tea]"
+			}
+			
+			when "Milk"
+			{
+				"\0\s[1]Milk!\n Thank you... I love milk. What a strange thing to drink, though, isn't it?.."
+				"\0\s[1]Mmm... milk.\n Thank you for the sips..."
+			}
+			
+			when "Pet Bowl", "Bowl of Water"
+			{
+				if GhostIsOpen("lorem") 
+				{
+					"\0\s[1]Ahh, a pet bowl! I heard a wild Kikuminu earlier... maybe if we put this and some food out, it will come visit us..?"
+				}
+					else
+					{
+						"\0\s[0]Ah, a little bowl..! \s[1]Oh, we should put this out for the Kikuminu... maybe some food, as well... \s[1]thank you for the idea, %(oomf)..!"
+					}
+			}
+			/* // toupdate : make this suck less dick and actually work
+				others // _in_ section, as well as the big generic else pool
+				{ 
+					if "teacup" || "teapot" _in_ hydrate.inshell
+					{
+						OnKokuyoHydrate.Tea
+					}
+					
+					elseif "ink" || "brush" || "paint" _in_ hydrate.inshell
+					{
+						"\0\s[1]Ah! If you'd like to write, I have plenty of extra paper on my desk!.. I also have blank canvases in the attic, I could get you some down if you'd rather paint something? \nJust let me know... then we can create something together! It will be wonderful!"
+					}
+
+					elseif "poison" || "blood" || "gore" || "acid" || "syringe" || "test tube" || "suspicious" || "haunted" || "bone hurt" || "injector" _in_ hydrate.inshell
+					{
+						"\0\s[1]Ehmm... huh! That's... interesting... \s[3]\n\f[height,-2]A-are you sure that's okay to drink?.. Be careful..! The nearest hospital is quite far...\f[height,default]"
+					}
+						elseif "soap" _in_ hydrate.inshell
+						{
+							"\0\s[1]Oh! Are you offering to clean my dishes for me?.. \s[0]Such a kind soul! Thank you, %(oomf)..!"
+						}
+						
+										
+					elseif "alchohol" || "wine" || "champagne" || "alkohol" || "whisky" || "whiskey" || "martini" || "beer" _in_ hydrate.inshell // dear god
+					{
+						"\0\s[1]Hm... \w9\s[0]thank you for the offer, %(oomf), but I don't really drink.\n I \f[italic,1]will\f[italic,default] clink glasses with you, though...\s[1]\w2 I always thought that was fun! \w5Ehehe... cheers!"
+					}
+						elseif "sake" _in_ hydrate.inshell
+						{
+							"\0\s[1]Mmm...\n Usually I don't drink, but I'll make an exception for this. Thank you kindly, %(oomf)... cheers..!"
+						}
+						
+					elseif "milkshake" _in_ hydrate.inshell
+					{
+						"\0\s[0]For me?! Thank you!..\n Mmm, delicious. I love sweet treats like this..."
+					}
+					
+					elseif "coffee" || "espresso" || "cappuccino" || "latte" || "americano" _in_ hydrate.inshell // this is below the alcohol section SPECIFICALLY because i dont know if someone will ever make an espresso martini shell LOLOLOL
+					{
+						if timeslot != "startime" || "dinnertime" || "dusk"
+						{
+							"\0\s[0]Hmmm... I'm more of a tea person, but I'll try a sip... \s[1]just for you, %(oomf)."
+						}
+							else
+							{
+								"\0\s[1]Ehehe! Isn't it a bit late for that?..\n \s[3]...I apologize, I shouldn't ridicule your schedule. \s[1]Just make sure you're limiting your caffeine intake, hm? It can mess with the production of your energy!.. \n\s[0]Not that that's something a Pip like you and I should be all too fussed about. We don't need all that flow, anyway...\n\n \s[1]Oh, dear. I'm becoming a bad influence... just don't drink too much, alright?"
+							}
+					}
+				*/ 
+					others // NO INFO SECTION!!!!!!!!!!!!!!!!!!!!
+					{
+						"\0\s[0]"
+						--
+						"Hum... I'm parched... "
+						"I'm getting quite thirsty... "
+						--
+						"oh, what's this? "
+						"ooh, a drink?.. "
+						--
+						"For me?"
+						"Is this for me?... "
+						--
+						"Thank you, %(oomf)! How kind of you..!"
+					}
+				}
+		}
+	
+	OnKokuyoHydrate.Tea : nonoverlap_pool
+	{
+		"\0\s[1]Ahhh! For me\s[0]? Thank you..!\n"
+		--
+			"I love this kind of tea... \s[1]so soothing."
+			"\s[1]\w5Mmm... delicious."
+			"This aroma... \s[1]so pleasant!.."
+		--
+		""
+		"\n \s[0]I greatly appreciate this\s[1]! Thank you kindly, %(oomf)!"
+		"\n It is such a special thing, to share tea with someone."
+		}
+// END OF HYDRATE SECTION!!!!!!!!!!!!!!!!!!!!!
+
+OnKokuyoOverlap.Else
+{}
+
+// -------------------------------------------------------------------------------------------------------
+
+OnFileDrop : nonoverlap_pool // thank you gt template i love you
+{
+	dropped = reference0
+		_filepath = SPLITPATH(reference0)
+		_filename = _filepath[2]
+		_fileext = TOLOWER(_filepath[3])
+	
+	case _fileext
+	{
+		when ".mid", ".wav", ".mp3", ".wma", ".au"
+		{
+			"\0\s[0]Oh, wonderful! Something to listen to... I will put it on while I work later. Sharing music is a delightful thing, isn't it?"
+			"\0\s[1]Oh, a song?.. Why thank you! I do love music recommendations..."
+		}
+		
+		when ".txt", ".pdf", ".doc", ".docx", ".html", ".rtf", ".md"
+		{
+			"\0\s[0]Ah, something to read! Thank you, %(oomf)."
+			"\0\s[1]Wonderful, wonderful! Something new to read is always welcome."
+		}
+		
+		when ".png", ".jpg", ".jpeg", ".webp", ".gif"
+		{
+			Wallpaperfile = reference0
+			
+			"\0\s[1]Ooh, what's this?... \s[1]Wonderful little picture you've got there, %(oomf)! Would you like it put up on the wall? \n\n\![*] \q[Yes,OnWallpaperYes]\n\![*]\q[No need,OnWallpaperNo]"
+		}
+		
+		others; "\0\s[0]Hm?... What is this?\n Very sorry, %(oomf)... I'm not so sure how to go about using this! \s[1]I'd love for you to tell me about it, however!.."
+	}
+}
+
+OnWallpaperYes : all
+{
+	"\0\s[1]Oh, wonderful! Where would you like it? I can put it anywhere... ehm, except for on the walls with the bookshelves, sorry. They take up quite a bit of space, hmm..."
+	
+	"\n\n\![quicksection,1]\f[color,disable]Select how you would like to set your wallpaper.\f[color,default]\n"
+	
+	"\![*]\q[Centered,SetWallpaperCenter]\n"
+	"\![*]\q[Tiled,SetWallpaperTile]\n"
+	"\![*]\q[Stretched,SetWallpaperStretch]\n"
+	"	\![*]\q[Stretched (horizontal),SetWallpaperStretchX] (Windows 7 or later)\n"
+	"	\![*]\q[Stretched (vertical),SetWallpaperStretchY] (Windows 7 or later)\n"
+	"\![*]\q[Span,SetWallpaperSpan] (Windows 10 or later)\n"
+	"\![*]\q[Nevermind,SetWallpaperCancel]"
+}
+
+	SetWallpaperCenter {	"\![set,wallpaper,%(Wallpaperfile),center]" + WallpaperResponse }
+	SetWallpaperTile {	"\![set,wallpaper,%(Wallpaperfile),tile]" + WallpaperResponse }
+	SetWallpaperStretch {	"\![set,wallpaper,%(Wallpaperfile),stretch]" + WallpaperResponse }
+		SetWallpaperStretchX {	"\![set,wallpaper,%(Wallpaperfile),stretch-x]" + WallpaperResponse }
+		SetWallpaperStretchY {	"\![set,wallpaper,%(Wallpaperfile),stretch-y]" + WallpaperResponse }
+	SetWallpaperSpan {	"\![set,wallpaper,%(Wallpaperfile),span]" + WallpaperResponse }
+		
+		WallpaperResponse	{ "\0\s[1]Well, well! Doesn't that just look lovely?.." }
+		
+	SetWallpaperCancel { "\0\s[0]Ah, changed your mind, %(oomf)? Quite alright! I always love seeing your pictures nonetheless." }
+
+OnWallpaperNo { "\0\s[0]That's quite alright, %(oomf)! Just let me know." }
+
+OnRecommendsiteChoice
+{
+	if reference1 == "https://www.youtube.com/watch?v=QbvvHsn6sgQ" // the toby fox carpet video. obviously important enough to go first
+	{
+		"\0\s[1]Hmm... a nice tune you've got going, there..!"
+	}
+	
+	elseif reference1 == "https://trans-lucence.nekoweb.org/" || reference1 == "https://github.com/trans-lucence"
+	{
+		"\0\s[1]Ooh, fancy some light reading? \s[1]Tell me if there's anything new, I'm not caught up..."
+		
+		"\0\s[1]Hmmm, anything worth catching up on in there?.."
+	}
+}
+
+/*
+OnRecycleBinStatusUpdate 
+{
+	recentactions++
+	if meta_on == 1
+	{
+		if recentactions <= 1
+		{
+			if reference0 == 0
+			{
+				"\0\s[0]Spotless..!"
+			}
+				
+			elseif reference0 > 50
+			{
+				if locslot == "home"
+				{ 
+					"\0\s[3]I really must take out the trash soon... \s[1]cooking so many dishes with fish is both a blessing and a curse."
+				}
+				elseif locslot == "shrine" 
+				{
+					"\0\s[1]Tidy, tidy."
+				}
+				
+				else; ""
+			}
+		
+		}
+	}
+}
+*/ 
