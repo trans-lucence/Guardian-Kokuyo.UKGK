@@ -11,7 +11,7 @@ name,Stars of Kosanu - Dyslexic Version
 craftman,trans.lucence
 craftmanw,trans.lucence
 craftmanurl,https://trans-lucence.nekoweb.org
-homeurl,
+homeurl,"https://github.com/trans-lucence/Guardian-Kokuyo.UKGK/blob/main/Balloon%20-%20Stars%20of%20Kosanu/StarsofKosanu_TL%20-%20Dyslexia%20Ver/"
 
 
 //——— Display area ———
