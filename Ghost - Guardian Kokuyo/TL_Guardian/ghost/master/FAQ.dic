@@ -37,7 +37,7 @@ OnBACK : all // this is the backbone to the normal FAQ (with a greeting) so that
 
 	OnFAQ
 	{
-		"\0\s[1]\![no-autopause]"
+		"\0\s[1]\![no-autopause]\![quicksection,1]"
 		--
 		"Ah, need something explained?"
 		"What knowledge do you seek?"
@@ -84,7 +84,7 @@ OnPeopleBACK : all
 }
 	OnPeopleFAQ
 	{
-		"\0\s[0]\![no-autopause]"
+		"\0\s[0]\![no-autopause]\![quicksection,1]"
 		--
 		"Who would you like me to tell you about?"
 		"Though I am not as sociable as one may think, I've learned of many notable beings in my time...\nWho would you like to hear about?"
@@ -119,7 +119,7 @@ OnStuffBACK : all
 }
 	OnStuffFAQ
 	{
-		"\0\s[0]Ooh, it appears you seek knowledge on something that transcends description, hehe! Well, I have the answers for you... hopefully."
+		"\0\s[0]\![quicksection,1]Ooh, it appears you seek knowledge on something that transcends description, hehe! Well, I have the answers for you... hopefully."
 		--
 		OnStuffBACK
 	}
@@ -144,7 +144,7 @@ OnPlacesBACK : all
 }
 	OnPlacesFAQ
 	{
-		"\0\s[0]What land do you wish to know of, %(oomf)?"
+		"\0\s[0]\![quicksection,1]What land do you wish to know of, %(oomf)?"
 		--
 		OnPlacesBACK
 	}
@@ -169,9 +169,11 @@ OnKosanuBACK : all
 
 	OnKosanuFAQ
 	{
-		"\0\s[0]Ah, my homeland, Kosanu. \s[1]I know this place like the back of my hand! \s[0]Anywhere specific?"
+		"\0\s[0]\![quicksection,1]"
 		--
-		"\n\n\![quicksection,1]"
+		"Ah, my homeland, Kosanu. \s[1]I know this place like the back of my hand! \s[0]Anywhere specific?"
+		--
+		"\n\n"
 		--
 		OnKosanuBACK
 	}
@@ -190,9 +192,11 @@ OnAidhmooreBACK : all
 	
 	OnAidhmooreFAQ
 	{
-		"\0\s[0]Aidhmoore! \s[1]I travel here quite often. Anywhere in particular?"	
+		"\0\s[0]\![quicksection,1]"
 		--
-		"\n\n\![quicksection,1]"
+		"Aidhmoore! \s[1]I travel here quite often. Anywhere in particular?"	
+		--
+		"\n\n"
 		--
 		OnAidhmooreBACK
 	}
@@ -210,9 +214,11 @@ OnPaccevelaBACK : all
 
 	OnPaccevelaFAQ
 	{
-		"\0\s[0]The beautiful Paccevela, land of Spades...\s[1] and amazing food!\nAnywhere specific?"
+		"\0\s[0]\![quicksection,1]"
 		--
-		"\n\n\![quicksection,1]"
+		"The beautiful Paccevela, land of Spades...\s[1] and amazing food!\nAnywhere specific?"
+		--
+		"\n\n"
 		--
 		OnPaccevelaBACK
 	}
@@ -231,11 +237,13 @@ OnLacertaBACK : all
 }
 	OnLacertaFAQ
 	{
-		"\0\s[0]Lacerta! I don't go often, my physique demands I stay in a chillier climate...\s[1]\w9 but, when I get the chance, it's quite a nice place. Now! Where would you like to go?"
-	--
-	"\n\n\![quicksection,1]"
-	--
-	OnLacertaBACK
+		"\0\s[0]\![quicksection,1]"
+		--
+		"Lacerta! I don't go often, my physique demands I stay in a chillier climate...\s[1]\w9 but, when I get the chance, it's quite a nice place. Now! Where would you like to go?"
+		--
+		"\n\n"
+		--
+		OnLacertaBACK
 	}
 
 		/*
@@ -654,7 +662,7 @@ OnVelanne : all
 	--
 	"\0\s[0]Ah, Velanne... a beautiful place. Being on the eastern half of Paccevela, it's quite the trek for me to visit Velanne, \s[1]but it is well worth it!\n \s[0]The architecture here is stunning, the houses and shops are as diverse in height as the people -- some buildings are so short I hit my head on the ceiling, while others tower above the rest, their chapel-like rooves reaching up to mingle with the clouds. Stained glass is a staple here, whether in tiny forms -- like the front sign of a shop -- or, in the cases such as the Shrine of Paccevela, giant mosaic pieces... \s[1]when the light hits these fragile works of art just right, it's the most beautiful thing you could ever see.\n\n "
 	
-	"Truth be told, I don't visit Velanne too often; the general population there is of the upper class, something I deal with quite enough in my work as a Guardian... \s[3]they're not as bad as the Facecards, \s[1]but they certainly could learn some manners. \s[0]I only really go for the food, and to see \_a[OnWhoGuardians]Gio\_a. As such, I don't have much to say about the place, other than that it's very beautiful...\n My sincerest apologies for the short explanation, %(oomf)!"
+	"Truth be told, I don't visit Velanne too often; the general population there is of the upper class, something I deal with quite enough in my work as a Guardian... \s[3]they're not as bad as the Facecards, \s[1]but they certainly could learn some manners, especially when dealing with Kosani folk -- \s[3]they don't take too kindly to us...\n \s[0]Anyway! I only really go for the food, and to see \_a[OnWhoGuardians]Gio\_a. As such, I don't have much to say about the place, other than that it's very beautiful...\n My sincerest apologies for the short explanation, %(oomf)!"
 	--
 	"\n\n\n\![*]\q[More about Paccevela,OnPaccevelaBACK]\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
 }
@@ -716,11 +724,20 @@ OnWhatSuits : all
 
 	" and finally, Hearts in \_a[OnLacertaFAQ]Lacerta\_a.\n\n " // CHANGE THIS WHEN YOU ADD AIDHMOORE DAMMIT!!!
 	
-	"\s[1]I am a Diamond, and so I will start by telling you about my own Suit! \s[0]We Diamonds are often lanky, fuzzy folk\s[1]... our big, fluffy tails and ears are what often gives us away, as well as the prehensile little antennae on our heads\s[0]. Oh, right... I guess we generally have more eyes than the other Suits, too... \s[1]I always forget that! When I travel, I tend to wonder how everyone else sees, having only two or three... \s[0]ah, \s[3]I hope that isn't insensitive! \s[1]Ahem...\n We're generally more suited for colder environments, having hailed from a land of snow and ice. \s[0]Our Suit is represented, of course, by a four-pointed diamond shape, but we also tend to use the four-pointed star as a secondary symbol. \s[1]Much more artsy... ehehe. \s[0]The First Ace of Diamonds is \_a[OnWhoAlonaia]Alonai'a\_a -- we Diamonds hold the Firsts in much higher regard than the others tend to... \s[1]ehm, we have our reasons for doing so, but... that's irrelevant, for now.\n\n "
+	"\s[1]I am a Diamond, and so I will start by telling you about my own Suit! \s[0]We Diamonds are often lanky, fuzzy folk\s[1]... our big, fluffy tails and ears are what often gives us away, as well as the prehensile little antennae on our heads\s[0]. Oh, right... I guess we generally have more eyes than the other Suits, too... \s[1]I always forget that! When I travel, I tend to wonder how everyone else sees, having only two or three... \s[0]ah, \s[3]I hope that isn't insensitive! \s[1]Ahem...\n We're generally more suited for colder environments, having hailed from a land of snow and ice. \s[0]Our Suit is represented, of course, by a four-pointed diamond shape, but we also tend to use the four-pointed star as a secondary symbol. \s[1]Much more artsy... ehehe. \s[0]The First Ace of Diamonds is \_a[OnWhoAlonaia]Alonai'a\_a -- we Diamonds hold the Firsts in much higher regard than the others tend to... \s[1]ehm, we have our reasons for doing so, but... that's irrelevant, for now. "
 	
-	"\s[0]Moving along... Spades, the Suit of Paccevela! Spades are often characterized by the richly coloured markings on their skin. The most common colours you will see is a primary cream or tan, fading to a beautiful jet black or dark blue colour along their limbs, almost like gloves or long socks... \s[1]very, very pretty! \w4\s[0]They also tend to have very large horns -- one such example is my good friend Gio, whose twisted horns wrap all the way 'round the back of his head, poking up around his face. \s13]With his beard and thick hair, I often imagine him as a fluffy little Sunnai... \s[3]but, he didn't seem to appreciate my comparison of his head to my neighbor's livestock, so... \s[1] \w8ehehe.\n \s[0]Their Suit is represented by a peculiar symbol, which looks a bit like an upside down heart with a trunk. Their First Ace is Viro, who many of its citizens don't care much for or know of... however, as you get close to the coast and further from the Facecards' iron grip, you may start to see more shrines and temples dedicated to Viro. \s[1]Gio, the Guardian of the Shrine of Paccevela, is the first of his lineage to truly spread the word that Viro was not as barbaric as the Facecards make him seem... and truly, what an accomplishment on his part! \s[0]I digress, however; I'm getting offtopic, rambling about my dear friend. Onto the other teachings, hm?\n\n "
 	
-	"Clubs, the suit of Aidhmoore, were also originally islanders -- as they are directly to the south of Kosanu, they were among the first to ever meet our own Suit, and we have been very close ever since. They, too, have big fluffy ears -- yet also, stubby little tails, very cute. They are shorter and much more stout than we Diamonds -- being tall even for my Suit, I tend to tower over them... \s[3]though, as their Suit is known for being very dense and muscular, I am sure many of them could take me down in seconds...\s[1] ehehe!\n \s[0]\w2The horns on their head often don't grow very much... \s[1]but, ehm, despite their size, they sure do hurt when a Club headbutts you! \s[3]I'll never forget the day Claris rammed her head into my side, as is a traditional friendly Aidhish greeting... \s[1]she had to carry me to a cot, I couldn't trust myself to walk!\n \s[0]Anyway... Clubs are represented by a little clover symbol, be it three-leafed or four. Their First Ace is Nore, who many on the mainland have forgotten... \s[1]however, their memory is alive and well on the Lamnthine Islands, where the Shrine of Aidhmoore resides.\n\n "
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	
+	"\s[0]Moving along... Spades, the Suit of Paccevela! Spades are often characterized by the richly coloured markings on their skin. The most common colours you will see is a primary cream or tan, fading to a beautiful jet black or dark blue colour along their limbs, almost like gloves or long socks... \s[1]very, very pretty! \w4\s[0]They also tend to have very large horns -- one such example is my good friend Gio, whose twisted horns wrap all the way 'round the back of his head, poking up around his face. \s[3]With his beard and thick hair, I often imagine him as a fluffy little Sunnai... \s[3]but, he didn't seem to appreciate my comparison of his head to my neighbor's livestock, so... \s[1] \w8ehehe.\n \s[0]Their Suit is represented by a peculiar symbol, which looks a bit like an upside down heart with a trunk. Their First Ace is Viro, who many of its citizens don't care much for or know of... however, as you get close to the coast and further from the Facecards' iron grip, you may start to see more shrines and temples dedicated to Viro. \s[1]Gio, the Guardian of the Shrine of Paccevela, is the first of his lineage to truly spread the word that Viro was not as barbaric as the Facecards make him seem... and truly, what an accomplishment on his part! \s[0]I digress, however; I'm getting offtopic, rambling about my dear friend. Onto the other teachings, hm? "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	
+	"Clubs, the suit of Aidhmoore, were also originally islanders -- as they are directly to the south of Kosanu, they were among the first to ever meet our own Suit, and we have been very close ever since. They, too, have big fluffy ears -- yet also, stubby little tails, very cute. They are shorter and much more stout than we Diamonds -- being tall even for my Suit, I tend to tower over them... \s[3]though, as their Suit is known for being very dense and muscular, I am sure many of them could take me down in seconds...\s[1] ehehe!\n \s[0]\w2The horns on their head often don't grow very much... \s[1]but, ehm, despite their size, they sure do hurt when a Club headbutts you! \s[3]I'll never forget the day Claris rammed her head into my side, as is a traditional friendly Aidhish greeting... \s[1]she had to carry me to a cot, I couldn't trust myself to walk!\n \s[0]Anyway... Clubs are represented by a little clover symbol, be it three-leafed or four. Their First Ace is Nore, who many on the mainland have forgotten... \s[1]however, their memory is alive and well on the Lamnthine Islands, where the Shrine of Aidhmoore resides. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
 	
 	"Lastly, the Lacertan Hearts, by far the most plentiful on the landmass. There is so much diversity in their appearance that it's hard to describe them, but they all have long tails -- some bare, some slightly fuzzy... most of them have horns which look a bit like the mandibles of certain insects, though they aren't prehensile like Diamonds' antennae are. Each -- \s[3]\w3well,\w8 \s[1]\f[italic,1]most\f[italic,default] Hearts have what is known as a "
 
@@ -772,14 +789,20 @@ OnWhatGuardianship : all
 	"Guardianship -- and that divinity along with it -- is passed down when the current Guardian passes away. Furthermore, each Guardian keeps pupils, training them so that, when the time comes, their students may take on a set of ceremonial trials and claim Guardianship.\n This ceremonial training can take anywhere from one to five years, and it can be\w2.\w2.\w2. \w9\s[1]pretty\w3 harrowing. \s[0]The intensity varies based on the suit, but... my goodness! \s[1]The Paccevele Shrine's training is... almost violent! Lacertan training is also very dangerous, as it involves learning to channel the energy of the Black Desert. \s[3]It is... sometimes a wonder to me that the students make it out at all. \s[1]Anyways...\w9 \s[1]questions?\n\n "
 	"...Oh? When did \f[italic,1]I\f[italic,default] go through training?.. \s[1]Ehm\w2.\w2.\w2. \w9long ago! \s[0]Before they started keeping track, ahaha... \s[3]er, \w9anyways, \s[1]I should tell you of the others...\n\n \s[0]"
 	
-	"Claris Dorsch is the Guardian of the Shrine of Aidhmoore, or simply the 'Shrine of Clubs.' The Shrine is located on \_a[OnLamnthe]the island of Lamnthe,\_a\s[1] and she keeps it very tidy and nice! \s[0]She has been the Guardian for around 50 years now. I am good friends with all of the Guardians, \s[1]but it is easiest to visit Claris, so we see eachother a lot! \s[0]Because of an injury she sustained when she was very young, I help out around the shrine quite a bit during Newbloom -- its busiest season... we have a lot of time to chat during then.\n\n "
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
+	
+	"Claris Dorsch is the Guardian of the Shrine of Aidhmoore, or simply the 'Shrine of Clubs.' The Shrine is located on the island of Lamnthe,\s[1] and she keeps it very tidy and nice! \s[0]She has been the Guardian for around 20 years now. I am good friends with all of the Guardians, \s[1]but it is easiest to visit Claris, so we see eachother a lot! \s[0]Because of an injury she sustained when she was very young, I help out around the shrine quite a bit during Newbloom -- its busiest season... we have a lot of time to chat during then. "
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
 	
 	"Gio Lansione is the Guardian of Paccevela, or Spades. The Shrine is located in \_a[OnVelanne]Velanne Arona\_a"
 		--
 		if Flag("paccevela town grammar") == 1; ", a very pretty town...\n "
 		else; " \f[height,-2]...er, that's a town in Velanne; in Paccevela, the state name goes before the town name. Anyways... \f[height,default]\n "
 		--
-	"\s[1]Sir Lansione and I are very good friends, as well! We bond, of course, over our shared knowledge of Viro and Alonai'a... \s[0]though, Gio is more of a fighter than a scholar. \s[1]He himself is surprised he claimed Guardianship over his peers! \s[0]Though I suppose it makes sense, seeing as the Paccevele ceremonial training is so physically demanding. \s[3]A bookworm like myself could never make it through the spars the students must complete...\w6\s[1] haha!\n \w9\s[0]Gio and I don't visit often, despite our proximity. We prefer to write eachother letters... in reality, \s[1]I think he just dislikes marching through the sickening cold to come see me, ha! \s[0]I don't blame him; I avoid travelling to Velanne for... \w9\s[3]other\w9 reasons. We\w9 will just say that the general population of the state is\w2.\w2.\w2. not too keen on Diamonds being there. \w9\w9\s[0]Gio is not like that, though! \w9\s[1]He is a very kind man.\n\n \s[0]"
+	"\s[1]Sir Lansione and I are very good friends, as well! We bond, of course, over our shared knowledge of Viro and Alonai'a... \s[0]though, Gio is more of a fighter than a scholar. \s[1]He himself is surprised he claimed Guardianship over his peers! \s[0]Though I suppose it makes sense, seeing as the Paccevele ceremonial training is so physically demanding. \s[3]A bookworm like myself could never make it through the spars the students must complete...\w6\s[1] haha!\n \w9\s[0]Gio and I don't visit often, despite our proximity. We prefer to write eachother letters... in reality, \s[1]I think he just dislikes marching through the sickening cold to come see me, ha! \s[0]I don't blame him; I avoid travelling to Velanne for... \w9\s[3]other\w9 reasons. We\w9 will just say that the general population of the state is\w2.\w2.\w2. not too keen on Diamonds being there. \w9\w9\s[0]Gio is not like that, though! \w9\s[1]He is a very kind man. \s[0]"
+	
+		"\w9\w9\n\n\f[color,disable]\f[sup,1]\![quicksection,1]click anywhere to continue\n\q[click here to quit reading the article,OnBACK]\![quicksection,0]\f[sup,0]\f[color,default]\x \s[0]\b[2]"
 	
 	"Last but not least... Inola Reed is the Guardian of the Shrine of Lacerta, or Hearts. The Shrine is located in Chiluno, a small town with close proximity to the \_a[OnBlackDesert]Black Desert.\_a \f[italic,1]Despite\f[italic,default] its proximity to the Desert, the Shrine Guardian works with the temple's energy to keep Chiluno a calm and pleasant place to live -- \s[1]not an easy feat! \w9\s[0]Inola, though young, has probably the most difficult job out of all of us -- \s[3]along with perhaps myself. \s[0]Where I must stave off the energy-sapping characteristics of the Kyone, \s[1]Inola must work with the hazardous energy spikes of the Desert; \s[3]something that can kill someone without the divinity we Guardians possess. \s[1]She is very brave to take on this job.\n\n "
 	

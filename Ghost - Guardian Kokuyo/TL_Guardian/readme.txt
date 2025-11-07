@@ -10,11 +10,11 @@ INFO AND NOTES:
 
 - In the rare event of a random dialogue having the ability to unlock content, the 'balloon' (text box) will freeze until you click it. This is to prevent missing important dialogue while you are away. This can be turned off in the settings menu.
 
-- A considerable amount of the written content is in the 'dictionary' -- press 'D' to open it, or double-click Wanderer and select "Tell me about..." to explore the lore of their world!
+- A considerable amount of the written content is in the 'dictionary' -- press 'D' to open it, or double-click Kokuyo and select "Tell me about..." to explore the lore of their world!
 
 - Hotkeys make everything easier! There is a list of useful Hotkeys in the double-click menu.
 
-- The default shell size (size of the character) is, as you can see, pretty big; this ghost was originally meant to be put onto a second monitor. You can change their size by right-clicking on Wanderer, then going to "Shell scaling > x%." I recommend ~50% shell scaling if you are using the Ghost on your primary monitor.
+- The default shell size (size of the character) is, as you can see, pretty big; this ghost was originally meant to be put onto a second monitor. You can change their size by right-clicking on Kokuyo, then going to "Shell scaling > x%." I recommend ~50% shell scaling if you are using the Ghost on your primary monitor.
 
 --
 

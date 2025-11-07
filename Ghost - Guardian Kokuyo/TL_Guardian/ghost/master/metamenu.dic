@@ -255,6 +255,8 @@ OnMetaMenu : all
 		
 		"C or S - Opens the Secrets menu." // i dont.remember why C is a hotkey for this
 		
+		"W - Opens the Suggested Actions menu."
+		
 		"\n\n~\n"
 		
 		"F1 - Readme.txt; information on the ghost.\n\n"

@@ -9,7 +9,7 @@ backbuttons : all
 MenuGreetings : nonoverlap
 {
 	{
-		"\![no-autopause]"
+		"\![no-autopause]\![quicksection,1]"
 		--
 		"\s[1]"
 		"\s[0]"
@@ -37,7 +37,7 @@ OnMenu : all
 	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; MenuGreetings
 
 	--
-	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]"
+	"\![no-autopause]\![set,autoscroll,disable]"
 	--
 	
  	"\![*]\q[Fill the silence,OnAiTalk]"	
@@ -184,7 +184,7 @@ OnSuggested : all // i can't tell you how many times i beat my head against vari
 	
 	backbuttons
 	
-	if Flag("about kokuyo phase complete") == 1 && Flag("basics phase complete") == 1
+	if Flag("about kokuyo phase complete") == 1 && Flag("basics phase complete") == 1 && Flag("people phase complete") == 1
 	{ if Flag("suggested complete") == 0; MiscFlags ,= "suggested complete" }
 }
 

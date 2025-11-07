@@ -304,6 +304,7 @@ OnKeyPress
 	elseif reference0 == "d"; OnFAQ // d for dictionary
 	elseif reference0 == "f"; OnFunFact
 	elseif reference0 == "c" || reference0 == "s"; OnSecretsMenu // c for 'cheats', s for 'secrets' // OHHHHHHH THAT'S WHY C IS THERE thank you past me
+	elseif reference0 == "w"; OnSuggestedMenu // w for 'what next'
 	
 	elseif reference0 == "0"; OnTest
 }
@@ -319,15 +320,6 @@ OnWindowStateRestore
 	"\1\s[-1]\0\s[0]"
 }
 
-//Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
-//IF YOU'RE USING GITHUB FOR NETWORK UPDATES: DO NOT USE github.io URLS! It will cause you pain and suffering. USE raw.githubusercontent!!!
-//To get the raw.githubusercontent link super easy:
-//• Open your ghost's repo online
-//• navigate to the ghost's folder (the top level one, with install.txt, readme.txt, etc)
-//• Click on install.txt, or another text file on that level
-//• Once on that page, click the "raw" button. You should see the url now starts with raw.githubusercontent
-//• Copy that url exactly as is, but *leave off the "install.txt" or whatever file name at the end.*
-//Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
 On_homeurl
 {
 	"https://raw.githubusercontent.com/trans-lucence/Guardian-Kokuyo.UKGK/refs/heads/main/Ghost%20-%20Guardian%20Kokuyo/TL_Guardian/"
