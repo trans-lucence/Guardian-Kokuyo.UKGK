@@ -8,8 +8,6 @@ OnTranslate
 		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
 	}
 	
-	//If you want to add anything to OnTranslate, like text replacement, I would put it after this point, generally. Just make sure it's before the TOSTR(_talk)
-	
 	TOSTR(_talk)
 }
 

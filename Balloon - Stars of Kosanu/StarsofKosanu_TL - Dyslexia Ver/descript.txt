@@ -6,12 +6,12 @@ use_input_alpha,1
 
 
 //——— Basic information ———
-name,Stars of Kosanu
+name,Stars of Kosanu - Dyslexic Version
 
 craftman,trans.lucence
 craftmanw,trans.lucence
 craftmanurl,https://trans-lucence.nekoweb.org
-homeurl,"https://raw.githubusercontent.com/trans-lucence/Guardian-Kokuyo.UKGK/refs/heads/main/Balloon%20-%20Stars%20of%20Kosanu/StarsofKosanu_TL/"
+homeurl,
 
 
 //——— Display area ———
@@ -23,10 +23,10 @@ validrect.top,45
 validrect.right,-70
 validrect.bottom,-30
 
-wordwrappoint.x,-74
+wordwrappoint.x,-70
 
 //——— Font ———
-font.name,Sylfaen
+font.name,Comic Sans MS
 font.height,16
 
 font.color.r,255
@@ -67,7 +67,7 @@ onlinemarker.y,30
 sstpmarker.x,17
 sstpmarker.y,-30
 
-sstpmessage.font.name,Sylfaen
+sstpmessage.font.name,Comic Sans MS
 sstpmessage.font.height,11
 
 sstpmessage.x,40
@@ -80,7 +80,7 @@ sstpmessage.font.color.b,226
 
 
 //——— Number ———
-number.font.name,Sylfaen
+number.font.name,Comic Sans MS
 number.font.height,11
 
 number.xr,-55

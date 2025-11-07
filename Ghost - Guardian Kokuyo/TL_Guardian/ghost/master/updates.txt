@@ -17,7 +17,7 @@ file,ghost/master/menu.dica232bbbf2309d247102baea3ebbe06f5size=19039date=2025
 file,ghost/master/meta.dic982ec6a41b28a3354935dab8cba411bcsize=5607date=2025-07-24T16:49:43
 file,ghost/master/metamenu.dicbaed6cfbb368a4356e834b973bba8460size=7636date=2025-11-06T21:53:42
 file,ghost/master/mouse.dicb1904c62222c17c130450f49be0e39adsize=468date=2025-08-26T16:39:14
-file,ghost/master/other.dicbafebc5af3169d80274b1d077993659esize=13208date=2025-11-06T21:53:19
+file,ghost/master/other.dica76da6cb7c4e83a4956c5e9b89484e83size=13046date=2025-11-07T15:34:45
 file,ghost/master/process.dlla6c337c40a9e80532fea6676be61056bsize=61440date=2025-05-02T14:50:19
 file,ghost/master/qna.dic12c002c15576df04f08a79db36873f71size=930date=2025-07-06T19:31:53
 file,ghost/master/rare.dic365c1d490a4d4a047df53ae8565db979size=20499date=2025-11-06T19:19:07
