@@ -1,7 +1,6 @@
 # Guardian Kokuyo
 
-
-## Notes
+## Permissions
 Do not modify or redistribute this in any way. Don't use assets from this for other things. In short, don't do anything to it outside of playing with it.
 If you must look at its files to find the source of a bug, take a screenshot of any modifications you made to fix that bug, including the line number if your text software allows it.
 
