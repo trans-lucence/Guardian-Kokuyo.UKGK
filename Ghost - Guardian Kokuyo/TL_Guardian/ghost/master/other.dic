@@ -330,7 +330,7 @@ OnWindowStateRestore
 //Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
 On_homeurl
 {
-	""
+	"https://raw.githubusercontent.com/trans-lucence/Guardian-Kokuyo.UKGK/refs/heads/main/Ghost%20-%20Guardian%20Kokuyo/TL_Guardian/"
 }
 
 
