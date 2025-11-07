@@ -433,7 +433,7 @@ OnSecretsMenu : all // putting together this section did things to me that i am 
 		"\f[italic,1]Lairu, First Ace of Hearts & Nore, First Ace of Clubs\f[italic,default]\n\f[height-2]Unlocks dialogue about the Firsts.\f[height,default]"
 		
 	}
-		else;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoAlonaia]these people\_a will unlock this tidbit...\f[height,default]"	
+		else;  "\f[height,-2]Perhaps \_a[OnPeopleFAQ]asking\_a Kokuyo about \_a[OnWhoFirsts]these people\_a will unlock this tidbit...\f[height,default]"	
 	
 	"\n\n\![*] 6. "
 	
