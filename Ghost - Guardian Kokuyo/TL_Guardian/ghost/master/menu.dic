@@ -1,6 +1,6 @@
 backbuttons : all
 {
-	"\n"
+	"\n\![quicksection,1]"
 	
 	"\![*]\q[Back to Menu,OnMenu]\n"
 	"\![*]\q[Nevermind,CANCEL]\n"

@@ -23,7 +23,7 @@ validrect.top,45
 validrect.right,-70
 validrect.bottom,-30
 
-wordwrappoint.x,-74
+wordwrappoint.x,-75
 
 //——— Font ———
 font.name,Sylfaen

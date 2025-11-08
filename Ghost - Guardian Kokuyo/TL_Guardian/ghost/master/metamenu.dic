@@ -180,12 +180,12 @@ OnMetaMenu : all
 			
 			
 		RemoveFlag("people phase complete")
-			// RemoveTidbit("viro")
-			// RemoveTidbit("alonai'a")
-				// RemoveTidbit("inola")
-				// RemoveTidbit("gio")
-				// RemoveTidbit("claris")
-			// RemoveTidbit("madame")
+			RemoveTidbit("viro")
+			RemoveTidbit("alonai'a")
+			RemoveTidbit("inola")
+			RemoveTidbit("gio")
+			RemoveTidbit("claris")
+			RemoveTidbit("madame")
 
 		tidbits = IARRAY
 		//secrets = IARRAY
@@ -199,6 +199,7 @@ OnMetaMenu : all
 		
 			OnMetaMenu
 	}
+	
 	LoadFlags
 	{
 		// perfect stat flags

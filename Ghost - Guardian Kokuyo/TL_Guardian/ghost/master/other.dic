@@ -37,8 +37,9 @@ OnTranslateInternal.AutoPause
 	_talk
 }
 
-//Written by Zichqec https://ukagaka.zichqec.com/
+currentballoon; { SHIORI3FW.BalloonName }
 
+// https://ukagaka.zichqec.com/ 'Simple Flags'!
 Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 {
 	if ASEARCH(_argv[0],MiscFlags) != -1; 1
@@ -177,7 +178,7 @@ daystilshrine
 
 whenshrine
 {
-	if daystilshrine == 0 || daystilshrine == -1; "(error placeholder. \_a[https://github.com/trans-lucence]file a bug report\_a if this comes up in your dialogue)" // this should not run, ever
+	if daystilshrine == 0 || daystilshrine == -1; "(error placeholder.\_a[https://github.com/trans-lucence/Guardian-Kokuyo.UKGK/issues] file a bug report\_a if this comes up in your dialogue)" // this should not run, ever
 	else
 	{
 		if daystilshrine <= 1
@@ -338,7 +339,7 @@ FormatLinks : all
 	}
 }
 
-On_sakura.recommendbuttoncaption { "lucence's sites" }
+On_sakura.recommendbuttoncaption { "my sites" }
 
 On_sakura.portalbuttoncaption { "lucence's other unrelated cool links" }
 
@@ -351,6 +352,7 @@ recommendsites_sakura : array
 {
 	"my website (unfinished as hell)";	"https://trans-lucence.nekoweb.org/"
 	"my github"; "https://github.com/trans-lucence"
+	"bug report center"; "https://github.com/trans-lucence/Guardian-Kokuyo.UKGK/issues"
 }
 
 On_sakura.portalsites 
@@ -365,7 +367,7 @@ portalsites_sakura : array
 
 uphours_total { ghostupmin_total / 60 } //its not perfect but it works
 
-//zi code! thanks zi; https://ukagaka.zichqec.com/
+//https://ukagaka.zichqec.com/ 'GhostisOpen and GhostisInstalled'
 //sakura name
 GhostIsOpen
 {

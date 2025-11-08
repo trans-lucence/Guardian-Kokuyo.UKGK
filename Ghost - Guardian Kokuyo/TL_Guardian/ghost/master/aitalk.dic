@@ -325,6 +325,8 @@ NormalDialogue : nonoverlap_pool
 		when "autumn" // nove, spades
 		{
 			"\0\s[0]I love visiting Scavva around this time of year. Just the right temperature, the leaves of the trees turning that beautiful umber shade...\n\n Nove is the best time to travel anywhere, I think. No Newbloom allergies, no Selyr heat... er, \s[1]\f[italic,1]I\f[italic,default] don't mind the biting cold of Moonfall, since I'm used to it, ehehe! \s[0]But... I still think Nove is the ideal time to go on a trip."
+			
+			"\0\s[1]This time of year, I notice that a lot more little creatures try to get into my house...\n \s[0]Thankfully, I have quite the secure abode, but... \s[1]even the best construction isn't safe from hungry critters!"
 		}
 	}
 	
