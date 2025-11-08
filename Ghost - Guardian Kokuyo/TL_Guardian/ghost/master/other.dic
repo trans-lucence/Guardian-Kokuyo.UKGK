@@ -303,7 +303,8 @@ OnKeyPress
 	elseif reference0 == "d"; OnFAQ // d for dictionary
 	elseif reference0 == "f"; OnFunFact
 	elseif reference0 == "c" || reference0 == "s"; OnSecretsMenu // c for 'cheats', s for 'secrets' // OHHHHHHH THAT'S WHY C IS THERE thank you past me
-	elseif reference0 == "w"; OnSuggestedMenu // w for 'what next'
+	
+	elseif reference0 == "w"; OnSuggested // w for 'what next'
 	
 	elseif reference0 == "0"; OnTest
 }

@@ -260,7 +260,7 @@ OnMetaMenu : all
 		
 		"D - Opens the dictionary.\n\n"
 		
-		"C or S - Opens the Secrets menu." // i dont.remember why C is a hotkey for this
+		"C or S - Opens the Secrets menu.\n\n" // i dont.remember why C is a hotkey for this
 		
 		"W - Opens the Suggested Actions menu."
 		
