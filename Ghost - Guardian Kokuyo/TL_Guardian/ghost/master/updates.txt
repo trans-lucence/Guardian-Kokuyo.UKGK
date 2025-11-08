@@ -4,7 +4,7 @@ file,readme.txt869142d1643ddc28d122e774dc67935csize=2136date=2025-11-06T21:56
 file,terms.txt941eac2b639d24cd2515bbccefd1764esize=1766date=2025-10-29T03:06:12
 file,thumbnail.pnaeb91ec7b6059438bc485b19841cf1945size=24057date=2025-11-06T22:10:32
 file,thumbnail.png6924ba449ce66cd0a44493e125b859c0size=48597date=2025-11-06T20:25:49
-file,ghost/master/FAQ.dic704ff97d710b52cb367d9741e62ffda9size=97910date=2025-11-06T22:41:17
+file,ghost/master/FAQ.dica6d2ba4bf91d14464c27401686a96633size=97889date=2025-11-08T16:49:04
 file,ghost/master/aitalk.dic0679f0895884165a40d709854ea81f3fsize=47722date=2025-11-07T16:22:33
 file,ghost/master/boot.dic5e13efc0561d4bbe3dadf12accd14870size=9493date=2025-11-06T18:03:15
 file,ghost/master/descript.txt2115a3dc0ba853106badf1aa189c1485size=306date=2025-11-07T16:19:51
