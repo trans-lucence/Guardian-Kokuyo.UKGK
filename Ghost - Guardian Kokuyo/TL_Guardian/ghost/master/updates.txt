@@ -13,7 +13,7 @@ file,ghost/master/drawmenufaded.png3f803fceae52d0f3ff9eabd63d14859asize=742da
 file,ghost/master/emerg.dicc7cb6eacd3262003fef909c382a6fefesize=351date=2025-05-02T14:50:19
 file,ghost/master/etc.dic426c958034fecd0c1787c598c8e55971size=13859date=2025-11-06T19:22:58
 file,ghost/master/icon.icobc12a586c7f3d4cfa05e0066e7ecbdf8size=318date=2025-11-06T20:38:25
-file,ghost/master/menu.dicc4a78fa4ea02f4684cebe8929f572574size=19057date=2025-11-07T19:52:08
+file,ghost/master/menu.dicc976900447d8da16a954fc0fe82690ccsize=19091date=2025-11-07T21:07:38
 file,ghost/master/meta.dic982ec6a41b28a3354935dab8cba411bcsize=5607date=2025-07-24T16:49:43
 file,ghost/master/metamenu.dic3012a7ba5246b07db1723d079a09366bsize=7853date=2025-11-07T20:13:05
 file,ghost/master/mouse.dicb1904c62222c17c130450f49be0e39adsize=468date=2025-08-26T16:39:14
