@@ -20,7 +20,7 @@ OnMetaMenu : all
 	if x_on == 0; { _X = "Off" } 
 	
 	_Meta = "On"
-	if meta_on == 0; {_Meta = "Off" }
+	if meta_on == 0; { _Meta = "Off" }
 	
 	"\![no-autopause]\![set,autoscroll,disable]\![quicksection,1]\b[2]"
 		
@@ -217,18 +217,18 @@ OnMetaMenu : all
 		
 		if articleopencount >= 25 { if Flag("p.articles") == 0; MiscFlags ,= "p.articles" }
 		
-		// tidbits
-		// if Flag("claris") == 1 { if Tidbit("claris") == 0; tidbits ,= "claris" }
+		//tidbits
+		if Flag("claris") == 1 { if Tidbit("claris") == 0; tidbits ,= "claris" }
 		
-		// if Flag("inola") == 1 { if Tidbit("inola") == 0; tidbits ,= "inola" }
+		if Flag("inola") == 1 { if Tidbit("inola") == 0; tidbits ,= "inola" }
 
-		// if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
+		if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
 
-			// if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
+			if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
 		
-		// if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
+		if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
 		
-		// if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
+		if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
 
 		//secrets
 		if Flag("del") == 1 { if Secret("del") == 0; secrets ,= "del" }
