@@ -61,7 +61,7 @@ OnMenu : all
 
 	"\n"
 	
-	"\![no-autopause]\![quicksection,1]\![*]\q[Say goodbye,OnGoodbye] \f[height,-2](closes ghost!)\f[height,default]\n"
+	"\![*]\q[Say goodbye,OnGoodbye] \f[height,-2](closes ghost!)\f[height,default]\n"
  	"\![*]\q[Close Menu,CANCEL]\n\n[half]"
 
 	"\f[height,-2]\f[italic,1]Current location: %(_cloc)\f[height,default]\f[italic,default]"
