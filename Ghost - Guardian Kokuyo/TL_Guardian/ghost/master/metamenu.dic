@@ -46,7 +46,7 @@ OnMetaMenu : all
 	"\f[height,+2]Other pages\f[height,default]\n\n[half]"
 	
 	"\![*]Suggested actions: %(_Suggested) \f[sup,1](\q[Toggle,OnswitchSuggested])\f[sup,default]\n"
-	"\f[height,-1]\![*]\q[Reset suggested actions,OnResetSuggested] \f[sup,1]\f[color,disable]Make sure the above switch is on if you want to follow the suggested actions once more. This does not reset flags for dialogue, only for the suggested page.\f[color,default]\f[sup,default]\f[height,default]\n\n"
+	"\f[height,-1]\![*]\q[Reset suggested actions,OnResetSuggested] \f[sup,1]\f[color,disable]Make sure the above switch is on if you want to follow the suggested actions once more. This also resets those flags for dialogue.\f[color,default]\f[sup,default]\f[height,default]\n\n"
 	
 	"\![*]\q[Reset one-time dialogue flags,OnResetOneXFlags] \f[sup,1]\f[color,disable]If you'd like to have another chance to see a one-time dialogue again, you can reset the flags here. This will re-insert those dialogues into the pool, so that you can see them again! This works well with the 'increased rare dialogue chance' and 'click to dismiss rare dialogue' settings.	\f[color,default]\f[sup,default]\f[height,default]\n\n"
 	//
@@ -164,7 +164,7 @@ OnMetaMenu : all
 		}
 	}
 	
-	OnResetSuggested // owww. my hubris
+	OnResetSuggested // owww. my hubris. this currently does not work as intended.. but it works well enough. toupdate
 	{
 		RemoveFlag("suggested complete")
 		
@@ -180,12 +180,18 @@ OnMetaMenu : all
 			
 			
 		RemoveFlag("people phase complete")
-			RemoveTidbit("viro")
-			RemoveTidbit("alonai'a")
-			RemoveTidbit("inola")
-			RemoveTidbit("gio")
-			RemoveTidbit("claris")
-			RemoveTidbit("madame")
+			// RemoveTidbit("viro")
+			// RemoveTidbit("alonai'a")
+			// RemoveTidbit("inola")
+			// RemoveTidbit("gio")
+			// RemoveTidbit("claris")
+			// RemoveTidbit("madame")
+			RemoveFlag("alonai'a")
+			RemoveFlag("viro")
+			RemoveFlag("inola")
+			RemoveFlag("gio")
+			RemoveFlag("claris")
+			RemoveFlag("madame")
 
 		tidbits = IARRAY
 		//secrets = IARRAY
@@ -212,17 +218,17 @@ OnMetaMenu : all
 		if articleopencount >= 25 { if Flag("p.articles") == 0; MiscFlags ,= "p.articles" }
 		
 		// tidbits
-		if Flag("claris") == 1 { if Tidbit("claris") == 0; tidbits ,= "claris" }
+		// if Flag("claris") == 1 { if Tidbit("claris") == 0; tidbits ,= "claris" }
 		
-		if Flag("inola") == 1 { if Tidbit("inola") == 0; tidbits ,= "inola" }
+		// if Flag("inola") == 1 { if Tidbit("inola") == 0; tidbits ,= "inola" }
 
-		if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
+		// if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
 
-			if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
+			// if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
 		
-		if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
+		// if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
 		
-		if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
+		// if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
 
 		//secrets
 		if Flag("del") == 1 { if Secret("del") == 0; secrets ,= "del" }
