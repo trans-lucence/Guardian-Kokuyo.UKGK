@@ -119,7 +119,7 @@ OnBoot
 		--
 		if locslot != "home" || locslot != "shrine" 
 		{
-			"\n\s[0]...Er... just remind me to do that when we get to where we're going, hm? Things tend to slip my mind when I travel... I hope you don't mind."
+			"\n\s[0]...Er... just remind me to make you that tea when we get to where we're going, hm? Things tend to slip my mind when I travel... I hope you don't mind."
 		}
 	}
 	
@@ -164,6 +164,49 @@ OnBoot
 		}
 		
 		else; "\0\s[0]Well, hello! I'm just heating up some instant noodles... you must be hungry from your travels, hm? \s[1]Have a seat!"
+	}
+	
+	elseif timeslot == "cookingtime"
+	{
+		if locslot == "home"
+		{
+			if dinner == "stew" || "soup"
+			{
+				"\0\s[0]Why, hello, %(oomf)! I quite apologize that you had to get the door yourself; as you can tell, I'm right in the middle of chopping up the meat for our %(dinner)... \s[1]I think it's best if I \f[italic,1]don't\f[italic,default] greet you with Sunnai fat dripping off my fingers, hm? Ehehe!"
+				
+				"\0\s[1]%(Capitalize(oomf))! Hello, hello, hello! \s[0]Come in, make yourself at home...\w9\n \s[1]Do you smell the %(dinner)? It's just starting to simmer now, you can really smell the spices... delicious!\n I hope you'll stay for dinner later, I made plenty!"
+			}
+			elseif dinner == "noodles"
+			{
+				{
+					"\0\s[1]Oh, well there you are! I had a feeling you'd come today. "
+					"\0\s[1]Oh, %(oomf)! I had the feeling you'd show up... make yourself at home.\n "
+					--
+					"\s[0]I'm just looking through the pantry, seeing if I have all the ingredients for my sauce... I'm going to make noodles for dinner soon. \s[1]Any suggestions for sides?"
+					--
+					if side != ""
+					{
+						"\n As it stands, I think I'm going to make %(side)... doesn't take an awful lot of prep, and goes nicely with the main course."
+						
+						"\n I think I might prepare some %(side)..."
+					}
+				}
+			}
+			elseif dinner == "fish"
+			{
+				{
+					"\0\s[1]Ah! Why, hello there, %(oomf)! "
+					"\0\s[1]O-oh, hello! Hold on, hold on...\w9 there we go. "
+					--
+					"My sincerest apologies that I didn't let you in, my hands are a bit messy -- "
+					--
+					"\s[0]I'm working the marinade for tonight's fish dinner, "
+					"\0\s[0]I was in the middle of making the marinade for dinner tonight, "
+					--
+					"\s[1]and I accidentally spilled unzou juice all over the counter and myself... forgive the mess, I beg! I promise I am not this clumsy, usually..."
+				}
+			}
+		}
 	}
 	
 	elseif timeslot == "dawn"

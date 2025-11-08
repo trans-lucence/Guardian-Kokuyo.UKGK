@@ -326,14 +326,16 @@ NormalDialogue : nonoverlap_pool
 		{
 			"\0\s[0]I love visiting Scavva around this time of year. Just the right temperature, the leaves of the trees turning that beautiful umber shade...\n\n Nove is the best time to travel anywhere, I think. No Newbloom allergies, no Selyr heat... er, \s[1]\f[italic,1]I\f[italic,default] don't mind the biting cold of Moonfall, since I'm used to it, ehehe! \s[0]But... I still think Nove is the ideal time to go on a trip."
 			
-			"\0\s[1]This time of year, I notice that a lot more little creatures try to get into my house...\n \s[0]Thankfully, I have quite the secure abode, but... \s[1]even the best construction isn't safe from hungry critters!"
+			"\0\s[1]This time of year, I notice that a lot more little creatures try to get into my house...\n \s[0]Thankfully, I have quite the secure abode, but... \s[1]even the best construction isn't safe from hungry critters!\n\n \s[0]...I like to put out my leftover fish or broth, sometimes. \s[1]I like to think that the cute little animals appreciate that act of kindness from me..."
+			
+			"\0\s[1]How beautiful... \s[0]before the chilly months of Moonfall begin, I always notice this warm, hazy mist across the icy landscape. \s[3]The fog itself was more noticeable on the islands, \s[1]but Shui'o Nui has its own light haze... \s[0]not so salty-smelling, either. \w3I suppose it gets carried west from the Canal dividing our Prefecture from Scavva, \s[1]hence that sweet smell of Scavve Cypress it sometimes carries..."
 		}
 	}
 	
 	// holidays
 	if locslot == "home" || locslot == "shrine" // i just really don't want to write traveling versions of every single holiday text
 	{
-		if month == 12 && day == 21
+		if month == 12 && day == 21 && hemisphereS == 0 // sorry southern hemispherers i don't feel like doing the rest of this rn. toupdate
 		{
 			"\0\s[1]Ah, the Moonfall solstice. \w9\s[0]Tonight is the night the moon hangs high in the sky, blessing us with its soft embrace the longest out of any night of the year... before descending lower and lower on the horizon, dimming its light until the next season arrives...\n\w9\w9\s[1]"
 			--
@@ -387,7 +389,7 @@ HomeDialogue : nonoverlap_pool
 		
 		"\0\s[0]I love being here at home, but I realize I always seem to have better dreams at the temple... \s[1]I like to think it's the spirits of the Firsts, sending me sweet dreams as a reward for taking care of a sacred resting place of theirs. \s[3]\n...Back still hurts when I wake up on that cot, though. \s[0]Perhaps it's out of their wheelhouse to make sleeping on a cold, marble floor more comfortable... \s[1]haha!"
 		
-		"\0\s[0]I've loved living in Shui'o Nui so much -- \s[1]being close to the main temple was somewhat of a mandatory change when I became Guardian, \s[0]but I consider it somewhat my own choice, as well.\n ...\s[1]At night, though, I miss the sound of the Ani'ani sea. \s[3]The waves outside my window rocked me gently to sleep, back 'home.' \s[1]\nBut home is where the heart is, and my heart is wherever blessed Alonai'a wishes for me to best serve her spirit. \s[0]Hence why I don't get homesick all too often... \s[1]even if the fish was fresher back on the islands."
+		"\0\s[0]I've loved living in Shui'o Nui so much -- \s[1]being close to the main temple was somewhat of a mandatory change when I became Guardian, \s[0]but I consider it somewhat my own choice, as well.\n ...\s[1]At night, though, I miss the sound of the Ani'ani sea. \s[3]The waves outside my window rocked me gently to sleep, back 'home.' \s[1]\nBut home is where the heart is, and my heart is wherever blessed Alonai'a wishes for me to best serve Her spirit. \s[0]Hence why I don't get homesick all too often... \s[1]even if the fish was fresher back on the islands."
 		
 		"\0\s[0]The scruffy little trees on my neighbor's property have been making strange noises at night... \s[1]very spooky. \n\w9\w9\s[0]I suppose that's why they're called something along the lines of 'howling leaf trees' in Ani'ani... \s[1]we Diamonds tend to name things pretty literally, as it turns out."
 		
