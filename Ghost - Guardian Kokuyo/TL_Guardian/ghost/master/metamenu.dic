@@ -224,11 +224,11 @@ OnMetaMenu : all
 
 		if Flag("gio") == 1 { if Tidbit("gio") == 0; tidbits ,= "gio" }
 
-			if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
+				if Flag("madame") == 1 { if Tidbit("madame") == 0; tidbits ,= "madame" }
 		
-		if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
-		
-		if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
+			if Flag("nore") == 1 { if Tidbit("nore") == 0; tidbits ,= "nore" }
+			
+			if Flag("alonai'a") == 1 { if Tidbit("alonai'a") == 0; tidbits ,= "alonai'a" }
 
 		//secrets
 		if Flag("del") == 1 { if Secret("del") == 0; secrets ,= "del" }

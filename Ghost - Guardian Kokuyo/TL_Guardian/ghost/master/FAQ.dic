@@ -144,7 +144,7 @@ OnPlacesBACK : all
 }
 	OnPlacesFAQ
 	{
-		"\0\s[0]\![quicksection,1]What land do you wish to know of, %(oomf)?"
+		"\0\s[0]\![no-autopause]\![quicksection,1]What land do you wish to know of, %(oomf)?"
 		--
 		OnPlacesBACK
 	}
@@ -169,7 +169,7 @@ OnKosanuBACK : all
 
 	OnKosanuFAQ
 	{
-		"\0\s[0]\![quicksection,1]"
+		"\0\s[0]\![quicksection,1]\![no-autopause]"
 		--
 		"Ah, my homeland, Kosanu. \s[1]I know this place like the back of my hand! \s[0]Anywhere specific?"
 		--
@@ -192,7 +192,7 @@ OnAidhmooreBACK : all
 	
 	OnAidhmooreFAQ
 	{
-		"\0\s[0]\![quicksection,1]"
+		"\0\s[0]\![no-autopause]\![quicksection,1]"
 		--
 		"Aidhmoore! \s[1]I travel here quite often. Anywhere in particular?"	
 		--
@@ -214,7 +214,7 @@ OnPaccevelaBACK : all
 
 	OnPaccevelaFAQ
 	{
-		"\0\s[0]\![quicksection,1]"
+		"\0\s[0]\![no-autopause]\![quicksection,1]"
 		--
 		"The beautiful Paccevela, land of Spades...\s[1] and amazing food!\nAnywhere specific?"
 		--
@@ -237,7 +237,7 @@ OnLacertaBACK : all
 }
 	OnLacertaFAQ
 	{
-		"\0\s[0]\![quicksection,1]"
+		"\0\s[0]\![no-autopause]\![quicksection,1]"
 		--
 		"Lacerta! I don't go often, my physique demands I stay in a chillier climate...\s[1]\w9 but, when I get the chance, it's quite a nice place. Now! Where would you like to go?"
 		--
@@ -463,7 +463,7 @@ OnWhoAlonaia : all // ........jesus fucking christ this is so long
 	"\s[3]Viro was inconsolable. He besieged the main outpost of the Facecards, taking in one fell swoop somewhere around three thousand lives. Among them was the Third Madame, Marijha Ilarus -- the woman who organized the squadron to assassinate his beloved.\n He carried out three more heavy attacks on Facecard fortresses... and then, he disappeared.\n\n "
 	"For two years, he wandered Paccevela -- what was supposed to be his homeland. He wrote that he didn't belong, that the same people he was trying to protect had now turned against him; Facecard propaganda had made the Pip population believe that the Aces were villains, here to disrupt the 'natural order' -- these Pips formed a Facecard-run military.\n The last thing he wanted was for these people -- \f[italic,1]his\f[italic,default] people -- to fall under a monarchical tyranny, run by murderers. Alas, it was too late; the story was printed, his face on every 'Wanted' poster in the four Quadrants.\n\n "
 	"He planned -- and swiftly carried out -- a final act. He marched into Iy Palacca, appearing to surrender himself. \s[1]That prince, ha. He is only remembered as the Son of Ilarus; too insignificant of a figure to put a name to. The poor bastard was so full of himself, he didn't think to restrain the Ace as Viro walked into his halls. Beheaded, dead in an instant. Viro only smiled as the royal blood seeped through the carpet.\n\n "
-	"\s[3]From here, he was done. He laid prone on his back, instructing the guards\w4 -- \s[1]\f[height,-2]useless as they were, couldn't even stop a second regicide\f[height,default]\s[0] -- to pierce his energetic hotspot: the giant Spade symbol on his back. \s[3]I will...\w9 spare you\w5 the details...\n\n "
+	"\s[3]From here, he was done. He laid prone on his stomach, instructing the guards\w4 -- \s[1]\f[height,-2]useless as they were, couldn't even stop a second regicide\f[height,default]\s[0] -- to pierce his energetic hotspot: the giant Spade symbol on his back. \s[3]I will...\w9 spare you\w5 the details...\n\n "
 	"\_w[2000]\s[1]Ah, Viro. He went out on his own terms.\n Though he wasn't yet returned to the arms of his lover in the stars,\w6 I have a sneaking suspicion that their souls have recently taken root in new vessels. \s[3]Alonai'a's final wish may finally be coming true.\w3\n\n I hope so... they both deserve a happy ending.\w9\w9"
 	--
 	"\n\n\n\![*]\q[Back to dictionary,OnBACK]\n\![*]\q[Thank you,Cancel]\n"
@@ -674,9 +674,9 @@ OnSyk : all
 {
 	articleopencount++
 	
-	"\0\s[0]\t\*"
+	"\0\s[0]\b[2]\t\*"
 	--
-	"Ah, Syk! \s[1]It's not the technical capitol of Lacerta -- that would be Iy -- but, culturally, I'd say it has much more sway than the latter. \s[0]It is the most densely populated city in Lacerta... they say, 'if you can make your way through Syk, you can make your way around anywhere in the country.' It's \f[italic,1]that\f[italic,default] crowded!.. \s[3]Hence why I don't visit unless I have to, \s[1]ehehe...\n\n \s[0]Syk is divided into three districts; the South District is the largest, serving as a shopping district. Malls, hotels and casinos are practically stacked on top of each-other... \s[1]oh, and a ton of movies are filmed here, so expect lots of celebrity sightings, too!..\n\n \s[0]The East District is the financial district, full of bustling office-workers... \s[1]and the occasional streetwalker, ha. I suppose it's not too surprising... those working in the financial district would need some 'relief,' too.\n\n \s[0]Last but certainly not least, the North District is the smallest of all, existing mostly as a residential area, but also a bustling red-light district. You couldn't turn a corner here without seeing a strip club...\w9\w9\s[1] or two\w3.\w3.\w3.\w9 \s[3]or\w3 five\w3.\w3.\w3.\w9\n \s[1]Anyways... the North District is a celebrated cornerstone of Lacerta, serving as a testament to Hearts culture's general sexual liberation. As the saying goes, 'Syk creates the culture...' \s[0]though, what it really means is \f[italic,1]North\f[italic,default] Syk creates the culture,\s[1] haha!\n\n \w9\w9\7Oh, me? Ha! I just go for the food. They make lots of spicy things, and their meats are very heavily seasoned, using a similar technique as in Ani'ani cooking... \s[1]In fact, that's probably the \f[italic,1]only\f[italic,default] attribute we Diamonds share with the Hearts in terms of culture, ehehe...\n\n "
+	"Ah, Syk! \s[1]It's not the technical capitol of Lacerta -- that would be Iy -- but, culturally, I'd say it has much more sway than the latter. \s[0]It is the most densely populated city in Lacerta... they say, 'if you can make your way through Syk, you can make your way around anywhere in the country.' It's \f[italic,1]that\f[italic,default] crowded!.. \s[3]Hence why I don't visit unless I have to, \s[1]ehehe...\n\n \s[0]Syk is divided into three districts; the South District is the largest, serving as a shopping district. Malls, hotels and casinos are practically stacked on top of each-other... \s[1]oh, and a ton of movies are filmed here, so expect lots of celebrity sightings, too!..\n\n \s[0]The East District is the financial district, full of bustling office-workers... \s[1]and the occasional streetwalker, ha. I suppose it's not too surprising... those working in the financial district would need some 'relief,' too.\n\n \s[0]Last but certainly not least, the North District is the smallest of all, existing mostly as a residential area, but also a bustling red-light district. You couldn't turn a corner here without seeing a strip club...\w9\w9\s[1] or two\w3.\w3.\w3.\w9 \s[3]or\w3 five\w3.\w3.\w3.\w9\n \s[1]Anyways... the North District is a celebrated cornerstone of Lacerta, serving as a testament to Hearts culture's general sexual liberation. As the saying goes, 'Syk creates the culture...' \s[0]though, what it really means is \f[italic,1]North\f[italic,default] Syk creates the culture,\s[1] haha!\n\n \w9\w9\w7Oh, me? Ha! I just go for the food. They make lots of spicy things, and their meats are very heavily seasoned, using a similar technique as in Ani'ani cooking... \s[1]In fact, that's probably the \f[italic,1]only\f[italic,default] attribute we Diamonds share with the Hearts in terms of culture, ehehe...\n\n "
 	
 	"\s[0]Back when I wrote more journalistic nonfiction as opposed to historical works, I had to go to Syk pretty often. I think my favourite thing about the city was the festivals. \s[1]Words cannot describe how lively and upbeat they are! \s[0]Pretty light shows, amazing food... strange, too. They'll fry just about anything you ask them to.\n ...On one hand, I'd love to go to a Sykae festival again, but on the other, \s[1]I think my guts would appreciate me staying far, far away from those food vendors..."
 	--
@@ -687,7 +687,7 @@ OnIy
 {
 	articleopencount++ 
 	
-	"\0\s[0]\b2\t\*"
+	"\0\s[0]\b[2]\t\*"
 	--
 	"Oh, Iy! Probably my favourite place in Lacerta -- it's near the center of the landmass, bordering Quatangu Loch, so its climate is... er, how should I say this...\w9\w6 well, \s[1]it's not so damn hot. The reason I even visit is simply because it's the \f[italic,1]one place\f[italic,default] in Lacerta where I don't have to \f[italic,1]strip down\f[italic,default] just to survive the weather...\n \s[0]Oh,\w4 right! Uhm,\w6 anyways... Iy is the sort of 'castle town' of Lacerta. The actual Palace is at the northwesternmost tip of Iy, somewhat close to the Academy... I stay far away from it, since the idea of running into \_a[OnWhoMadame]her Majesty\_a or any other nobility makes me nauseous... but, the outer rings are great.\n\n Ah, I should explain... the city is built in 'rings.' Though, they are... not actually circular. They are moreso 'rows,' but I will quit with the pedantics... er, right. The innermost ring -- 'Iy Palacca' -- is the smallest, but most intricate -- this is where the Madame and her family live, and where they hold certain events. It is almost entirely consumed by the Palace itself... however, some 'smaller' mansions border the outskirts of the Palace Gardens.\n\n The Second ring is for Jacks and other rich folk, nothing too interesting there. I once tried to visit it -- I had just gotten away from one of the Madame's feasts, and was trying to find real food. Couldn't find anything worth the money -- you know how snooty folk are, they think they can fill up on a quarter of a reasonable portion... I continued my search until I suddenly got escorted out by the royal police for... er,\w9 well,\w9 the reason they gave was\w9\w6 simply because I am a Pip? And I heard one mention something about me being a Diamond, as well...\w9\w6 suffice to say, I don't visit it much anymore. I would avoid it, if I were you. The food is \f[italic,1]not\f[italic,default] worth the hassle, and their customs are... archaic, to say the least.\n\n Anyway... the Third and Fourth rings are where Iy starts to shine -- when someone says 'Iy,' they are almost definitely talking about these two outermost rings...\n In common Lacertan fashion, there are folks of many walks of life here; not as much of a mixed bag as \_a[OnSyk]Syk\_a, but there are more than a few 'clusters' of other Suits living here. A small section of the city is nicknamed 'Velannicci' -- Pacce for 'little Velanne' -- due to the high population of Spades. 'Clovertown' is a cute little area as well; it's themed entirely around Aidhish tradition, and boasts a large population of Clubs. We Diamonds are spread so thin that we don't have a cute little area for ourselves in Iy... but! I was at least able to find a few restaurants serving authentic Ani'ani cuisine -- something you'd be hard-pressed to find off the island, let alone outside of Kosanu! And let me tell you, it was simply divine...\w9\w4 oh, whoops! I've gotten off-track, haven't I?... Er, right...\n\n Actually... that about wraps it up for Iy, really. If you ever visit, be sure to visit a few Kosani restaurants! You can report back to me if they strike your fancy..."
 	--

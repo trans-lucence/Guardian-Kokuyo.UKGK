@@ -164,11 +164,11 @@ OnSuggested : all // i can't tell you how many times i beat my head against vari
 			else; "\![*]\f[color,disable]Asked about the Guardians\f[color,default]"
 		"\n"
 		
-		if Tidbit("nore") == 0 || Tidbit("lairu") == 0; "\![*]\q[Ask about the Firsts,OnWhoFirsts]"
+		if Tidbit("nore") == 0; "\![*]\q[Ask about the Firsts,OnWhoFirsts]"
 			else; "\![*]\f[color,disable]Asked about the Firsts.\f[color,default]"
 		"\n     "
 			
-				if Tidbit("alonai'a") == 0 || Tidbit("viro") == 0; "\![*]\q[Ask about Alonai'a and Viro,OnWhoAlonaia]"
+				if Tidbit("alonai'a") == 0; "\![*]\q[Ask about Alonai'a and Viro,OnWhoAlonaia]"
 					else; "\![*]\f[color,disable]Asked about Alonai'a and Viro.\f[color,default]"
 		"\n"
 		
@@ -177,7 +177,7 @@ OnSuggested : all // i can't tell you how many times i beat my head against vari
 		"\n\n"
 		
 		
-		if Tidbit("gio") == 1 && Tidbit("claris") == 1 && Tidbit("inola") == 1 && Tidbit("alonai'a") == 1 && Tidbit("viro") && Tidbit("nore") == 1 && Tidbit("lairu") == 1 && Tidbit("madame") == 1
+		if Tidbit("gio") == 1 && Tidbit("claris") == 1 && Tidbit("inola") == 1 && Tidbit("alonai'a") == 1 && Tidbit("nore") == 1 && Tidbit("madame") == 1
 		{ if Flag("people phase complete") == 0; MiscFlags ,= "people phase complete" }
 
 	}
