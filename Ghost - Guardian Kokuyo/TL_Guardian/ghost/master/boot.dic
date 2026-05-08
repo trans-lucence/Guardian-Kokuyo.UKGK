@@ -84,7 +84,7 @@ OnBoot
 	
 	"\1\s[-1]\0\s[0]"
 	--
-	if _today == _user_birthday && _today == "12/16"
+	if _today == _user_birthday && _today == "11/6"
 	{
 		if locslot == "home" || locslot == "shrine"
 		{
@@ -96,7 +96,7 @@ OnBoot
 			}
 	}
 	
-	elseif _today == "12/16"
+	elseif _today == "11/6"
 	{
 		if locslot == "home" || locslot == "shrine"
 		{
