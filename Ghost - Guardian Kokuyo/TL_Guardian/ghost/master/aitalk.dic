@@ -126,7 +126,7 @@ NormalDialogue : nonoverlap_pool
 	
 	"\0\s[0]Reading has become a bit hard with my aging vision... unfortunately, the nearest optometrist is in western Scavva, where they... ehm... don't tend to have frames designed for any more than two eyes. I'll have to make the trek all the way to the western end of Shui'o Nui to get any sort of relief... that's almost three times as far.\n \w6\s[1]The anatomical differences between the Suits are all extremely intriguing, but they \f[italic,1]do\f[italic,default] tend to make finding... \w5er, \w3\f[italic,1]eye-related\f[italic,default] accessories\w3 \f[italic,1]quite\f[italic,default] difficult... \n\w9\s[0]Anyway... I really can't blame the Scavve optometrists. Being that Spades almost always have either one or two eyes, pretty much nobody around is going to be asking for a 6-lense frame... though, perhaps I could ask them to custom-make some for me?... \s[1]I'll have to see about my options, I suppose."
 	
-	"\0\s[1]The architecture of Aidhmoore is really very impressive... \s[0]they don't use nails, they simply slot the pieces of wood into eachother, like a huge jigsaw puzzle. It's much less intensive on their resources; though, out of all of the Quadrants, Aidhmoore actually has the richest mines. \s[1]\n I suppose they're just thinking ahead... good on them!"
+	"\0\s[1]The architecture of Aidhmoore is really very impressive... \s[0]they don't use nails, they simply slot the pieces of wood into eachother, like a huge jigsaw puzzle. It's much less intensive on their resources; though, out of all of the Quadrants, it has the richest mines. \s[1]\n I suppose they're just thinking ahead... good on them!"
 	
 	"\0\s[0]It's a bit spendy to send letters to or from Kosanu, given our 'harsh' environment. The mailfolk here have to train these giant swathes of Kikuminu to pull them and all the mail around\s[1], it's quite funny to watch...\n\n \s[3]...I'm surprised I still get so much junk mail, given how expensive stamps are here... \s[0]it makes for good kindling, though, so I mustn't complain."
 	
@@ -313,12 +313,6 @@ NormalDialogue : nonoverlap_pool
 		when "spring" // newbloom, clubs
 		{
 			"\0\s[0]Newbloom, such a pleasant time of year...\n South of here, in Thiremor, I'm sure the flowers are starting to open up. That whole landscape simply explodes with colour -- \s[1]year-round, yes, but especially now..."
-			
-			"\0\s[1]This time of year is so beautiful, but... goodness, it sure is difficult to travel with all the pollen going around. \s[0]Either I sit here at home and stare at this boring snow, or I go visit Claris and get a serious case of the sniffles...\n\n \s[1]...Decisions, decisions."
-			
-			"\0\s[1]Mmm... the tea gardens are in bloom just south of here. All of it tastes so fresh, so clean... like it hasn't been sitting in a box for months on end. \s[0]I wish the tea gardens could just stay in bloom year-round... \s[1]but then, I suppose I wouldn't have this beautiful time of year to look forward to, would I?.."
-			
-			"\0\s[1]This time of year is good for writing poetry... it's hard not to be inspired, seeing the flowers bloom out healthily year after year, even while being buried deep in freezing snow. \s[0]Resilience in the face of adversity... biology adapting to harsh environments, despite the difficulty of doing so... \s[3]when I was a child, these same blooms would simply sprout, wither, and die, never having had the chance to breach the snowflakes and touch sunlight. \s[0]It makes me smile to know that one day, there could be even \f[italic,1]more\f[italic,default] beautiful blooms that I have never seen before, having adapted and overcome the ice."
 		}
 		
 		when "summer" // selyr, hearts
@@ -326,8 +320,6 @@ NormalDialogue : nonoverlap_pool
 			"\0\s[0]This time of year, I'm thankful to live in the snowy reaches of Kosanu. The season of Selyr is unforgiving in the hotter Quadrants, so I avoid travelling in it... \s[1]I'm simply not built for those temperatures."
 			
 			"\0\s[0]Usually, I avoid travelling in Selyr... too hot. But I will say, it's very nice to visit Quatangu Loch around this time! I don't swim as much as I should -- \s[1]though my bones would appreciate it, I'm sure -- \s[0]but Selyr is always a good excuse to get in the water again."
-			
-			"\0\s[0]Eh... is it already Selyr again? \s[3]I can't believe my last book release was so long ago...\n \s[1]I wonder if it's still being sold at the annual book fairs in Velanne. \s[0]I should \f[italic,1]think\f[italic,default] so, folks seemed to enjoy it. I should work on publishing another, soon... \s[1]the unfinished manuscripts littering my desk aren't just for show, you know! I \f[italic,1]do\f[italic,default] write!\n ...\w9\s[3]Occasionally... \w6\s[1]haha!"
 		}
 		
 		when "autumn" // nove, spades
@@ -353,11 +345,6 @@ NormalDialogue : nonoverlap_pool
 						"The moonlight looks so beautiful reflecting on the marble flooring of the shrine, don't you think?"
 				
 		}
-		
-		// if month == 11 && day == 6 // kokuyo's release/birthday<3
-		// {
-			
-		// }
 	}
 }
 	
