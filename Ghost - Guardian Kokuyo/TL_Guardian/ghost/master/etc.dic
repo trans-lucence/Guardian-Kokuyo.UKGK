@@ -154,7 +154,7 @@ OnOtherOverlap : all // huge thank you to the needle team for making overlap wor
 			hydrate.inshell = TOLOWER(hydrate.inshell)
 	}
 	
-	OnKokuyoHydrate : all
+	OnKokuyoHydrate
 	{
 		case hydrate.shell
 		{
